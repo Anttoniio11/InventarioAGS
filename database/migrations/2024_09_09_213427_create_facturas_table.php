@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo_factura');
+            $table->date('fecha_compra');
+            $table->string('metodo_pago');
+            $table->string('valor');
+            $table->text('descripcion');
+            $table->string('factura_electronica');
+            $table->unsignedBigInteger('id_proveedor');
+            $table->foreign('id_proveedor')->references('id')->on('proveedores');
             $table->timestamps();
         });
     }

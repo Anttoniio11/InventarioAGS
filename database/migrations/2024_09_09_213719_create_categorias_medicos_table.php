@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('categorias_medicos', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo')->unique();
+            $table->string('categoria');
             $table->timestamps();
         });
     }
