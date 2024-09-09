@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('reportes_danos_fisicos', function (Blueprint $table) {
             $table->id();
+
+            $table->date('fecha');
+            $table->text('descripcion');
+            $table->set('nivel_daño', ['LEVE', 'MODERADO', 'GRAVE']);
+
+            $table->unsignedBigInteger('id_responsable')->nullable();
+            $table->foreign('id_responsable')->references('id')->on('empleados')->nullable();
+
+            $table->unsignedBigInteger('id_encargado')->nullable();
+            $table->foreign('id_encargado')->references('id')->on('empleados')->nullable();
+
+            $table->unsignedBigInteger('id_elementos_fisicos')->nullable();
+            $table->foreign('id_elementos_fisicos')->references('id')->on('elementos_fisicos')->nullable();
+
             $table->timestamps();
         });
     }
