@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class GestionTecnologico extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['fecha_inicio','fecha_fin','tipo','observacion'];
+
+    public function empleado(){
+        return $this->belongsTo(Empleado::class,'id_empleado');
+    }
+
+    public function elementos_tecnologicos(){
+        return $this->hasMany(ElementoTecnologico::class,'id_elementos_fisicos');
+    }
 }

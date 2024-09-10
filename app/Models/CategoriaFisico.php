@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriaFisico extends Model
 {
     use HasFactory;
+    protected $fillable = ['categoria'];
+
+    public function elementos_fisicos(){
+        return $this->hasMany(CategoriaFisico::class,'id_categoria');
+    }
+
 }
