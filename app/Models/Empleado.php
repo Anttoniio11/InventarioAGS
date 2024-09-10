@@ -4,6 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Area;
+use App\Models\ElementoFisico;
+use App\Models\ReporteDanoFisico;
+use App\Models\GestionTecnologico;
+use App\Models\ElementoTecnologico;
+use App\Models\Sede;
+use App\Models\ReporteDanoTecnologico;
+use App\Models\GestionFisico;
+
 
 class Empleado extends Model
 {
@@ -61,6 +70,12 @@ class Empleado extends Model
     }
     public function gestiones_fisicos(){
         return $this->hasMany(GestionFisico::class,'id_empleado');
+    }
+    public function resportes_daños_tecnologicos_responsables(){
+        return $this->hasMany(ReporteDanoTecnologico::class,'id_responsable');
+    }
+    public function resportes_daños_tecnologicos_encargados(){
+        return $this->hasMany(ReporteDanoTecnologico::class,'id_encargado');
     }
 
 }
