@@ -13,6 +13,23 @@ return new class extends Migration
     {
         Schema::create('elementos_insumos', function (Blueprint $table) {
             $table->id();
+
+            $table->string('registro_sanitario');
+            $table->string('marca');
+            $table->date('fecha_vencimiento');
+            $table->text('indicaciones');
+            $table->text('observacion');
+            $table->integer('cantidad');
+
+            $table->unsignedBigInteger('id_categoria')->nullable();
+            $table->foreign('id_categoria')->references('id')->on('categorias_insumos')->nullable();
+
+            $table->unsignedBigInteger('id_factura')->nullable();
+            $table->foreign('id_factura')->references('id')->on('facturas')->nullable();
+
+            $table->unsignedBigInteger('id_sede')->nullable();
+            $table->foreign('id_sede')->references('id')->on('sedes')->nullable();
+
             $table->timestamps();
         });
     }

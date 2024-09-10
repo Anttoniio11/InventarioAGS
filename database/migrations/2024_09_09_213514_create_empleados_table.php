@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->id();
+
             $table->string('nombre1');
             $table->string('nombre2');
             $table->string('apellido1');
@@ -27,12 +28,16 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
             $table->unsignedBigInteger('id_sede');
             $table->foreign('id_sede')->references('id')->on('sedes');
+
             $table->unsignedBigInteger('id_area');
             $table->foreign('id_area')->references('id')->on('areas');
+
             $table->unsignedBigInteger('id_rol');
             $table->foreign('id_rol')->references('id')->on('roles');
+            
             $table->timestamps();
         });
     }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('elementos_tecnologicos', function (Blueprint $table) {
             $table->id();
+            
             $table->string('codigo')->unique();
             $table->string('marca');
             $table->string('referencia');
@@ -26,14 +27,19 @@ return new class extends Migration
             $table->string('almacenamiento');
             $table->string('tarjeta_grafica');
             $table->string('garantia');
+
             $table->unsignedBigInteger('id_empleado');
             $table->foreign('id_empleado')->references('id')->on('empleados');
+
             $table->unsignedBigInteger('id_factura');
             $table->foreign('id_factura')->references('id')->on('facturas');
+
             $table->unsignedBigInteger('id_categoria');
             $table->foreign('id_categoria')->references('id')->on('categorias_tecnologicos');
+
             $table->unsignedBigInteger('id_estado');
             $table->foreign('id_estado')->references('id')->on('estado_elementos');
+
             $table->timestamps();
         });
     }

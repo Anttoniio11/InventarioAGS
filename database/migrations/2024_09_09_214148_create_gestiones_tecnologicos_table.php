@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('gestiones_tecnologicos', function (Blueprint $table) {
             $table->id();
+
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
+            $table->string('tipo');
+            $table->text('observacion');
+
+            $table->unsignedBigInteger('id_empleado')->nullable();
+            $table->foreign('id_empleado')->references('id')->on('empleados')->nullable();
+
+            $table->unsignedBigInteger('id_elementos_fisicos')->nullable();
+            $table->foreign('id_elementos_fisicos')->references('id')->on('elementos_fisicos')->nullable();
+
             $table->timestamps();
         });
     }

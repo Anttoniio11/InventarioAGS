@@ -25,7 +25,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_elementos_fisicos')->nullable();
             $table->foreign('id_elementos_fisicos')->references('id')->on('elementos_fisicos')->nullable();
 
-           
             $table->timestamps();
         });
     }
