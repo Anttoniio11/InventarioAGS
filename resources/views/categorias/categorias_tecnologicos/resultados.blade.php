@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías Tecnológicas</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados de Búsqueda</h1>
+
+        @if($categorias->isEmpty())
+            <p>No se encontraron categorías tecnológicas.</p>
+        @else
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Categoria</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($categorias as $categoria)
+                        <tr>
+                            <td>{{ $categoria->id }}</td>
+                            <td>{{ $categoria->categoria }}</td>
+                            <td>
+                                <a href="{{ route('categorias-tecnologicos.show', $categoria->id) }}" class="btn btn-info btn-sm">Ver</a>
+                                <a href="{{ route('categorias-tecnologicos.edit', $categoria->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <form action="{{ route('categorias-tecnologicos.destroy', $categoria->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            {{ $categorias->links() }}
+        @endif
+    </div>
+</body>
+</html>
