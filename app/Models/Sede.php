@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Sede extends Model
 {
     use HasFactory;
+
+    public function elementosInsumos() {
+        return $this->hasMany(ElementoInsumo::class, 'id_sede');
+    }
 }
