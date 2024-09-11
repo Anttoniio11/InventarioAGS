@@ -12,4 +12,8 @@ class Sede extends Model
     public function elementosInsumos() {
         return $this->hasMany(ElementoInsumo::class, 'id_sede');
     }
+
+    public function empleados(){
+        return $this->hasMany(Empleado::class,'id_empleado');
+    }
 }

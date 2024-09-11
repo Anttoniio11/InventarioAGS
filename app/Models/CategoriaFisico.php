@@ -14,7 +14,7 @@ class CategoriaFisico extends Model
     
     protected $fillable = ['categoria'];
 
-    public function elementos_fisicos(){
+    public function elementosFisicos(){
         return $this->hasMany(ElementoFisico::class,'id_categoria');
     }
 

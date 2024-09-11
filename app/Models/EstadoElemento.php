@@ -10,15 +10,15 @@ class EstadoElemento extends Model
     use HasFactory;
     protected $fillable = ['estado','descripcion'];
 
-    public function elementos_tecnologicos(){
+    public function elementosTecnologicos(){
         return $this->hasMany(ElementoTecnologico::class,'id_estado');
     }
 
-    public function elementos_medicos(){
+    public function elementosMedicos(){
         return $this->hasMany(ElementoMedico::class,'id_estado');
     }
     
-    public function elementos_fisicos(){
+    public function elementosFisicos(){
         return $this->hasMany(ElementoFisico::class,'id_estado');
     }
 }

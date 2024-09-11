@@ -18,14 +18,14 @@ return new class extends Migration
             $table->text('descripcion');
             $table->set('nivel_daño', ['LEVE', 'MODERADO', 'GRAVE']);
 
-            $table->unsignedBigInteger('id_responsable')->nullable();
-            $table->foreign('id_responsable')->references('id')->on('empleados')->nullable();
+            $table->unsignedBigInteger('id_responsable');
+            $table->foreign('id_responsable')->references('id')->on('empleados');
 
-            $table->unsignedBigInteger('id_encargado')->nullable();
-            $table->foreign('id_encargado')->references('id')->on('empleados')->nullable();
+            $table->unsignedBigInteger('id_encargado');
+            $table->foreign('id_encargado')->references('id')->on('empleados');
 
-            $table->unsignedBigInteger('id_elementos_tecnologicos')->nullable();
-            $table->foreign('id_elementos_tecnologicos')->references('id')->on('elementos_tecnologicos')->nullable();
+            $table->unsignedBigInteger('id_elemento_tecnologico');
+            $table->foreign('id_elemento_tecnologico')->references('id')->on('elementos_tecnologicos');
 
             $table->timestamps();
         });

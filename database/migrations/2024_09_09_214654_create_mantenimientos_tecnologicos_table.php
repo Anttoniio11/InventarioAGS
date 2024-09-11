@@ -21,8 +21,8 @@ return new class extends Migration
             $table->set('estado', ['PROXIMO', 'EN PROCESO', 'FINALIZADO']);
             $table->string('responsable');
 
-            $table->unsignedBigInteger('id_elementos_tecnologicos')->nullable();
-            $table->foreign('id_elementos_tecnologicos')->references('id')->on('elementos_tecnologicos')->nullable();
+            $table->unsignedBigInteger('id_elemento_tecnologico');
+            $table->foreign('id_elemento_tecnologico')->references('id')->on('elementos_tecnologicos');
 
             $table->timestamps();
         });

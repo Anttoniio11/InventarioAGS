@@ -15,15 +15,15 @@ class ReporteDanoTecnologico extends Model
 
     protected $fillable = ['fecha','descripcion','nivel_daño'];
 
-    public function elemento_tecnologico()
+    public function elementoTecnologico()
     {
-        return $this->belongsTo(ElementoTecnologico::class,'id_elementos_tecnologicos');
+        return $this->belongsTo(ElementoTecnologico::class,'id_elemento_tecnologico');
     }
 
-    public function empleado_responsable(){
+    public function responsable(){
         return $this->belongsTo(Empleado::class,'id_responsable');
     }
-    public function empleado_encargado(){
+    public function encargado(){
         return $this->belongsTo(Empleado::class,'id_encargado');
     }
 

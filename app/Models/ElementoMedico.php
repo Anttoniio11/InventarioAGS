@@ -17,11 +17,11 @@ class ElementoMedico extends Model
         return $this->belongsTo(Factura::class, 'id_factura');
     }
 
-    public function categoria_medico(){
+    public function categoriaMedico(){
         return $this->belongsTo(CategoriaMedico::class, 'id_categoria');
     }
 
-    public function estado_elemento(){
+    public function estadoElemento(){
         return $this->belongsTo(EstadoElemento::class, 'id_estado');
     }
 

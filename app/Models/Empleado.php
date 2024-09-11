@@ -46,36 +46,58 @@ class Empleado extends Model
     // }
 
     public function area(){
-        return $this->belongsTo(Area::class, 'area_id');
+        return $this->belongsTo(Area::class, 'id_area');
     }
 
-    public function elementos_fisicos(){
+    public function rol(){
+        return $this->belongsTo(Rol::class,'id_rol');
+    }
+
+    public function sede(){
+        return $this->belongsTo(Sede::class,'id_sede');
+    }
+
+    public function elementosFisicos(){
         return $this->hasMany(ElementoFisico::class,'id_empleado');
     }
-
-    public function gestiones_tecnologicos(){
-        return $this->hasMany(GestionTecnologico::class,'id_empleado');
-    }
-    public function elementos_tecnologicos (){
-        return $this->hasMany(ElementoTecnologico::class,'id_empleado');
-    }
-    public function sedes(){
-        return $this->belongsToMany(Sede::class,'id_sede');
-    }
-    public function reportes_daños_fisicos_id_responsables(){
-        return $this->belongsToMany(ReporteDanoFisico::class,'id_responsable');
-    }
-    public function reportes_daños_fisicos_id_encargados(){
-        return $this->belongsToMany(ReporteDanoFisico::class,'id_encargado');
-    }
-    public function gestiones_fisicos(){
+    public function gestionesFisicos(){
         return $this->hasMany(GestionFisico::class,'id_empleado');
     }
-    public function resportes_daños_tecnologicos_responsables(){
+
+    public function reportesDanosFisicosResponsable(){
+        return $this->hasMany(ReporteDanoFisico::class,'id_responsable');
+    }
+    public function reportesDanosFisicosEncargado(){
+        return $this->hasMany(ReporteDanoFisico::class,'id_encargado');
+    }
+
+    public function elementosTecnologicos(){
+        return $this->hasMany(ElementoTecnologico::class,'id_empleado');
+    }
+
+    public function gestionesTecnologicos(){
+        return $this->hasMany(GestionTecnologico::class,'id_empleado');
+    }
+    
+    public function reportesDanosTecnologicosResponsable(){
         return $this->hasMany(ReporteDanoTecnologico::class,'id_responsable');
     }
-    public function resportes_daños_tecnologicos_encargados(){
+    public function reportesDanosTecnologicosEncargado(){
         return $this->hasMany(ReporteDanoTecnologico::class,'id_encargado');
     }
+
+    public function gestionesMedicos(){
+        return $this->hasMany(GestionMedico::class,'id_empleado');
+    }
+    
+    public function reportesDanosMedicosResponsable(){
+        return $this->hasMany(ReporteDanoMedico::class,'id_responsable');
+    }
+    public function reportesDanosMedicosEncargado(){
+        return $this->hasMany(ReporteDanoMedico::class,'id_encargado');
+    }
+  
+
+   
 
 }

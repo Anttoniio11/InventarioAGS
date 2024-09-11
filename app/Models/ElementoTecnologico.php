@@ -18,17 +18,29 @@ class ElementoTecnologico extends Model
     public function empleado(){
         return $this->belongsTo(Empleado::class, 'id_empleado');
     }
-    public function estado_elemento(){
+
+    public function factura(){
+        return $this->belongsTo(Factura::class,'id_factura');
+    }
+
+    public function estadoElemento(){
         return $this->belongsTo( EstadoElemento::class,'id_estado');
     }
+
+    public function categoria(){
+        return $this->belongsTo(CategoriaTecnologico::class,'id_categoria');
+    }
+
     public function mantenimientos(){
-        return $this->hasMany( MantenimientoTecnologico::class,'id_elementos_tecnologicos');
+        return $this->hasMany(MantenimientoTecnologico::class,'id_elemento_tecnologico');
     }
-    public function categoria_tecnologico(){
-        return $this->belongsTo( CategoriaTecnologico::class,'id_categoria');
+    
+    public function reportesDanos(){
+        return $this->hasMany(ReporteDanoTecnologico::class,'id_elemento_tecnologico');
     }
-    public function reportes_danos_tecnologicos(){
-        return $this->hasMany( ReporteDanoTecnologico::class,'id_elementos_tecnologicos');
+
+    public function gestionesTecnologicos(){
+        return $this->hasMany(GestionTecnologico::class,'id_elemento_tecnologico');
     }
 
 }

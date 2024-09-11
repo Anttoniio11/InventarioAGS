@@ -11,7 +11,7 @@ class ElementoInsumo extends Model
 
     protected $table = 'elementos_insumos';
 
-    public function categoriaInsumo() {
+    public function categoria() {
         return $this->belongsTo(CategoriaInsumo::class, 'id_categoria');
     }
 

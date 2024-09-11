@@ -14,7 +14,7 @@ class CategoriaTecnologico extends Model
 
     protected $table = 'categorias_tecnologicos';
     
-    public function elementos_tecnologicos(){
-        return $this->hasMany( ElementoTecnologico::class,'id_categoria');
+    public function elementosTecnologicos(){
+        return $this->hasMany(ElementoTecnologico::class,'id_categoria');
     }
 }

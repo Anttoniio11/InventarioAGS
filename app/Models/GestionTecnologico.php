@@ -15,7 +15,7 @@ class GestionTecnologico extends Model
         return $this->belongsTo(Empleado::class,'id_empleado');
     }
 
-    public function elementos_tecnologicos(){
-        return $this->hasMany(ElementoTecnologico::class,'id_elementos_fisicos');
+    public function elementoTecnologico(){
+        return $this->belongsTo(ElementoTecnologico::class,'id_elemento_tecnologico');
     }
 }

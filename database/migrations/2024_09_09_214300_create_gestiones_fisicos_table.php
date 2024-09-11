@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('tipo');
             $table->text('observacion');
 
-            $table->unsignedBigInteger('id_empleado')->nullable();
-            $table->foreign('id_empleado')->references('id')->on('empleados')->nullable();
+            $table->unsignedBigInteger('id_empleado');
+            $table->foreign('id_empleado')->references('id')->on('empleados');
 
-            $table->unsignedBigInteger('id_elementos_fisicos')->nullable();
-            $table->foreign('id_elementos_fisicos')->references('id')->on('elementos_fisicos')->nullable();
+            $table->unsignedBigInteger('id_elemento_fisico');
+            $table->foreign('id_elemento_fisico')->references('id')->on('elementos_fisicos');
 
             $table->timestamps();
         });
