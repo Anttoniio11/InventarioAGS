@@ -9,7 +9,7 @@ class MantenimientoTecnologico extends Model
 {
     use HasFactory;
 
-    protected $table = 'mantenimientos_tecnologicos'; 
+    protected $table = 'mantenimientos_tecnologicos';
 
     protected $fillable = [
         'fecha_inicio',
@@ -20,8 +20,8 @@ class MantenimientoTecnologico extends Model
         'responsable'
     ];
 
-    
-    public function elemento_tecnologico(){
-        return $this->belongsTo(ElementoTecnologico::class,'id_elementos_tecnologicos');
+    public function elemento()
+    {
+        return $this->belongsTo(ElementoTecnologico::class, 'id_elemento_tecnologico');
     }
 }

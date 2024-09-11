@@ -18,5 +18,12 @@ class GestionMedico extends Model
         'observacion'
     ];
 
+    public function elementoMedico(){
+        return $this->belongsTo(ElementoMedico::class,'id_elemento_medico');
+    }
+
+    public function empleado(){
+        return $this->belongsTo(Empleado::class,'id_empleado');
+    }
 
 }

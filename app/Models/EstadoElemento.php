@@ -13,8 +13,15 @@ class EstadoElemento extends Model
     
     protected $fillable = ['estado','descripcion'];
 
-
-    public function elementos_tecnologicos(){
+    public function elementosTecnologicos(){
         return $this->hasMany(ElementoTecnologico::class,'id_estado');
+    }
+
+    public function elementosMedicos(){
+        return $this->hasMany(ElementoMedico::class,'id_estado');
+    }
+    
+    public function elementosFisicos(){
+        return $this->hasMany(ElementoFisico::class,'id_estado');
     }
 }

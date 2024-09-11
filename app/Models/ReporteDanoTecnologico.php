@@ -13,7 +13,7 @@ class ReporteDanoTecnologico extends Model
 {
     use HasFactory;
 
-    protected $table = 'reportes_danos_tecnologicos'; 
+    protected $table = 'reportes_danos_tecnologicos';
 
     protected $fillable = [
         'fecha',
@@ -21,17 +21,17 @@ class ReporteDanoTecnologico extends Model
         'nivel_daño'
     ];
 
-    
-    public function elemento_tecnologico()
+    public function elementoTecnologico()
     {
-        return $this->belongsTo(ElementoTecnologico::class,'id_elementos_tecnologicos');
+        return $this->belongsTo(ElementoTecnologico::class, 'id_elemento_tecnologico');
     }
 
-    public function empleado_responsable(){
-        return $this->belongsTo(Empleado::class,'id_responsable');
+    public function responsable()
+    {
+        return $this->belongsTo(Empleado::class, 'id_responsable');
     }
-    public function empleado_encargado(){
-        return $this->belongsTo(Empleado::class,'id_encargado');
+    public function encargado()
+    {
+        return $this->belongsTo(Empleado::class, 'id_encargado');
     }
-
 }

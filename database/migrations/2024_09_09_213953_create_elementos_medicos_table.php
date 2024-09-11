@@ -23,14 +23,14 @@ return new class extends Migration
             $table->set('disponibilidad', ['SI', 'NO']);
             $table->longText('codigo_QR');
 
-            $table->unsignedBigInteger('id_estado')->nullable();
-            $table->foreign('id_estado')->references('id')->on('estado_elementos')->nullable();
+            $table->unsignedBigInteger('id_estado');
+            $table->foreign('id_estado')->references('id')->on('estado_elementos');
 
-            $table->unsignedBigInteger('id_categoria')->nullable();
-            $table->foreign('id_categoria')->references('id')->on('categorias_medicos')->nullable();
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias_medicos');
 
-            $table->unsignedBigInteger('id_factura')->nullable();
-            $table->foreign('id_factura')->references('id')->on('facturas')->nullable();
+            $table->unsignedBigInteger('id_factura');
+            $table->foreign('id_factura')->references('id')->on('facturas');
 
             $table->timestamps();
         });

@@ -24,8 +24,8 @@ class ReporteDanoFisico extends Model
     public function encargado(){
         return $this->belongsTo(Empleado::class,'id_encargado');
     }
-    public function elementos_fisicos(){
-        return $this->belongsTo(ElementoFisico::class,'id_elementos_fisicos');
+    public function elementoFisico(){
+        return $this->belongsTo(ElementoFisico::class,'id_elemento_fisico');
     }
 
 

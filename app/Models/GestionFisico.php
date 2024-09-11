@@ -23,7 +23,7 @@ class GestionFisico extends Model
         return $this->belongsTo(Empleado::class,'id_empleado');
     }
 
-    public function elemento_fisico(){
-        return $this->belongsTo(ElementoFisico::class,'id_elementos_fisicos');
+    public function elementoFisico(){
+        return $this->belongsTo(ElementoFisico::class,'id_elemento_fisico');
     }
 }

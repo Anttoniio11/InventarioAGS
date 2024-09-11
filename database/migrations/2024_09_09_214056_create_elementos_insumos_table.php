@@ -21,14 +21,14 @@ return new class extends Migration
             $table->text('observacion');
             $table->integer('cantidad');
 
-            $table->unsignedBigInteger('id_categoria')->nullable();
-            $table->foreign('id_categoria')->references('id')->on('categorias_insumos')->nullable();
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias_insumos');
 
-            $table->unsignedBigInteger('id_factura')->nullable();
-            $table->foreign('id_factura')->references('id')->on('facturas')->nullable();
+            $table->unsignedBigInteger('id_factura');
+            $table->foreign('id_factura')->references('id')->on('facturas');
 
-            $table->unsignedBigInteger('id_sede')->nullable();
-            $table->foreign('id_sede')->references('id')->on('sedes')->nullable();
+            $table->unsignedBigInteger('id_sede');
+            $table->foreign('id_sede')->references('id')->on('sedes');
 
             $table->timestamps();
         });

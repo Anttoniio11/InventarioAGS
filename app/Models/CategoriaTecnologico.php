@@ -15,7 +15,7 @@ class CategoriaTecnologico extends Model
     protected $fillable = ['categoria'];
 
     
-    public function elementos_tecnologicos(){
-        return $this->hasMany( ElementoTecnologico::class,'id_categoria');
+    public function elementosTecnologicos(){
+        return $this->hasMany(ElementoTecnologico::class,'id_categoria');
     }
 }

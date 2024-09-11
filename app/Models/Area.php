@@ -22,7 +22,7 @@ class Area extends Model
     public function empleados(){
         return $this->hasMany(Empleado::class,'area_id');
     }
-    public function elementos_fisicos(){
+    public function elementosFisicos(){
         return $this->hasMany(ElementoFisico::class,'id_area');
     }
 }

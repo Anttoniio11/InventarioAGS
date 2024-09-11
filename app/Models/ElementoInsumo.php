@@ -21,7 +21,7 @@ class ElementoInsumo extends Model
     ];
 
 
-    public function categoriaInsumo() {
+    public function categoria() {
         return $this->belongsTo(CategoriaInsumo::class, 'id_categoria');
     }
 
@@ -32,4 +32,5 @@ class ElementoInsumo extends Model
     public function sede() {
         return $this->belongsTo(Sede::class, 'id_sede');
     }
+
 }

@@ -28,4 +28,17 @@ class Factura extends Model
     public function elementosInsumos() {
         return $this->hasMany(ElementoInsumo::class, 'id_factura');
     }
+
+    public function elementosMedicos() {
+        return $this->hasMany(ElementoMedico::class, 'id_factura');
+    }
+
+    public function elementosTecnologicos() {
+        return $this->hasMany(ElementoTecnologico::class, 'id_factura');
+    }
+
+    public function elementosFisicos() {
+        return $this->hasMany(ElementoFisico::class, 'id_factura');
+    }
+    
 }

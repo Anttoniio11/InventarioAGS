@@ -32,15 +32,25 @@ class ElementoFisico extends Model
     public function empleado(){
         return $this->belongsTo(Empleado::class, 'id_empleado');
     }
-    public function gestiones_fisicos(){
-        return $this->hasMany(GestionFisico::class, 'id_elementos_fisicos');
+
+    public function estadoElemento(){
+        return $this->belongsTo(EstadoElemento::class,'id_estado');
     }
-    public function categoria_fisico(){
+
+    public function categoria(){
         return $this->belongsTo(CategoriaFisico::class, 'id_categoria');
     }
 
-    public function reporte_dano_fisico(){
-        return $this->hasMany(ReporteDanoFisico::class,'id_elementos_fisicos');
+    public function factura(){
+        return $this->belongsTo(Factura::class,'id_factura');
+    }
+    
+    public function gestionesFisicos(){
+        return $this->hasMany(GestionFisico::class, 'id_elemento_fisico');
+    }
+    
+    public function reporteDanoFisico(){
+        return $this->hasMany(ReporteDanoFisico::class,'id_elemento_fisico');
     }
 
 
