@@ -14,7 +14,7 @@ class CategoriaFisicoController extends Controller
     public function index()
     {
         $categorias = CategoriaFisico::paginate(10);
-        return view("categorias.index", compact("categorias"));
+        return view("categorias.categorias_fisicos.index", compact("categorias"));
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoriaFisicoController extends Controller
      */
     public function create()
     {
-        return view("categorias.create");
+        return view("categorias.categorias_fisicos.create");
     }
 
     /**
@@ -48,7 +48,7 @@ class CategoriaFisicoController extends Controller
 
         $categoria->save();
 
-        return redirect()->route("categorias.index")->with('success', 'Categoría creada correctamente');
+        return view("categorias.categorias_fisicos.index")->with('success', 'Categoría creada correctamente');
     }
 
     /**
@@ -59,10 +59,10 @@ class CategoriaFisicoController extends Controller
         $categoria = CategoriaFisico::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias.index")->with('error', 'Categoría no encontrada');
+            return redirect()->route("categorias.categorias_fisicos.index")->with('error', 'Categoría no encontrada');
         }
 
-        return view("categorias.show", compact("categoria"));
+        return view("categorias.categorias_fisicos.show", compact("categoria"));
     }
 
     /**
@@ -73,10 +73,10 @@ class CategoriaFisicoController extends Controller
         $categoria = CategoriaFisico::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias.index")->with('error', 'Categoría no encontrada');
+            return redirect()->route("categorias.categorias_fisicos.index")->with('error', 'Categoría no encontrada');
         }
 
-        return view("categorias.edit", compact("categoria"));
+        return view("categorias.categorias_fisicos.edit", compact("categoria"));
     }
 
     /**
@@ -87,7 +87,7 @@ class CategoriaFisicoController extends Controller
         $categoria = CategoriaFisico::find($idCategoria);
 
         if (!$categoria) {
-            return redirect()->route("categorias.index")->with('error', 'Categoría no encontrada');
+            return redirect()->route("categorias.categorias_fisicos.index")->with('error', 'Categoría no encontrada');
         }
     
         $request->validate([
@@ -98,7 +98,7 @@ class CategoriaFisicoController extends Controller
     
         $categoria->save();
     
-        return redirect()->route("categorias.index")->with('success', 'Categoría actualizada correctamente');
+        return view("categorias.categorias_fisicos.index")->with('success', 'Categoría actualizada correctamente');
     }
 
     /**
@@ -109,12 +109,12 @@ class CategoriaFisicoController extends Controller
         $categoria = CategoriaFisico::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias.index")->with('error', 'Categoría no encontrada');
+            return redirect()->route("categorias.categorias_fisicos.index")->with('error', 'Categoría no encontrada');
         }
 
         $categoria->delete();
 
-        return redirect()->route("categorias.index")->with('success', 'Categoría eliminada correctamente');
+        return view("categorias.categorias_fisicos.index")->with('success', 'Categoría eliminada correctamente');
     }
 
     public function buscarCategorias(Request $request)
