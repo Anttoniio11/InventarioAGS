@@ -55,7 +55,7 @@ class CategoriaInsumoController extends Controller
 
         $categoria->save();
 
-        return view("categorias.categorias_insumos.index")->with('success', 'Categoría de insumo creada correctamente');
+        return redirect()->route("categorias.categorias_insumos.index")->with('success', 'Categoría de insumo creada correctamente');
     }
 
     /**
@@ -107,7 +107,7 @@ class CategoriaInsumoController extends Controller
     
         $categoria->save();
     
-        return view("categorias.categorias_insumos.index")->with('success', 'Categoría de insumo actualizada correctamente');
+        return redirect()->route("categorias.categorias_insumos.index")->with('success', 'Categoría de insumo actualizada correctamente');
     }
 
     /**
@@ -134,6 +134,6 @@ class CategoriaInsumoController extends Controller
             ->orWhere('categoria', 'like', '%' . $filtro . '%')
             ->paginate(10);
     
-        return view('categorias_insumos.partials.resultados', compact('categorias'));
+        return redirect()->route('categorias_insumos.partials.resultados', compact('categorias'));
     }
 }
