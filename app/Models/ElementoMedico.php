@@ -34,4 +34,12 @@ class ElementoMedico extends Model
         return $this->belongsTo(EstadoElemento::class, 'id_estado');
     }
 
+    public function gestionesMedicos(){
+        return $this->hasMany(GestionMedico::class, 'id_elemento_medico');
+    }
+    
+    public function reporteDanoMedico(){
+        return $this->hasMany(ReporteDanoMedico::class,'id_elemento_medico');
+    }
+
 }
