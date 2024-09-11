@@ -24,7 +24,7 @@ class ElementoTecnologico extends Model
     public function mantenimientos(){
         return $this->hasMany( MantenimientoTecnologico::class,'id_elementos_tecnologicos');
     }
-    public function catergoria_tecnologico(){
+    public function categoria_tecnologico(){
         return $this->belongsTo( CategoriaTecnologico::class,'id_categoria');
     }
     public function reportes_danos_tecnologicos(){

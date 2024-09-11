@@ -13,4 +13,12 @@ class EstadoElemento extends Model
     public function elementos_tecnologicos(){
         return $this->hasMany(ElementoTecnologico::class,'id_estado');
     }
+
+    public function elementos_medicos(){
+        return $this->hasMany(ElementoMedico::class,'id_estado');
+    }
+    
+    public function elementos_fisicos(){
+        return $this->hasMany(ElementoFisico::class,'id_estado');
+    }
 }
