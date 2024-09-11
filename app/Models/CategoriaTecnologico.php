@@ -11,6 +11,9 @@ class CategoriaTecnologico extends Model
     use HasFactory;
 
     protected $fillable = ['categoria'];
+
+    protected $table = 'categorias_tecnologicos';
+    
     public function elementos_tecnologicos(){
         return $this->hasMany( ElementoTecnologico::class,'id_categoria');
     }
