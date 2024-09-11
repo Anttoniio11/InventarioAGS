@@ -13,6 +13,7 @@ use App\Models\ElementoFisico;
 class Area extends Model
 {
     use HasFactory;
+    
     protected $fillable = ['area'];
 
     public function empleados(){

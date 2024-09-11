@@ -11,6 +11,7 @@ use App\Models\ElementoFisico;
 class CategoriaFisico extends Model
 {
     use HasFactory;
+    
     protected $fillable = ['categoria'];
 
     public function elementos_fisicos(){
