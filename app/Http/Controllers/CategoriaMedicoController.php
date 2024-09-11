@@ -55,7 +55,7 @@ class CategoriaMedicoController extends Controller
 
         $categoria->save();
 
-        return view("categorias.categorias_medicos.index")->with('success', 'Categoría médica creada correctamente');
+        return redirect()->route("categorias.categorias_medicos.index")->with('success', 'Categoría médica creada correctamente');
     }
 
     /**
@@ -107,7 +107,7 @@ class CategoriaMedicoController extends Controller
     
         $categoria->save();
     
-        return view("categorias.categorias_medicos.index")->with('success', 'Categoría médica actualizada correctamente');
+        return redirect()->route("categorias.categorias_medicos.index")->with('success', 'Categoría médica actualizada correctamente');
     }
 
     /**
@@ -134,6 +134,6 @@ class CategoriaMedicoController extends Controller
             ->orWhere('categoria', 'like', '%' . $filtro . '%')
             ->paginate(10);
     
-        return view('categorias_medicos.partials.resultados', compact('categorias'));
+        return redirect()->route('categorias_medicos.partials.resultados', compact('categorias'));
     }
 }

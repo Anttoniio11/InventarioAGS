@@ -48,7 +48,7 @@ class CategoriaFisicoController extends Controller
 
         $categoria->save();
 
-        return view("categorias.categorias_fisicos.index")->with('success', 'Categoría creada correctamente');
+        return redirect()->route("categorias.categorias_fisicos.index")->with('success', 'Categoría creada correctamente');
     }
 
     /**
@@ -98,7 +98,7 @@ class CategoriaFisicoController extends Controller
     
         $categoria->save();
     
-        return view("categorias.categorias_fisicos.index")->with('success', 'Categoría actualizada correctamente');
+        return redirect()->route("categorias.categorias_fisicos.index")->with('success', 'Categoría actualizada correctamente');
     }
 
     /**
@@ -124,6 +124,6 @@ class CategoriaFisicoController extends Controller
         $categorias = CategoriaFisico::where('categoria', 'like', '%' . $filtro . '%')
             ->paginate(10);
     
-        return view('categorias.partials.resultados', compact('categorias'));
+        return redirect()->route('categorias.partials.resultados', compact('categorias'));
     }
 }
