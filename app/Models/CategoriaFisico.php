@@ -11,8 +11,11 @@ use App\Models\ElementoFisico;
 class CategoriaFisico extends Model
 {
     use HasFactory;
+
+    protected $table = 'categorias_fisicos';
     
     protected $fillable = ['categoria'];
+
 
     public function elementos_fisicos(){
         return $this->hasMany(ElementoFisico::class,'id_categoria');

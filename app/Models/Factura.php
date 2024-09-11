@@ -9,6 +9,18 @@ class Factura extends Model
 {
     use HasFactory;
 
+    protected $table = 'facturas';
+
+    protected $fillable = [
+        'codigo_factura',
+        'fecha_compra',
+        'metodo_pago',
+        'valor',
+        'descripcion',
+        'factura_electronica',
+    ];
+ 
+
     public function proveedor() {
         return $this->belongsTo(Proveedore::class, 'id_proveedor');
     }

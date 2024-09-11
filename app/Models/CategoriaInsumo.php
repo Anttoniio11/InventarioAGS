@@ -11,6 +11,9 @@ class CategoriaInsumo extends Model
 
     protected $table = 'categorias_insumos';
 
+    protected $fillable = ['codigo', 'categoria'];
+
+
     public function elementosInsumos() {
         return $this->hasMany(ElementoInsumo::class, 'id_categoria');
     }

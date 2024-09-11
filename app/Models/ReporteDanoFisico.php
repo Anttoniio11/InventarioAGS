@@ -9,7 +9,14 @@ class ReporteDanoFisico extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fecha','descripcion','nivel_daño'];
+    protected $table = 'reportes_danos_fisicos'; 
+
+    protected $fillable = [
+        'fecha',
+        'descripcion',
+        'nivel_daño'
+    ];
+
 
     public function responsable(){
         return $this->belongsTo(Empleado::class,'id_responsable');

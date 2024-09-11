@@ -13,8 +13,15 @@ class ReporteDanoTecnologico extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fecha','descripcion','nivel_daño'];
+    protected $table = 'reportes_danos_tecnologicos'; 
 
+    protected $fillable = [
+        'fecha',
+        'descripcion',
+        'nivel_daño'
+    ];
+
+    
     public function elemento_tecnologico()
     {
         return $this->belongsTo(ElementoTecnologico::class,'id_elementos_tecnologicos');

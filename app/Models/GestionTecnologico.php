@@ -9,8 +9,16 @@ class GestionTecnologico extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fecha_inicio','fecha_fin','tipo','observacion'];
+    protected $table = 'gestiones_tecnologicos'; 
 
+    protected $fillable = [
+        'fecha_inicio',
+        'fecha_fin',
+        'tipo',
+        'observacion'
+    ];
+
+    
     public function empleado(){
         return $this->belongsTo(Empleado::class,'id_empleado');
     }

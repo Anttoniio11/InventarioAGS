@@ -11,6 +11,16 @@ class ElementoInsumo extends Model
 
     protected $table = 'elementos_insumos';
 
+    protected $fillable = [
+        'registro_sanitario',
+        'marca', 
+        'fecha_vencimiento',
+        'indicaciones',
+        'observacion',
+        'cantidad',
+    ];
+
+
     public function categoriaInsumo() {
         return $this->belongsTo(CategoriaInsumo::class, 'id_categoria');
     }

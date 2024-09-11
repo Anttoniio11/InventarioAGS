@@ -9,6 +9,8 @@ class Proveedore extends Model
 {
     use HasFactory;
 
+    protected $table = 'proveedores'; 
+
     protected $fillable = [
         'nit',
         'nombre',
@@ -17,6 +19,7 @@ class Proveedore extends Model
         'direccion'
     ];
 
+    
     public function facturas() {
         return $this->hasMany(Factura::class, 'id_proveedor');
     }

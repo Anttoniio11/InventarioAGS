@@ -9,6 +9,9 @@ class CategoriaMedico extends Model
 {
     use HasFactory;
 
+    protected $table = 'categorias_medicos';
+
     protected $fillable = ['codigo', 'categoria'];
-    
+
+
 }
