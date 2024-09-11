@@ -43,13 +43,13 @@ class CategoriaTecnologicoController extends Controller
             'categoria.unique' => 'El nombre de la categoría ya está en uso.',
         ]);
 
-        
+
         $categoria = new CategoriaTecnologico();
         $categoria->categoria = strtoupper($request->input('categoria'));
 
         $categoria->save();
 
-        return view("categorias.categorias_tecnologicos.index")->with('success', 'Categoría tecnológica creada correctamente');
+        return redirect()->route('categorias-tecnologicos.index')->with('success', 'Categoría tecnológica creada correctamente');
     }
 
     /**
@@ -90,16 +90,16 @@ class CategoriaTecnologicoController extends Controller
         if (!$categoria) {
             return view("categorias.categorias_tecnologicos.index")->with('error', 'Categoría tecnológica no encontrada');
         }
-    
+
         $request->validate([
             "categoria" => "required",
         ]);
-    
+
         $categoria->categoria = strtoupper($request->input('categoria'));
-    
+
         $categoria->save();
-    
-        return view("categorias.categorias_tecnologicos.index")->with('success', 'Categoría tecnológica actualizada correctamente');
+
+        return redirect()->route('categorias-tecnologicos.index')->with('success', 'Categoría tecnológica actualizada correctamente');
     }
 
     /**
@@ -110,21 +110,21 @@ class CategoriaTecnologicoController extends Controller
         $categoria = CategoriaTecnologico::find($id);
 
         if (!$categoria) {
-            return view("categorias.categorias_tecnologicos.index")->with('error', 'Categoría tecnológica no encontrada');
-        }
+            return redirect()->route('categorias-tecnologicos.index')->with('success', 'Categoría tecnológica eliminada correctamente');
+     }
 
         $categoria->delete();
 
-        return view("categorias.categorias_tecnologicos.index")->with('success', 'Categoría tecnológica eliminada correctamente');
-    }
+        return redirect()->route('categorias-tecnologicos.index')->with('success', 'No se logró encontrar la categoría tecnológica');
+   }
 
     public function buscarCategorias(Request $request)
     {
         $filtro = $request->input('filtro');
-    
+
         $categorias = CategoriaTecnologico::where('categoria', 'like', '%' . $filtro . '%')
             ->paginate(10);
-    
+
         return view('categorias.categorias_tecnologicos.resultados', compact('categorias'));
     }
 }

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->string('nombre1');
-            $table->string('nombre2');
+            $table->string('nombre2')->nullable();
             $table->string('apellido1');
-            $table->string('apellido2');
+            $table->string('apellido2')->nullable();
             $table->string('identificacion');
             $table->date('fecha_nacimiento');
             $table->char('sexo');

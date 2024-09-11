@@ -52,7 +52,7 @@ Route::get('buscar-sedes', [SedeController::class, 'buscarSedes'])->name('sedes.
 
 
 // Mostrar la lista de categorías tecnológicas
-Route::get('categorias-tecnologicos', [CategoriaTecnologicoController::class, 'index'])->name('categorias-tecnologicos.index');
+Route::get('categorias-tecnologicos/index', [CategoriaTecnologicoController::class, 'index'])->name('categorias-tecnologicos.index');
 // Mostrar el formulario para crear una nueva categoría tecnológica
 Route::get('categorias-tecnologicos/create', [CategoriaTecnologicoController::class, 'create'])->name('categorias-tecnologicos.create');
 // Almacenar una nueva categoría tecnológica
