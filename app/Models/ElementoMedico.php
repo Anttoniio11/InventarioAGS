@@ -9,9 +9,18 @@ class ElementoMedico extends Model
 {
     use HasFactory;
 
-    protected $table = 'elementos_medicos';
+    protected $table = 'elementos_medicos'; 
 
-    protected $fillable = ['codigo','marca', 'modelo','serie','registro_sanitario','ubicacion_interna','disponibilidad','codigo_QR','id_estado','id_categoria','id_factura'];
+    protected $fillable = [
+        'codigo',
+        'marca', 
+        'modelo',
+        'serie',
+        'registro_sanitario',
+        'ubicacion_interna',
+        'disponibilidad',
+        'codigo_QR',
+    ];
 
     public function factura(){
         return $this->belongsTo(Factura::class, 'id_factura');
@@ -24,6 +33,5 @@ class ElementoMedico extends Model
     public function estadoElemento(){
         return $this->belongsTo(EstadoElemento::class, 'id_estado');
     }
-
 
 }

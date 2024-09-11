@@ -12,7 +12,19 @@ use App\Models\ReporteDanoFisico;
 class ElementoFisico extends Model
 {
     use HasFactory;
-    protected $fillable = ['codigo','marca', 'modelo','ubicacion_interna','disponibilidad','observacion','codigo_QR'];
+
+    protected $table = 'elementos_fisicos';
+    
+    protected $fillable = [
+        'codigo',
+        'marca', 
+        'modelo',
+        'ubicacion_interna',
+        'disponibilidad',
+        'observacion',
+        'codigo_QR'
+    ];
+
 
     public function area(){
         return $this->belongsTo(Area::class, 'id_area');

@@ -9,9 +9,19 @@ class MantenimientoTecnologico extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fecha_inicio','fecha_fin','tipo_mantenimiento','observacion','estado','responsable'];
+    protected $table = 'mantenimientos_tecnologicos';
 
-    public function elemento(){
-        return $this->belongsTo(ElementoTecnologico::class,'id_elemento_tecnologico');
+    protected $fillable = [
+        'fecha_inicio',
+        'fecha_fin',
+        'tipo_mantenimiento',
+        'observacion',
+        'estado',
+        'responsable'
+    ];
+
+    public function elemento()
+    {
+        return $this->belongsTo(ElementoTecnologico::class, 'id_elemento_tecnologico');
     }
 }

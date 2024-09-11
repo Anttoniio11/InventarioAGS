@@ -18,6 +18,8 @@ class Empleado extends Model
 {
     use HasFactory;
 
+    protected $table = 'empleados'; 
+
     protected $fillable = [
         'nombre1',
         'nombre2',
@@ -35,6 +37,7 @@ class Empleado extends Model
         'id_area',
         'id_rol',
     ];
+
 
     // public static function boot()
     // {

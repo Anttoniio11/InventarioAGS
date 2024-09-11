@@ -9,6 +9,16 @@ class Sede extends Model
 {
     use HasFactory;
 
+    protected $table = 'sedes'; 
+
+    protected $fillable = [
+        'nit',
+        'razon_social',
+        'departamento',
+        'municipio',
+    ];
+
+    
     public function elementosInsumos() {
         return $this->hasMany(ElementoInsumo::class, 'id_sede');
     }

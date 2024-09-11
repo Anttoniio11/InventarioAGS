@@ -8,7 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class GestionFisico extends Model
 {
     use HasFactory;
-    protected $fillable = ['fecha_inicio','fecha_fin','tipo','observacion'];
+
+    protected $table = 'gestiones_fisicos'; 
+
+    protected $fillable = [
+        'fecha_inicio',
+        'fecha_fin',
+        'tipo',
+        'observacion'
+    ];
+
 
     public function empleado(){
         return $this->belongsTo(Empleado::class,'id_empleado');

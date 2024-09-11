@@ -9,9 +9,13 @@ class CategoriaMedico extends Model
 {
     use HasFactory;
 
+    protected $table = 'categorias_medicos';
+
     protected $fillable = ['codigo', 'categoria'];
-    
-    public function elementosMedicos(){
-        return $this->hasMany(ElementoMedico::class,'id_categoria');
+
+
+    public function elementosMedicos()
+    {
+        return $this->hasMany(ElementoMedico::class, 'id_categoria');
     }
 }
