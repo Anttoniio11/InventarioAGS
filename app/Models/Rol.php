@@ -14,13 +14,11 @@ class Rol extends Model
 
     protected $fillable = ['rol'];
 
-    public function users()
-    {
+    public function users(){
         return $this->hasMany(User::class, 'id_rol');
     }
 
-    public function empleados()
-    {
+    public function empleados(){
         return $this->hasMany(Empleado::class, 'id_rol');
     }
 }

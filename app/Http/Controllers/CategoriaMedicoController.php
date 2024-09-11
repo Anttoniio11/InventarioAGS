@@ -22,7 +22,7 @@ class CategoriaMedicoController extends Controller
      */
     public function create()
     {
-        return view("categorias_medicos.create");
+        return view("categorias.categorias_medicos.create");
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoriaMedicoController extends Controller
 
         $categoria->save();
 
-        return redirect()->route("categorias_medicos.index")->with('success', 'Categoría médica creada correctamente');
+        return view("categorias.categorias_medicos.index")->with('success', 'Categoría médica creada correctamente');
     }
 
     /**
@@ -66,10 +66,10 @@ class CategoriaMedicoController extends Controller
         $categoria = CategoriaMedico::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias_medicos.index")->with('error', 'Categoría médica no encontrada');
+            return redirect()->route("categorias.categorias_medicos.index")->with('error', 'Categoría médica no encontrada');
         }
 
-        return view("categorias_medicos.show", compact("categoria"));
+        return view("categorias.categorias_medicos.show", compact("categoria"));
     }
 
     /**
@@ -80,10 +80,10 @@ class CategoriaMedicoController extends Controller
         $categoria = CategoriaMedico::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias_medicos.index")->with('error', 'Categoría médica no encontrada');
+            return redirect()->route("categorias.categorias_medicos.index")->with('error', 'Categoría médica no encontrada');
         }
 
-        return view("categorias_medicos.edit", compact("categoria"));
+        return view("categorias.categorias_medicos.edit", compact("categoria"));
     }
 
     /**
@@ -94,7 +94,7 @@ class CategoriaMedicoController extends Controller
         $categoria = CategoriaMedico::find($idCategoria);
 
         if (!$categoria) {
-            return redirect()->route("categorias_medicos.index")->with('error', 'Categoría médica no encontrada');
+            return redirect()->route("categorias.categorias_medicos.index")->with('error', 'Categoría médica no encontrada');
         }
     
         $request->validate([
@@ -107,7 +107,7 @@ class CategoriaMedicoController extends Controller
     
         $categoria->save();
     
-        return redirect()->route("categorias_medicos.index")->with('success', 'Categoría médica actualizada correctamente');
+        return view("categorias.categorias_medicos.index")->with('success', 'Categoría médica actualizada correctamente');
     }
 
     /**
@@ -118,12 +118,12 @@ class CategoriaMedicoController extends Controller
         $categoria = CategoriaMedico::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias_medicos.index")->with('error', 'Categoría médica no encontrada');
+            return redirect()->route("categorias.categorias_medicos.index")->with('error', 'Categoría médica no encontrada');
         }
 
         $categoria->delete();
 
-        return redirect()->route("categorias_medicos.index")->with('success', 'Categoría médica eliminada correctamente');
+        return view("categorias.categorias_medicos.index")->with('success', 'Categoría médica eliminada correctamente');
     }
 
     public function buscarCategorias(Request $request)

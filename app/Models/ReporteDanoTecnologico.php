@@ -21,17 +21,14 @@ class ReporteDanoTecnologico extends Model
         'nivel_daño'
     ];
 
-    public function elementoTecnologico()
-    {
+    public function elementoTecnologico(){
         return $this->belongsTo(ElementoTecnologico::class, 'id_elemento_tecnologico');
     }
 
-    public function responsable()
-    {
+    public function responsable(){
         return $this->belongsTo(Empleado::class, 'id_responsable');
     }
-    public function encargado()
-    {
+    public function encargado(){
         return $this->belongsTo(Empleado::class, 'id_encargado');
     }
 }

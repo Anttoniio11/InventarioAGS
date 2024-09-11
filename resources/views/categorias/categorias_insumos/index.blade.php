@@ -9,13 +9,27 @@
 <body>
     <div class="container">
         <h1>Categorías Insumos</h1>
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <a href="{{ route('categorias-insumos.create') }}" class="btn btn-primary mb-3">Agregar Nueva Categoría</a>
 
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Categoria</th>
+                    <th>Código</th>
+                    <th>Categoría</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -23,6 +37,7 @@
                 @foreach($categorias as $categoria)
                     <tr>
                         <td>{{ $categoria->id }}</td>
+                        <td>{{ $categoria->codigo }}</td>
                         <td>{{ $categoria->categoria }}</td>
                         <td>
                             <a href="{{ route('categorias-insumos.show', $categoria->id) }}" class="btn btn-info btn-sm">Ver</a>

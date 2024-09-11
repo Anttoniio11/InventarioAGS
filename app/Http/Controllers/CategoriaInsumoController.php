@@ -14,7 +14,7 @@ class CategoriaInsumoController extends Controller
     public function index()
     {
         $categorias = CategoriaInsumo::paginate(10);
-        return view("categorias_insumos.index", compact("categorias"));
+        return view("categorias.categorias_insumos.index", compact("categorias"));
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoriaInsumoController extends Controller
      */
     public function create()
     {
-        return view("categorias_insumos.create");
+        return view("categorias.categorias_insumos.create");
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoriaInsumoController extends Controller
 
         $categoria->save();
 
-        return redirect()->route("categorias_insumos.index")->with('success', 'Categoría de insumo creada correctamente');
+        return view("categorias.categorias_insumos.index")->with('success', 'Categoría de insumo creada correctamente');
     }
 
     /**
@@ -66,10 +66,10 @@ class CategoriaInsumoController extends Controller
         $categoria = CategoriaInsumo::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias_insumos.index")->with('error', 'Categoría de insumo no encontrada');
+            return redirect()->route("categorias.categorias_insumos.index")->with('error', 'Categoría de insumo no encontrada');
         }
 
-        return view("categorias_insumos.show", compact("categoria"));
+        return view("categorias.categorias_insumos.show", compact("categoria"));
     }
 
     /**
@@ -80,10 +80,10 @@ class CategoriaInsumoController extends Controller
         $categoria = CategoriaInsumo::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias_insumos.index")->with('error', 'Categoría de insumo no encontrada');
+            return redirect()->route("categorias.categorias_insumos.index")->with('error', 'Categoría de insumo no encontrada');
         }
 
-        return view("categorias_insumos.edit", compact("categoria"));
+        return view("categorias.categorias_insumos.edit", compact("categoria"));
     }
 
     /**
@@ -94,7 +94,7 @@ class CategoriaInsumoController extends Controller
         $categoria = CategoriaInsumo::find($idCategoria);
 
         if (!$categoria) {
-            return redirect()->route("categorias_insumos.index")->with('error', 'Categoría de insumo no encontrada');
+            return redirect()->route("categorias.categorias_insumos.index")->with('error', 'Categoría de insumo no encontrada');
         }
     
         $request->validate([
@@ -107,7 +107,7 @@ class CategoriaInsumoController extends Controller
     
         $categoria->save();
     
-        return redirect()->route("categorias_insumos.index")->with('success', 'Categoría de insumo actualizada correctamente');
+        return view("categorias.categorias_insumos.index")->with('success', 'Categoría de insumo actualizada correctamente');
     }
 
     /**
@@ -118,12 +118,12 @@ class CategoriaInsumoController extends Controller
         $categoria = CategoriaInsumo::find($id);
 
         if (!$categoria) {
-            return redirect()->route("categorias_insumos.index")->with('error', 'Categoría de insumo no encontrada');
+            return redirect()->route("categorias.categorias_insumos.index")->with('error', 'Categoría de insumo no encontrada');
         }
 
         $categoria->delete();
 
-        return redirect()->route("categorias_insumos.index")->with('success', 'Categoría de insumo eliminada correctamente');
+        return view("categorias.categorias_insumos.index")->with('success', 'Categoría de insumo eliminada correctamente');
     }
 
     public function buscarCategorias(Request $request)

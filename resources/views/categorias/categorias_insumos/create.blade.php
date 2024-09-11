@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categorías Insumos</title>
+    <title>Agregar Nueva Categoría Insumos</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Agregar Nueva Categoría de Insumos</h1>
+        <h1>Agregar Nueva Categoría Insumos</h1>
 
         <form action="{{ route('categorias-insumos.store') }}" method="POST">
             @csrf
             <div class="form-group">
+                <label for="codigo">Código</label>
+                <input type="text" class="form-control @error('codigo') is-invalid @enderror" id="codigo" name="codigo" value="{{ old('codigo') }}" required>
+                @error('codigo')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+
                 <label for="categoria">Categoría</label>
                 <input type="text" class="form-control @error('categoria') is-invalid @enderror" id="categoria" name="categoria" value="{{ old('categoria') }}" required>
                 @error('categoria')
