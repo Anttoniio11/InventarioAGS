@@ -14,8 +14,7 @@ class CategoriaMedico extends Model
     protected $fillable = ['codigo', 'categoria'];
 
 
-    public function elementosMedicos()
-    {
+    public function elementosMedicos(){
         return $this->hasMany(ElementoMedico::class, 'id_categoria');
     }
 }

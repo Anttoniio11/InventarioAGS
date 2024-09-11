@@ -20,8 +20,7 @@ class MantenimientoTecnologico extends Model
         'responsable'
     ];
 
-    public function elemento()
-    {
+    public function elemento(){
         return $this->belongsTo(ElementoTecnologico::class, 'id_elemento_tecnologico');
     }
 }
