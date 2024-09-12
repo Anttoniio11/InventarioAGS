@@ -1,4 +1,6 @@
 @extends('plantilla')
+@section('panelLateral')
+@endsection
 @section('contenido')
     <div>
         <table>
