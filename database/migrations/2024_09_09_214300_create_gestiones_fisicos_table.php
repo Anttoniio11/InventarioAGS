@@ -13,18 +13,14 @@ return new class extends Migration
     {
         Schema::create('gestiones_fisicos', function (Blueprint $table) {
             $table->id();
-
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->string('tipo');
             $table->text('observacion');
-
             $table->unsignedBigInteger('id_empleado');
             $table->foreign('id_empleado')->references('id')->on('empleados');
-
             $table->unsignedBigInteger('id_elemento_fisico');
             $table->foreign('id_elemento_fisico')->references('id')->on('elementos_fisicos');
-
             $table->timestamps();
         });
     }

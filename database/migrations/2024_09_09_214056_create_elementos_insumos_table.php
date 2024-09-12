@@ -17,19 +17,15 @@ return new class extends Migration
             $table->string('registro_sanitario');
             $table->string('marca');
             $table->date('fecha_vencimiento');
-            $table->text('indicaciones');
-            $table->text('observacion');
+            $table->text('indicaciones')->nullable();
+            $table->text('observacion')->nullable();
             $table->integer('cantidad');
-
             $table->unsignedBigInteger('id_categoria');
             $table->foreign('id_categoria')->references('id')->on('categorias_insumos');
-
             $table->unsignedBigInteger('id_factura');
             $table->foreign('id_factura')->references('id')->on('facturas');
-
             $table->unsignedBigInteger('id_sede');
             $table->foreign('id_sede')->references('id')->on('sedes');
-
             $table->timestamps();
         });
     }

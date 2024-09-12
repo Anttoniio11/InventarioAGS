@@ -19,24 +19,17 @@ return new class extends Migration
             $table->string('modelo');
             $table->string('ubicacion_interna');
             $table->set('disponibilidad', ['SI', 'NO']);
-            $table->string('observacion');
             $table->longText('codigo_QR');
-
             $table->unsignedBigInteger('id_estado');
             $table->foreign('id_estado')->references('id')->on('estado_elementos');
-
             $table->unsignedBigInteger('id_categoria');
             $table->foreign('id_categoria')->references('id')->on('categorias_fisicos');
-
             $table->unsignedBigInteger('id_factura');
             $table->foreign('id_factura')->references('id')->on('facturas');
-
-            $table->unsignedBigInteger('id_area');
-            $table->foreign('id_area')->references('id')->on('areas');
-
-            $table->unsignedBigInteger('id_empleado');
-            $table->foreign('id_empleado')->references('id')->on('empleados');
-
+            $table->unsignedBigInteger('id_area')->nullable();
+            $table->foreign('id_area')->references('id')->on('areas')->nullable();
+            $table->unsignedBigInteger('id_empleado')->nullable();
+            $table->foreign('id_empleado')->references('id')->on('empleados')->nullable();
             $table->timestamps();
         });
     }

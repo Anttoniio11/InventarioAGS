@@ -18,10 +18,8 @@ return new class extends Migration
             $table->date('fecha_fin');
             $table->string('tipo');
             $table->text('observacion');
-
             $table->unsignedBigInteger('id_empleado');
             $table->foreign('id_empleado')->references('id')->on('empleados');
-
             $table->unsignedBigInteger('id_elemento_tecnologico');
             $table->foreign('id_elemento_tecnologico')->references('id')->on('elementos_tecnologicos');
 

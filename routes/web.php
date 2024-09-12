@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('inventario/tecnologicos',[InventarioController::class,'obtenerInventarioTecnologico'])->name('inventarioTecnologico.index');
+Route::get('inventario/tecnologicos',[InventarioController::class,'inventarioTecnologico'])->name('inventarioTecnologico.index');
 
 Route::get('areas', [AreaController::class, 'index'])->name('areas.index');
 Route::get('areas/create', [AreaController::class, 'create'])->name('areas.create');

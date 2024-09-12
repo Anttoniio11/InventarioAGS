@@ -13,17 +13,14 @@ return new class extends Migration
     {
         Schema::create('mantenimientos_tecnologicos', function (Blueprint $table) {
             $table->id();
-
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->set('tipo_mantenimiento', ['PREVENTIVO', 'CORRECTIVO']);
             $table->text('observacion');
             $table->set('estado', ['PROXIMO', 'EN PROCESO', 'FINALIZADO']);
             $table->string('responsable');
-
             $table->unsignedBigInteger('id_elemento_tecnologico');
             $table->foreign('id_elemento_tecnologico')->references('id')->on('elementos_tecnologicos');
-
             $table->timestamps();
         });
     }

@@ -14,10 +14,11 @@ class InventarioController extends Controller
         $this->inventarioService = $inventarioService;
     }
 
-    public function obtenerInventarioTecnologico(){
-        $inventarioTecnologicos = $this->inventarioService->obtenerInventarioTecnologico();
+    public function inventarioTecnologico(){
 
-        return view('inventario.tecnologicos.elementos',compact('inventarioTecnologicos'));
+        $elementosTecnologicos = $this->inventarioService->obtenerInventarioTecnologico();
+
+        return view('inventario.tecnologicos.elementos',compact('elementosTecnologicos'));
 
         }
 }

@@ -17,21 +17,17 @@ return new class extends Migration
             $table->string('codigo');
             $table->string('marca');
             $table->string('modelo');
-            $table->string('serie');
+            $table->string('serie')->nullable();
             $table->string('registro_sanitario');
             $table->string('ubicacion_interna');
             $table->set('disponibilidad', ['SI', 'NO']);
             $table->longText('codigo_QR');
-
             $table->unsignedBigInteger('id_estado');
             $table->foreign('id_estado')->references('id')->on('estado_elementos');
-
             $table->unsignedBigInteger('id_categoria');
             $table->foreign('id_categoria')->references('id')->on('categorias_medicos');
-
             $table->unsignedBigInteger('id_factura');
             $table->foreign('id_factura')->references('id')->on('facturas');
-
             $table->timestamps();
         });
     }
