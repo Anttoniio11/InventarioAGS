@@ -6,7 +6,7 @@ use App\Models\Sede;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class CategoriaSeeder extends Seeder
+class SedesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,24 +15,28 @@ class CategoriaSeeder extends Seeder
     {
 
         Sede::create([
-            'nit' => '',
-            'razon_social' => '',
-            'departamento' => '',
-            'municipio' => '',
+            'departamento' => 'CAUCA',
+            'municipio' => 'BUENOS AIRES',
         ]);
 
         Sede::create([
-            'nit' => '',
-            'razon_social' => '',
-            'departamento' => '',
-            'municipio' => '',
+            'departamento' => 'CAUCA',
+            'municipio' => 'BALBOA',
         ]);
 
         Sede::create([
-            'nit' => '',
-            'razon_social' => '',
-            'departamento' => '',
-            'municipio' => '',
+            'departamento' => 'CAUCA',
+            'municipio' => 'MERCADERES',
+        ]);
+
+        Sede::create([
+            'departamento' => 'CAUCA',
+            'municipio' => 'PATIA',
+        ]);
+
+        Sede::create([
+            'departamento' => 'CAUCA',
+            'municipio' => 'POPAYAN',
         ]);
 
     }

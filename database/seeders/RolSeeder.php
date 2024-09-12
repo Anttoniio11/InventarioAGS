@@ -6,7 +6,7 @@ use App\Models\Rol;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class CategoriaSeeder extends Seeder
+class RolSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,28 +15,15 @@ class CategoriaSeeder extends Seeder
     {
 
         Rol::create([
-            'rol' => 'BUENO',
+            'rol' => 'SUPER ADMINISTRADOR',
         ]);
 
         Rol::create([
-            'rol' => 'REGULAR',
+            'rol' => 'ADMINISTRADOR',
         ]);
 
-        Rol::create([
-            'rol' => 'MALO',
-        ]);
-
-        Rol::create([
-            'rol' => 'GARANTIA',
-        ]);
-
-        Rol::create([
-            'rol' => 'OBSOLETO',
-        ]);
-
-        Rol::create([
-            'rol' => 'PERDIDO',
-        ]);
+     
+     
        
     }
 }

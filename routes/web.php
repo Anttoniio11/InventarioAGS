@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriaTecnologicoController;
 use App\Http\Controllers\CategoriaFisicoController;
 use App\Http\Controllers\CategoriaMedicoController;
 use App\Http\Controllers\CategoriaInsumoController;
+use App\Http\Controllers\InventarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('inventario/tecnologicos',[InventarioController::class,'obtenerInventarioTecnologico'])->name('inventarioTecnologico.index');
 
 Route::get('areas', [AreaController::class, 'index'])->name('areas.index');
 Route::get('areas/create', [AreaController::class, 'create'])->name('areas.create');

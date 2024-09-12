@@ -6,7 +6,7 @@ use App\Models\Area;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class CategoriaSeeder extends Seeder
+class AreaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,12 +19,17 @@ class CategoriaSeeder extends Seeder
         ]);
 
         Area::create([
-            'area' => '',
+            'area' => 'CONTABILIDAD',
         ]);
 
         Area::create([
-            'area' => '',
+            'area' => 'CALIDAD',
         ]);
+
+        Area::create([
+            'area' => 'ASISTENCIAL',
+        ]);
+
        
     }
 }
