@@ -21,4 +21,28 @@ class InventarioController extends Controller
         return view('inventario.tecnologicos.elementos',compact('elementosTecnologicos'));
 
         }
+
+    public function inventarioFisico(){
+
+        $elementosFisicos = $this->inventarioService->obtenerInventarioFisico();
+
+        return view('inventario.fisicos.elementos',compact('elementosFisicos'));
+
+        }
+
+    public function inventarioMedico(){
+
+        $elementosMedicos = $this->inventarioService->obtenerInventarioMedico();
+
+        return view('inventario.medicos.elementos',compact('elementosMedicos'));
+
+        }
+
+    public function inventarioInsumo(){
+
+        $elementosInsumos = $this->inventarioService->obtenerInventarioInsumo();
+
+        return view('inventario.insumos.elementos',compact('elementosInsumos'));
+
+        }
 }
