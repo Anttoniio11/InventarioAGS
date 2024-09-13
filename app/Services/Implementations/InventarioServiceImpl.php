@@ -12,6 +12,7 @@ class InventarioServiceImpl implements InventarioService {
 
         if(Schema::hasTable('elementos_tecnologicos')){
             $inventarioTecnologicos = DB::table("elementos_tecnologicos as et")
+            ->join('categorias_tecnologicos as ct', 'et.id_categoria', '=', 'et.id_categoria')
             ->select(
                 'et.id',
                 'et.codigo',
@@ -30,7 +31,9 @@ class InventarioServiceImpl implements InventarioService {
                 'et.id_empleado',
                 'et.id_factura',
                 'et.id_categoria',
-                'et.id_estado'
+                'et.id_estado',
+                'et.id_categoria', 
+                'ct.categoria'
             )
             ->get();
         }else{
@@ -43,6 +46,7 @@ class InventarioServiceImpl implements InventarioService {
 
         if(Schema::hasTable('elementos_fisicos')){
             $inventarioFisicos = DB::table("elementos_fisicos as ef")
+            ->join('categorias_fisicos as cf', 'ef.id_categoria', '=', 'ef.id_categoria')
             ->select(
                 'ef.id',
                 'ef.codigo',
@@ -51,6 +55,8 @@ class InventarioServiceImpl implements InventarioService {
                 'ef.ubicacion_interna',
                 'ef.disponibilidad',
                 'ef.codigo_QR',
+                'ef.id_categoria', 
+                'cf.categoria'
             )
             ->get();
         }else{
@@ -63,6 +69,7 @@ class InventarioServiceImpl implements InventarioService {
 
         if(Schema::hasTable('elementos_medicos')){
             $inventarioMedicos = DB::table("elementos_medicos as em")
+            ->join('categorias_medicos as cm', 'em.id_categoria', '=', 'em.id_categoria')
             ->select(
                 'em.id',
                 'em.codigo',
@@ -73,6 +80,8 @@ class InventarioServiceImpl implements InventarioService {
                 'em.ubicacion_interna',
                 'em.disponibilidad',
                 'em.codigo_QR',
+                'em.id_categoria', 
+                'cm.categoria'
             )
             ->get();
         }else{
@@ -85,6 +94,7 @@ class InventarioServiceImpl implements InventarioService {
 
         if(Schema::hasTable('elementos_insumos')){
             $inventarioInsumos = DB::table("elementos_insumos as ei")
+            ->join('categorias_insumos as ci', 'ei.id_categoria', '=', 'ei.id_categoria')
             ->select(
                 'ei.id',
                 'ei.registro_sanitario',
@@ -93,6 +103,8 @@ class InventarioServiceImpl implements InventarioService {
                 'ei.indicaciones',
                 'ei.observacion',
                 'ei.cantidad',
+                'ei.id_categoria', 
+                'ci.categoria'
             )
             ->get();
         }else{
@@ -100,5 +112,72 @@ class InventarioServiceImpl implements InventarioService {
         }
         return $inventarioInsumos;
     }
+
+    public function obtenerCategoriasTecnologico(){
+
+        if(Schema::hasTable('categorias_tecnologicos')){
+            $categoriaTecnologicos = DB::table("categorias_tecnologicos as ct")
+            ->select(
+                'ct.id',
+                'ct.categoria',
+                
+            )
+            ->get();
+        }else{
+            $categoriaTecnologicos = [];
+        }
+        return $categoriaTecnologicos;
+    }
+
+    public function obtenerCategoriasFisico(){
+
+        if(Schema::hasTable('categorias_fisicos')){
+            $categoriaFisicos = DB::table("categorias_fisicos as cf")
+            ->select(
+                'cf.id',
+                'cf.categoria',
+                
+            )
+            ->get();
+        }else{
+            $categoriaFisicos = [];
+        }
+        return $categoriaFisicos;
+    }
+
+    public function obtenerCategoriasMedico(){
+
+        if(Schema::hasTable('categorias_medicos')){
+            $categoriaMedicos = DB::table("categorias_medicos as cm")
+            ->select(
+                'cm.id',
+                'cm.codigo',
+                'cm.categoria',
+                
+            )
+            ->get();
+        }else{
+            $categoriaMedicos = [];
+        }
+        return $categoriaMedicos;
+    }
+
+    public function obtenerCategoriasInsumo(){
+
+        if(Schema::hasTable('categorias_insumos')){
+            $categoriaInsumos = DB::table("categorias_insumos as ci")
+            ->select(
+                'ci.id',
+                'ci.codigo',
+                'ci.categoria',
+                
+            )
+            ->get();
+        }else{
+            $categoriaInsumos = [];
+        }
+        return $categoriaInsumos;
+    }
+
 
 }

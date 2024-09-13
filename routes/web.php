@@ -39,8 +39,6 @@ Route::put('areas/{id}', [AreaController::class, 'update'])->name('areas.update'
 Route::delete('areas/{id}', [AreaController::class, 'destroy'])->name('areas.destroy');
 Route::get('buscar-areas', [AreaController::class, 'buscarAreas'])->name('areas.buscar');
 
-
-
 Route::get('sedes', [SedeController::class, 'index'])->name('sedes.index');
 Route::get('sedes/create', [SedeController::class, 'create'])->name('sedes.create');
 Route::post('sedes', [SedeController::class, 'store'])->name('sedes.store');

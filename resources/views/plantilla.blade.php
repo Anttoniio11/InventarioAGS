@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Inventario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
         /* Estilo del menú lateral */
         #sidebar {
@@ -69,6 +70,7 @@
             }
         }
     </style>
+    
 </head>
 
 <body>
