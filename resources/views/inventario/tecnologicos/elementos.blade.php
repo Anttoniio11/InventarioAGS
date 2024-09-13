@@ -2,7 +2,6 @@
 @section('panelLateral')
 @endsection
 
-
     <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
     <div class="content">
@@ -83,6 +82,7 @@
         </div>
     </div>
 
+
     <div class="modal fade" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -142,4 +142,3 @@
                 });
         }
     </script>
-    
