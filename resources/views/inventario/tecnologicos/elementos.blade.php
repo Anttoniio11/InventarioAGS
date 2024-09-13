@@ -4,7 +4,6 @@
 
  <!-- Contenido principal -->
  <div class="content">
-    <h1>Panel de Inventario</h1>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead class="table-light">
