@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,65 +9,127 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-        /* Estilo del menú lateral */
-        #sidebar {
-            width: 200px;
-            height: 100vh; /* Ocupa todo el alto de la pantalla */
-            position: fixed; /* Fijo al lado izquierdo */
-            top: 56px; /* Justo debajo del navbar */
-            left: 0;
-            background-color: #343a40;
-            color: white;
-            padding-top: 20px;
-            transition: all 0.3s; /* Transición suave para el menú lateral */
+        .wrapper {
+            display: flex;
         }
 
-        /* Estilo del contenido principal */
+        #sidebar {
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #ffffff;
+            color: #343a40;
+            padding-top: 20px;
+            transition: all 0.3s;
+        }
+
+        #sidebar i {
+            margin-right: 1rem
+        }
+
         .content {
-            margin-left: 200px; /* Deja espacio para el menú lateral */
+            margin-left: 200px;
             padding: 20px;
             flex-grow: 1;
             background-color: #f8f9fa;
-            margin-top: 56px; /* Espacio suficiente para el navbar */
-            height: calc(100vh - 56px); /* Ajusta el alto restando el tamaño del navbar */
-            overflow-y: auto; /* Scroll en caso de que haya mucho contenido */
-            transition: margin-left 0.3s; /* Transición suave para el contenido */
+            margin-top: 56px;
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+            transition: margin-left 0.3s;
         }
 
-        /* Estilo del navbar */
         .navbar {
-            height: 56px;
-            z-index: 1000; /* Asegúrate de que el navbar esté siempre encima */
+            background-color: #ffffff;
+            font-weight: 600;
         }
 
-        /* Estilo de los enlaces del menú lateral */
-        .nav-link {
-            color: white;
-            margin-bottom: 10px;
+        .navbar-brand {
+            color: #01A497;
+
         }
 
-        /* Submenú del inventario */
-        .submenu {
-            display: none;
-            padding-left: 20px;
+        .nav-item .nav-link {
+            color: #343a40;
         }
+
+        .nav-item.active>.nav-link {
+            color: #01A497;
+        }
+
+
         .nav-item.active .submenu {
             display: block;
         }
 
-        /* Estilo responsive para pantallas pequeñas */
+        .navbar-brand:hover,
+        .navbar-brand:focus {
+            color: #01A497 !important;
+            text-decoration: none;
+        }
+
+        @media (min-width: 767.98px) {
+            .navbar {
+                height: 56px;
+                z-index: 1000;
+                width: 100%;
+                position: fixed;
+                top: 0;
+                right: 0;
+                left: 200px;
+            }
+        }
+
+        .nav-link {
+            font-weight: 400;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+
+        .submenu {
+            padding-left: 2rem;
+        }
+
+        .submenu li {
+            padding-left: 0;
+        }
+
+        .sub-item {
+            font-weight: 100;
+            font-size: 15px;
+        }
+
+        #sidebar img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .nav-item.active .submenu {
+            display: block;
+        }
+
         @media (max-width: 767.98px) {
             #sidebar {
                 width: 100%;
                 position: static;
-                height: auto; /* Ajusta la altura del menú lateral */
-                top: 0;
+                height: auto;
                 left: 0;
                 padding-top: 0;
-                background-color: #343a40;
+                background-color: #ffffff;
+              
             }
+
             .content {
                 margin-left: 0;
+            }
+
+            .navbar {
+                height: 56px;
+                z-index: 1000;
             }
         }
     </style>
@@ -74,52 +137,66 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-lg   fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Inventario</a>
         </div>
     </nav>
 
-    <!-- Menú lateral fijo -->
-    <div id="sidebar">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Dashboard</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#" id="inventarioToggle">Inventario</a>
-                <ul class="submenu">
-                    <li><a class="nav-link" href="#">Tecnológico</a></li>
-                    <li><a class="nav-link" href="#">Físico</a></li>
-                    <li><a class="nav-link" href="#">Médico</a></li>
-                    <li><a class="nav-link" href="#">Insumos</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Usuarios</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Asignaciones</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Bajas</a>
-            </li>
-        </ul>
-        
-        <!-- Menú de usuario -->
-        <div class="user-menu mt-auto">
-            <a class="nav-link" href="#" id="userMenuToggle">Usuario</a>
+    <div class="wrapper">
+        <div id="sidebar">
+
+
+            <ul class="nav flex-column">
+
+                <img src="{{ asset('img/agsLogo.png') }}" alt="agsLogo">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" id="inventarioToggle"><i
+                            class="fa-solid fa-boxes-stacked"></i>Inventario</a>
+                    <ul class="submenu">
+                        <li><a class="nav-link sub-item" href="#">Tecnológico</a></li>
+                        <li><a class="nav-link sub-item" href="#">Físico</a></li>
+                        <li><a class="nav-link sub-item" href="#">Médico</a></li>
+                        <li><a class="nav-link sub-item" href="#">Insumos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-users"></i>Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-user-check"></i>Asignaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-arrow-trend-down"></i>Bajas</a>
+                </li>
+            </ul>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <script src="https://kit.fontawesome.com/bfdeae7cfe.js" crossorigin="anonymous"></script>
     <script>
-        // Toggle del submenú de inventario
-        document.getElementById('inventarioToggle').addEventListener('click', function(e) {
-            e.preventDefault();
-            this.parentElement.classList.toggle('active');
+        const navLinks = document.querySelectorAll('.nav-item');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        const subItem = document.querySelectorAll('.sub-item');
+
+        subItem.forEach(link => {
+            link.addEventListener('click', function() {
+                subItem.forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+            });
         });
     </script>
 </body>
+
 </html>
