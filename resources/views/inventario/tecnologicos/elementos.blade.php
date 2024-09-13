@@ -2,7 +2,6 @@
 @section('panelLateral')
 @endsection
 
-<<<<<<< HEAD
     <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
     <div class="content">
@@ -21,7 +20,9 @@
 
             <!-- Pestaña de Elementos -->
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
-                <h1>Elementos Tecnologicos</h1>
+                
+                {{-- crear elemento --}}
+
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -58,7 +59,9 @@
 
             <!-- Pestaña de Categorías -->
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
-                <h1>Categorias Tecnologicas</h1>
+                
+                {{-- crear categoria --}}
+
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -82,41 +85,3 @@
             </div>
         </div>
     </div>
-=======
- <!-- Contenido principal -->
- <div class="content">
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead class="table-light">
-                <tr>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Tamaño</th>
-                    <th scope="col">Ubicación</th>
-                    <th scope="col">Última Actividad</th>
-                    <th scope="col">Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="avatar1.jpg" class="rounded-circle" alt="Avatar" width="30"> Luis Fuller</td>
-                    <td>gutman.meri@gmail.com</td>
-                    <td>22GB</td>
-                    <td>Dekksmoth</td>
-                    <td>10 Oct 2017</td>
-                    <td><i class="bi bi-star-fill text-warning"></i></td>
-                </tr>
-                <tr>
-                    <td><img src="avatar2.jpg" class="rounded-circle" alt="Avatar" width="30"> Polly Salazar</td>
-                    <td>richards.hornny@icloud.com</td>
-                    <td>25GB</td>
-                    <td>Heathcote</td>
-                    <td>15 Oct 2017</td>
-                    <td><i class="bi bi-star-fill text-warning"></i></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-       
->>>>>>> 06da2c137de5e1e0c8b23126b06475822cc5d9a4

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inventario</title>
+    <title>Inventario AGS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
@@ -158,10 +158,10 @@
                     <a class="nav-link" href="#" id="inventarioToggle"><i
                             class="fa-solid fa-boxes-stacked"></i>Inventario</a>
                     <ul class="submenu">
-                        <li><a class="nav-link sub-item" href="#">Tecnológico</a></li>
-                        <li><a class="nav-link sub-item" href="#">Físico</a></li>
-                        <li><a class="nav-link sub-item" href="#">Médico</a></li>
-                        <li><a class="nav-link sub-item" href="#">Insumos</a></li>
+                        <li><a class="nav-link sub-item" href="{{ route('inventarioTecnologico.index') }}">Tecnológico</a></li>
+                        <li><a class="nav-link sub-item" href="{{ route('inventarioFisico.index') }}">Físico</a></li>
+                        <li><a class="nav-link sub-item" href="{{ route('inventarioMedico.index') }}">Médico</a></li>
+                        <li><a class="nav-link sub-item" href="{{ route('inventarioInsumo.index') }}">Insumos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

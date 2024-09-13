@@ -179,5 +179,67 @@ class InventarioServiceImpl implements InventarioService {
         return $categoriaInsumos;
     }
 
+    public function crearElementoMedico(array $data)
+    {
+        $contratoExistente = DB::table('contratos_convenios_salud')
+            ->where('numero_contrato', $data['numero_contrato'])
+            ->exists();
+
+        if ($contratoExistente) {
+            return response()->json(['mensaje' => 'El número de contrato ya existe. Por favor, elija otro número.'], 422);
+        }
+
+        $datos = [
+            'modalidad_pago' => $data['modalidad_pago'],
+            'numero_contrato' => $data['numero_contrato'],
+            'tipo_contrato' => $data['tipo_contrato'],
+            'tipo_contratacion' => $data['tipo_contratacion'],
+            'fecha_inicio' => $data['fecha_inicio'],
+            'fecha_fin' => $data['fecha_fin'],
+            'prorrogas' => $data['prorroga'],
+            'recaudo' => $data['recaudo'],
+            'estado_contrato' => $data['estado_contrato'],
+            'entidad_salud' => $data['entidadSalud'],
+            'id_sede' => $data['id_sede'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        $resultado = DB::table('contratos_convenios_salud')->insertGetId($datos);
+
+        return $resultado;
+    }
+
+    public function crearElementoInsumo(array $data)
+    {
+        $contratoExistente = DB::table('contratos_convenios_salud')
+            ->where('numero_contrato', $data['numero_contrato'])
+            ->exists();
+
+        if ($contratoExistente) {
+            return response()->json(['mensaje' => 'El número de contrato ya existe. Por favor, elija otro número.'], 422);
+        }
+
+        $datos = [
+            'modalidad_pago' => $data['modalidad_pago'],
+            'numero_contrato' => $data['numero_contrato'],
+            'tipo_contrato' => $data['tipo_contrato'],
+            'tipo_contratacion' => $data['tipo_contratacion'],
+            'fecha_inicio' => $data['fecha_inicio'],
+            'fecha_fin' => $data['fecha_fin'],
+            'prorrogas' => $data['prorroga'],
+            'recaudo' => $data['recaudo'],
+            'estado_contrato' => $data['estado_contrato'],
+            'entidad_salud' => $data['entidadSalud'],
+            'id_sede' => $data['id_sede'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        $resultado = DB::table('contratos_convenios_salud')->insertGetId($datos);
+
+        return $resultado;
+    }
+    
 
 }

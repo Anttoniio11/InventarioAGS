@@ -12,5 +12,7 @@ interface InventarioService{
     public function obtenerCategoriasFisico();
     public function obtenerCategoriasMedico();
     public function obtenerCategoriasInsumo();
+    // public function crearElementoMedico();
+    // public function crearElementoInsumo();
     
 }

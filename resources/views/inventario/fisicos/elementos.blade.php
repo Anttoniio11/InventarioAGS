@@ -20,7 +20,9 @@
 
             <!-- Pestaña de Elementos -->
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
-                <h1>Elementos Tecnologicos</h1>
+               
+
+
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -57,7 +59,9 @@
 
             <!-- Pestaña de Categorías -->
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
-                <h1>Categorias Tecnologicas</h1>
+                
+
+                
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
