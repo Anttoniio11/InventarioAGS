@@ -42,6 +42,14 @@ class InventarioServiceImpl implements InventarioService {
         return $inventarioTecnologicos;
     }
 
+    public function crearElementoTecnologico(){
+
+        if(Schema::hasTable('elementos_tecnologicos')){
+            
+        }
+
+    }
+
     public function obtenerInventarioFisico(){
 
         if(Schema::hasTable('elementos_fisicos')){

@@ -71,6 +71,8 @@ Route::delete('categorias-tecnologicos/{id}', [CategoriaTecnologicoController::c
 // Buscar categorías tecnológicas
 Route::get('buscar-categorias-tecnologicos', [CategoriaTecnologicoController::class, 'buscarCategorias'])->name('categorias-tecnologicos.buscar');
 
+Route::get('/fields/{table}', [InventarioController::class, 'getFields']);
+
 
 Route::get('categorias-fisicos', [CategoriaFisicoController::class, 'index'])->name('categorias-fisicos.index');
 Route::get('categorias-fisicos/create', [CategoriaFisicoController::class, 'create'])->name('categorias-fisicos.create');
