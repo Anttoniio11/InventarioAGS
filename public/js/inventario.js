@@ -1,78 +1,47 @@
 
-$('#btnGuardarContrato').on('click', function () {
+
+$('#btnGuardarElemento').on('click', function () {
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-    campoVacio = validarCampos();
-    if (campoVacio) {
-        alertSwitch("error", "Debes llenar el campo: " + campoVacio);
-        return;
-    }
 
     const data = {
-        'entidadSalud': $('#entidadSalud').val(),
-        'nit_contratante': $('#nit_contratante').val(),
-        'razon_social_contratante': $('#razon_social_contratante').val(),
-        'codigo_habilitacion_sede': $('#codigo_habilitacion_sede').val(),
-        'nit_contratista': $('#nit_contratista').val(),
-        'razon_social_contratista': $('#razon_social_contratista').val(),
-        'modalidad_pago': $('#modalidad_pago').val(),
-        'numero_contrato': $('#numero_contrato').val(),
-        'tipo_contrato': $('#tipo_contrato').val(),
-        'tipo_contratacion': $('#tipo_contratacion').val(),
-        'fecha_inicio': $('#fecha_inicio').val(),
-        'fecha_fin': $('#fecha_fin').val(),
-        'prorroga': $('#prorroga').val(),
-        'estado_contrato': $('#estado_contrato').val(),
+        'codigo': $('#codigo').val(),
+        'marca': $('#marca').val(),
+        'referencia': $('#referencia').val(),
+        'serial': $('#serial').val(),
+        'ubicacion': $('#ubicacion').val(),
+        'disponibilidad': $('#disponibilidad').val(),
+        'codigo_QR': $('#codigo_QR').val(),
+        'procesador': $('#procesador').val(),
+        'ram': $('#ram').val(),
+        'tipo_almacenamiento': $('#tipo_almacenamiento').val(),
+        'almacenamiento': $('#almacenamiento').val(),
+        'tarjeta_grafica': $('#tarjeta_grafica').val(),
+        'garantia': $('#garantia').val(),
+        'id_empleado': $('#id_empleado').val(),
+        'id_area': $('#id_area').val(),
+        'id_sede': $('#id_sede').val(),
+        'id_factura': $('#id_factura').val(),
+        'id_categoria': $('#id_categoria').val(),
+        'id_estado': $('#id_estado').val(),
     };
+
+    console.log(data);
 
     const datos = JSON.stringify(data);
 
     $.ajax({
         type: 'POST',
-        url: urlBase + '/guardarContratos',
+        url: urlBase + '/guardarElementoTecnologico',
         data: {
             datos: datos,
             _token: csrfToken,
         },
         success: function (response) {
 
-            $('#idConvenioContrato').val(response);
-            alertSwitch('success', 'Contrato Creado con Éxito');
+            alertSwitch('success', 'Elemento guardado exitosamente.');
 
-            if ($('#modalidad_pago').val() == 'Pago Global prospectivo') {
-                var idContrato = response;
-                $.ajax({
-                    type: 'GET',
-                    url: urlBase + '/getValorMesContrato',
-                    data: {
-                        idContrato: idContrato
-                    },
-                    success: function (cantidadRegistros) {
-                        if (cantidadRegistros == 0) {
-                            setTimeout(function () {
-                                Swal.fire({
-                                    title: 'Debes asignar un valor por mes al contrato',
-                                    icon: 'warning',
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Asignar valor por mes',
-                                    allowOutsideClick: false
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        manejarClickVerValorMes();
-                                        $('#verValorMesC').modal('show');
-                                    }
-                                });
-                            }, 800);
-                        }
-
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            }
-
+            $('#dynamicForm')[0].reset();
         },
         error: function (xhr, status, error) {
             if (xhr.status === 422) {
@@ -81,3 +50,41 @@ $('#btnGuardarContrato').on('click', function () {
         }
     });
 });
+
+
+function loadForm(tableName) {
+    fetch(`/fields/${tableName}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                return;
+            }
+
+            const formHtml = data.map(field => `
+                <div class="mb-3">
+                    <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
+                    <input type="text" class="form-control" name="${field}" id="${field}">
+                </div>
+            `).join('');
+
+            document.getElementById('dynamicForm').innerHTML = formHtml;
+
+            document.getElementById('btnGuardarElemento').onclick = function() {
+                document.getElementById('dynamicForm').action = `/save-${tableName}`;
+                document.getElementById('dynamicForm').submit();
+            };
+
+            var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
+            myModal.show();
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            alert('Ocurrió un error al cargar los campos. Por favor, inténtelo de nuevo.');
+        });
+}

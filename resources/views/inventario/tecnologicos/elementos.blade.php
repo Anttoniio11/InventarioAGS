@@ -1,4 +1,6 @@
 @extends('plantilla')
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @section('panelLateral')
 @endsection
 
@@ -94,50 +96,18 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" id="submitForm">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="btnGuardarElemento">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
 
-
     <script>
-        function loadForm(tableName) {
-            fetch(`/fields/${tableName}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        console.error(data.error);
-                        return;
-                    }
-    
-                    const formHtml = data.map(field => `
-                        <div class="mb-3">
-                            <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                            <input type="text" class="form-control" name="${field}" id="${field}">
-                        </div>
-                    `).join('');
-    
-                    document.getElementById('dynamicForm').innerHTML = formHtml;
-    
-                    document.getElementById('submitForm').onclick = function() {
-                        document.getElementById('dynamicForm').action = `/save-${tableName}`;
-                        document.getElementById('dynamicForm').submit();
-                    };
-    
-                    var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
-                    myModal.show();
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                    alert('Ocurrió un error al cargar los campos. Por favor, inténtelo de nuevo.');
-                });
-        }
+        var urlBase = {!! json_encode(url('/')) !!}
     </script>
 
-    necesito que me aumentes el width del modal y que aparezcan en dos columnas los label y los input, no solo en una
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+    <script src="{{ asset('js/inventario.js') }}"></script>
+    

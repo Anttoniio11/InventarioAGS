@@ -59,8 +59,9 @@ class InventarioController extends Controller
     }
 
 
-    public function guardarContratos(Request $request) {
+    public function guardarElementoTecnologico(Request $request) {
 
+        dd('hola');
         $elementos = json_decode($request->input('datos'), true);
 
         $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($elementos);
