@@ -59,6 +59,16 @@ class InventarioController extends Controller
     }
 
 
+    public function guardarContratos(Request $request) {
+
+        $elementos = json_decode($request->input('datos'), true);
+
+        $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($elementos);
+
+        return $resultado;
+    }
+
+
         public function getFields($table)
         {
             try {
