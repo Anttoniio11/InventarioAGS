@@ -48,4 +48,26 @@ class InventarioInsumoServiceImpl implements InventarioInsumoService {
         return $categoriaInsumos;
     }
 
+    public function crearElementoInsumo(array $data)
+    {
+
+        $datos = [
+            'registro_sanitario' => $data['registro_sanitario'],
+            'marca' => $data['marca'],
+            'fecha_vencimiento' => $data['fecha_vencimiento'],
+            'indicaciones' => $data['indicaciones'],
+            'observacion' => $data['observacion'],
+            'cantidad' => $data['cantidad'],
+            'id_empleado' => $data['id_empleado'],
+            'id_area' => $data['id_area'],
+            'id_sede' => $data['id_sede'],
+            'id_factura' => $data['id_factura'],
+            'id_categoria' => $data['id_categoria'],
+            'created_at' => now(),
+        ];
+
+        $resultado = DB::table('elementos_insumos')->insertGetId($datos);
+        return $resultado;
+    }
+
 }

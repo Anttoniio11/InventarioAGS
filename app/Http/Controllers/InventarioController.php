@@ -59,15 +59,34 @@ class InventarioController extends Controller
     }
 
 
-    public function guardarElementoTecnologico(Request $request) {
+    public function guardarElementoFisico(Request $request)
+    {
+        try {
+            $elementos = $request->validate([
+                'codigo' => 'required|string',
+                'marca' => 'required|string',
+                'modelo' => 'required|string',
+                'ubicacion_interna' => 'required|string',
+                'disponibilidad' => 'required|string',
+                'codigo_QR' => 'required|string',
+                'id_empleado' => 'required|integer',
+                'id_area' => 'required|integer',
+                'id_sede' => 'required|integer',
+                'id_factura' => 'required|integer',
+                'id_categoria' => 'required|integer',
+                'id_estado' => 'required|integer',
+            ]);
 
-        dd('hola');
-        $elementos = json_decode($request->input('datos'), true);
+            $resultado = $this->inventarioFisicoService->crearElementoFisico($elementos);
 
-        $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($elementos);
-
-        return $resultado;
+            return response()->json($resultado);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['mensaje' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
+        }
     }
+    
 
 
         public function getFields($table)

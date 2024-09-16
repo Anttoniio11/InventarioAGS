@@ -1,53 +1,40 @@
 
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submitForm').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
 
-$('#btnGuardarElemento').on('click', function () {
-    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        let formData = new FormData(document.getElementById('dynamicForm'));
 
-
-    const data = {
-        'codigo': $('#codigo').val(),
-        'marca': $('#marca').val(),
-        'referencia': $('#referencia').val(),
-        'serial': $('#serial').val(),
-        'ubicacion': $('#ubicacion').val(),
-        'disponibilidad': $('#disponibilidad').val(),
-        'codigo_QR': $('#codigo_QR').val(),
-        'procesador': $('#procesador').val(),
-        'ram': $('#ram').val(),
-        'tipo_almacenamiento': $('#tipo_almacenamiento').val(),
-        'almacenamiento': $('#almacenamiento').val(),
-        'tarjeta_grafica': $('#tarjeta_grafica').val(),
-        'garantia': $('#garantia').val(),
-        'id_empleado': $('#id_empleado').val(),
-        'id_area': $('#id_area').val(),
-        'id_sede': $('#id_sede').val(),
-        'id_factura': $('#id_factura').val(),
-        'id_categoria': $('#id_categoria').val(),
-        'id_estado': $('#id_estado').val(),
-    };
-
-    console.log(data);
-
-    const datos = JSON.stringify(data);
-
-    $.ajax({
-        type: 'POST',
-        url: urlBase + '/guardarElementoTecnologico',
-        data: {
-            datos: datos,
-            _token: csrfToken,
-        },
-        success: function (response) {
-
-            alertSwitch('success', 'Elemento guardado exitosamente.');
-
-            $('#dynamicForm')[0].reset();
-        },
-        error: function (xhr, status, error) {
-            if (xhr.status === 422) {
-                alertSwitch('error', xhr.responseJSON.mensaje);
+        fetch('/guardar-elemento-fisico', {
+            method: 'POST', // Asegúrate de usar POST
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(error => {
+                    throw new Error(error.message || 'Server error');
+                });
             }
-        }
+            return response.json();
+        })
+        .then(data => {
+            if (data.mensaje) {
+                alert(data.mensaje);
+            } else {
+                alert('Elemento creado exitosamente');
+                var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
+                myModal.hide();
+                window.location.reload(); // Recargar la página
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al guardar el elemento.');
+        });
     });
 });
 

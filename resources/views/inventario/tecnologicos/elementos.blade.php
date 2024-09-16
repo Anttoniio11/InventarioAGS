@@ -23,6 +23,7 @@
                 <div class="table-responsive">
 
                     <button onclick="loadForm('elementos_tecnologicos')">Crear Elemento Tecnológico</button>
+
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
@@ -58,6 +59,9 @@
 
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
                 <div class="table-responsive">
+
+                    <button onclick="loadForm('categorias_tecnologicos')">Crear Categoria Tecnológico</button>
+
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>

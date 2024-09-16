@@ -58,7 +58,6 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
         return $categoriaTecnologicos;
     }
 
-
     public function crearElementoTecnologico(array $data)
     {
         $elementoExistente = DB::table('elementos_tecnologicos')
