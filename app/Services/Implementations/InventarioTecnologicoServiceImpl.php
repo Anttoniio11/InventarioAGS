@@ -42,14 +42,6 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
         return $inventarioTecnologicos;
     }
 
-    public function crearElementoTecnologico(){
-
-        if(Schema::hasTable('elementos_tecnologicos')){
-            
-        }
-
-    }
-
     public function obtenerCategoriasTecnologico(){
 
         if(Schema::hasTable('categorias_tecnologicos')){
@@ -64,6 +56,40 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
             $categoriaTecnologicos = [];
         }
         return $categoriaTecnologicos;
+    }
+
+
+    public function crearElementoTecnologico(array $data)
+    {
+        $elementoExistente = DB::table('contratos_convenios_salud')
+            ->where('numero_contrato', $data['numero_contrato'])
+            ->exists();
+
+        if ($elementoExistente) {
+            return response()->json(['mensaje' => 'El número de contrato ya existe. Por favor, elija otro número.'], 422);
+        }
+
+        $datos = [
+            'nit_contratante' => $data['nit_contratante'],
+            'nit_contratista' => $data['nit_contratista'],
+            'razon_social_contratante' => $data['razon_social_contratante'],
+            'razon_social_contratista' => $data['razon_social_contratista'],
+            'codigo_habilitacion_sedes_contratista' => $data['codigo_habilitacion_sede'],
+            'modalidad_pago' => $data['modalidad_pago'],
+            'numero_contrato' => $data['numero_contrato'],
+            'tipo_contrato' => $data['tipo_contrato'],
+            'tipo_contratacion' => $data['tipo_contratacion'],
+            'fecha_inicio' => $data['fecha_inicio'],
+            'fecha_fin' => $data['fecha_fin'],
+            'prorrogas' => $data['prorroga'],
+            'estado_contrato' => $data['estado_contrato'],
+            'entidad_salud' => $data['entidadSalud'],
+            'created_at' => now(),
+        ];
+
+        $resultado = DB::table('contratos_convenios_salud')->insertGetId($datos);
+
+        return $resultado;
     }
 
 
