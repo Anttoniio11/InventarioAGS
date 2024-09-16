@@ -58,7 +58,7 @@
             <!-- Pestaña de Categorías -->
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
             
-                
+                <button onclick="loadForm('categorias_medicos')">Crear Categoria Tecnológico</button>
 
                 <div class="table-responsive">
                     <table class="table table-hover">
