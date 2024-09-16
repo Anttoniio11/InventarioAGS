@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('elementos_fisicos', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo');
+            $table->string('codigo')->unique();
             $table->string('marca');
             $table->string('modelo');
             $table->string('ubicacion_interna');
