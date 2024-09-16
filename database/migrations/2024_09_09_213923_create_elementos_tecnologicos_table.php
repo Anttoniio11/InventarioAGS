@@ -28,6 +28,10 @@ return new class extends Migration
             $table->string('garantia')->nullable();
             $table->unsignedBigInteger('id_empleado')->nullable();
             $table->foreign('id_empleado')->references('id')->on('empleados')->nullable();
+            $table->unsignedBigInteger('id_area')->nullable();
+            $table->foreign('id_area')->references('id')->on('areas')->nullable();
+            $table->unsignedBigInteger('id_sede')->nullable();
+            $table->foreign('id_sede')->references('id')->on('sedes')->nullable();
             $table->unsignedBigInteger('id_factura');
             $table->foreign('id_factura')->references('id')->on('facturas');
             $table->unsignedBigInteger('id_categoria');

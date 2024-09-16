@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('elementos_medicos', function (Blueprint $table) {
             $table->id();
-
             $table->string('codigo');
             $table->string('marca');
             $table->string('modelo');
@@ -28,6 +27,12 @@ return new class extends Migration
             $table->foreign('id_categoria')->references('id')->on('categorias_medicos');
             $table->unsignedBigInteger('id_factura');
             $table->foreign('id_factura')->references('id')->on('facturas');
+            $table->unsignedBigInteger('id_empleado')->nullable();
+            $table->foreign('id_empleado')->references('id')->on('empleados')->nullable();
+            $table->unsignedBigInteger('id_area')->nullable();
+            $table->foreign('id_area')->references('id')->on('areas')->nullable();
+            $table->unsignedBigInteger('id_sede')->nullable();
+            $table->foreign('id_sede')->references('id')->on('sedes')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('codigo')->unique();
             $table->string('categoria');    
+            $table->text('descripcion');
             $table->timestamps();
         });
     }

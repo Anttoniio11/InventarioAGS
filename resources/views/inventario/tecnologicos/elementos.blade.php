@@ -6,8 +6,6 @@
 
     <div class="content">
 
-        
-        <!-- Pestañas Elementos y Categorias-->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="elementos-tab" data-bs-toggle="tab" href="#elementos" role="tab" aria-controls="elementos" aria-selected="true">Elementos</a>
@@ -47,7 +45,7 @@
                                 <td>{{$elementosTecnologico->referencia}}</td>
                                 <td>{{$elementosTecnologico->serial}}</td>
                                 <td>{{$elementosTecnologico->ubicacion}}</td>
-                                <td>   </td>
+                                <td></td>
                             </tr>
                             @endforeach
 
@@ -56,7 +54,6 @@
                 </div>
             </div>
 
-            <!-- Pestaña de Categorías -->
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -84,7 +81,7 @@
 
 
     <div class="modal fade" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="dynamicFormModalLabel">Formulario Dinámico</h5>
@@ -92,7 +89,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="dynamicForm">
-                        <!-- Los campos del formulario se generarán aquí -->
+           
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -142,3 +139,5 @@
                 });
         }
     </script>
+
+    necesito que me aumentes el width del modal y que aparezcan en dos columnas los label y los input, no solo en una

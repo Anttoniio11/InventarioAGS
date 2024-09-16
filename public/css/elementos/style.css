@@ -1,0 +1,14 @@
+.modal-dialog {
+    width: 20rem; /* Cambia este valor según sea necesario */
+}
+
+/* Estilo para hacer dos columnas en el formulario */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre columnas */
+}
+
+.form-row .col-md-6 {
+    flex: 0 0 48%; /* Cada columna ocupará el 48% del ancho */
+}
