@@ -31,7 +31,7 @@ Route::get('inventario/insumos',[InventarioController::class,'inventarioInsumo']
 
 
 Route::get('areas', [AreaController::class, 'index'])->name('areas.index');
-Route::get('areas/create', [AreaController::class, 'create'])->name('areas.create');
+Route::get('areas/create/tecnlogia', [AreaController::class, 'create'])->name('areas.create');
 Route::post('areas', [AreaController::class, 'store'])->name('areas.store');
 Route::get('areas/{id}', [AreaController::class, 'show'])->name('areas.show');
 Route::get('areas/{id}/edit', [AreaController::class, 'edit'])->name('areas.edit');
