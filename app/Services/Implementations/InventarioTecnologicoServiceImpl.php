@@ -61,38 +61,37 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
 
     public function crearElementoTecnologico(array $data)
     {
-        $elementoExistente = DB::table('contratos_convenios_salud')
-            ->where('numero_contrato', $data['numero_contrato'])
+        $elementoExistente = DB::table('elementos_tecnologicos')
+            ->where('codigo', $data['codigo'])
             ->exists();
 
         if ($elementoExistente) {
-            return response()->json(['mensaje' => 'El número de contrato ya existe. Por favor, elija otro número.'], 422);
+            return response()->json(['mensaje' => 'El código del elemento ya existe. Por favor, elija otro código.'], 422);
         }
 
         $datos = [
-            'nit_contratante' => $data['nit_contratante'],
-            'nit_contratista' => $data['nit_contratista'],
-            'razon_social_contratante' => $data['razon_social_contratante'],
-            'razon_social_contratista' => $data['razon_social_contratista'],
-            'codigo_habilitacion_sedes_contratista' => $data['codigo_habilitacion_sede'],
-            'modalidad_pago' => $data['modalidad_pago'],
-            'numero_contrato' => $data['numero_contrato'],
-            'tipo_contrato' => $data['tipo_contrato'],
-            'tipo_contratacion' => $data['tipo_contratacion'],
-            'fecha_inicio' => $data['fecha_inicio'],
-            'fecha_fin' => $data['fecha_fin'],
-            'prorrogas' => $data['prorroga'],
-            'estado_contrato' => $data['estado_contrato'],
-            'entidad_salud' => $data['entidadSalud'],
+            'codigo' => $data['codigo'],
+            'marca' => $data['marca'],
+            'referencia' => $data['referencia'],
+            'serial' => $data['serial'],
+            'ubicacion' => $data['ubicacion'],
+            'disponibilidad' => $data['disponibilidad'],
+            'codigo_QR' => $data['codigo_QR'],
+            'procesador' => $data['procesador'],
+            'ram' => $data['ram'],
+            'tipo_almacenamiento' => $data['tipo_almacenamiento'],
+            'almacenamiento' => $data['almacenamiento'],
+            'tarjeta_grafica' => $data['tarjeta_grafica'],
+            'garantia' => $data['garantia'],
+            'id_empleado' => $data['id_empleado'],
+            'id_area' => $data['id_area'],
+            'id_sede' => $data['id_sede'],
+            'id_factura' => $data['id_factura'],
+            'id_categoria' => $data['id_categoria'],
+            'id_estado' => $data['id_estado'],
             'created_at' => now(),
         ];
-
-        $resultado = DB::table('contratos_convenios_salud')->insertGetId($datos);
-
+        $resultado = DB::table('elementos_tecnologicos')->insertGetId($datos);
         return $resultado;
     }
-
-
-    
-
 }
