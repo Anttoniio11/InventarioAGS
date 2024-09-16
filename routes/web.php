@@ -29,6 +29,31 @@ Route::get('inventario/fisicos',[InventarioController::class,'inventarioFisico']
 Route::get('inventario/medicos',[InventarioController::class,'inventarioMedico'])->name('inventarioMedico.index');
 Route::get('inventario/insumos',[InventarioController::class,'inventarioInsumo'])->name('inventarioInsumo.index');
 
+Route::post('/guardar-elemento-fisico', [InventarioController::class, 'guardarElementoFisico'])->name('guardar.elemento.fisico');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('areas', [AreaController::class, 'index'])->name('areas.index');
 Route::get('areas/create/tecnlogia', [AreaController::class, 'create'])->name('areas.create');

@@ -2,6 +2,8 @@
 @section('panelLateral')
 @endsection
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{ asset('js/inventario.js') }}"></script>
     <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
     <div class="content">
@@ -21,6 +23,7 @@
             <!-- Pestaña de Elementos -->
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
                
+                {{-- boton crear elemento: --}}
                 <button onclick="loadForm('elementos_fisicos')">Crear Elemento Fisico</button>
 
                 <div class="table-responsive">

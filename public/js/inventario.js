@@ -1,83 +1,43 @@
+// -----------------------------------------------------------------------------
+// Elemento Fisico
+// -----------------------------------------------------------------------------
 
-$('#btnGuardarContrato').on('click', function () {
-    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submitForm').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
 
-    campoVacio = validarCampos();
-    if (campoVacio) {
-        alertSwitch("error", "Debes llenar el campo: " + campoVacio);
-        return;
-    }
+        let formData = new FormData(document.getElementById('dynamicForm'));
 
-    const data = {
-        'entidadSalud': $('#entidadSalud').val(),
-        'nit_contratante': $('#nit_contratante').val(),
-        'razon_social_contratante': $('#razon_social_contratante').val(),
-        'codigo_habilitacion_sede': $('#codigo_habilitacion_sede').val(),
-        'nit_contratista': $('#nit_contratista').val(),
-        'razon_social_contratista': $('#razon_social_contratista').val(),
-        'modalidad_pago': $('#modalidad_pago').val(),
-        'numero_contrato': $('#numero_contrato').val(),
-        'tipo_contrato': $('#tipo_contrato').val(),
-        'tipo_contratacion': $('#tipo_contratacion').val(),
-        'fecha_inicio': $('#fecha_inicio').val(),
-        'fecha_fin': $('#fecha_fin').val(),
-        'prorroga': $('#prorroga').val(),
-        'estado_contrato': $('#estado_contrato').val(),
-    };
-
-    const datos = JSON.stringify(data);
-
-    $.ajax({
-        type: 'POST',
-        url: urlBase + '/guardarContratos',
-        data: {
-            datos: datos,
-            _token: csrfToken,
-        },
-        success: function (response) {
-
-            $('#idConvenioContrato').val(response);
-            alertSwitch('success', 'Contrato Creado con Éxito');
-
-            if ($('#modalidad_pago').val() == 'Pago Global prospectivo') {
-                var idContrato = response;
-                $.ajax({
-                    type: 'GET',
-                    url: urlBase + '/getValorMesContrato',
-                    data: {
-                        idContrato: idContrato
-                    },
-                    success: function (cantidadRegistros) {
-                        if (cantidadRegistros == 0) {
-                            setTimeout(function () {
-                                Swal.fire({
-                                    title: 'Debes asignar un valor por mes al contrato',
-                                    icon: 'warning',
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Asignar valor por mes',
-                                    allowOutsideClick: false
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        manejarClickVerValorMes();
-                                        $('#verValorMesC').modal('show');
-                                    }
-                                });
-                            }, 800);
-                        }
-
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                    }
+        fetch('/guardar-elemento-fisico', {
+            method: 'POST', // Asegúrate de usar POST
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(error => {
+                    throw new Error(error.message || 'Server error');
                 });
             }
-
-        },
-        error: function (xhr, status, error) {
-            if (xhr.status === 422) {
-                alertSwitch('error', xhr.responseJSON.mensaje);
+            return response.json();
+        })
+        .then(data => {
+            if (data.mensaje) {
+                alert(data.mensaje);
+            } else {
+                alert('Elemento creado exitosamente');
+                var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
+                myModal.hide();
+                window.location.reload(); // Recargar la página
             }
-        }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al guardar el elemento.');
+        });
     });
 });
+

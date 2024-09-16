@@ -47,4 +47,39 @@ class InventarioFisicoServiceImpl implements InventarioFisicoService {
         return $categoriaFisicos;
     }
 
+    public function crearElementoFisico(array $data)
+    {
+        try {
+            $elementoExistente = DB::table('elementos_fisicos')
+                ->where('codigo', $data['codigo'])
+                ->exists();
+
+            if ($elementoExistente) {
+                return response()->json(['mensaje' => 'El código del elemento ya existe. Por favor, elija otro código.'], 422);
+            }
+
+            $datos = [
+                'codigo' => $data['codigo'],
+                'marca' => $data['marca'],
+                'modelo' => $data['modelo'],
+                'ubicacion_interna' => $data['ubicacion_interna'],
+                'disponibilidad' => $data['disponibilidad'],
+                'codigo_QR' => $data['codigo_QR'],
+                'id_empleado' => $data['id_empleado'],
+                'id_area' => $data['id_area'],
+                'id_sede' => $data['id_sede'],
+                'id_factura' => $data['id_factura'],
+                'id_categoria' => $data['id_categoria'],
+                'id_estado' => $data['id_estado'],
+                'created_at' => now(),
+            ];
+
+            $resultado = DB::table('elementos_fisicos')->insertGetId($datos);
+            return ['id' => $resultado];
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
+        }
+    }
+
+
 }
