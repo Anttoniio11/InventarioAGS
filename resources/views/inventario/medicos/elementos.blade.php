@@ -1,9 +1,9 @@
 @extends('plantilla')
 @section('panelLateral')
 @endsection
-
+ 
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="{{ asset('js/inventario.js') }}"></script>
+<script src="{{ asset('js/inventarioMedico.js') }}"></script>
 <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
     <div class="content">
@@ -22,11 +22,10 @@
 
             <!-- Pestaña de Elementos -->
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
+                <div class="table-responsive">
 
                 <button onclick="loadFormMedico('elementos_medicos')">Crear Elemento Medico</button>
-                {{-- <button type="button" class="btn btn-primary" onclick="loadFormMedico()">Crear Elemento Médico</button> --}}
                 
-                <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
@@ -51,7 +50,14 @@
                                 <td>{{$elementosMedico->modelo}}</td>
                                 <td>{{$elementosMedico->registro_sanitario}}</td>
                                 <td>{{$elementosMedico->ubicacion_interna}}</td>
-                                <td>   </td>
+                                <td>
+                                    <button onclick="viewElement({{ $elementosMedico->id }})" class="btn btn-link">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button onclick="editElement({{ $elementosMedico->id }})" class="btn btn-link">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
                             </tr>
                             @endforeach
 
@@ -83,7 +89,14 @@
                                 <td>{{$categoriaMedico->codigo}}</td>
                                 <td>{{$categoriaMedico->categoria}}</td>
                                 <td>{{$categoriaMedico->descripcion}}</td>
-                                <td>   </td>
+                                <td>
+                                    <button onclick="verCategoria({{ $categoriaMedico->id }})" class="btn btn-link">
+                                    <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button onclick="editarCategoria({{ $categoriaMedico->id }})" class="btn btn-link">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -92,6 +105,8 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal para ver Elemento Medico --}}
 
     <div class="modal fade" id="dynamicFormModalMedico" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -112,37 +127,3 @@
             </div>
         </div>
     </div>
-    
-    <script>
-       function loadFormMedico() {
-    fetch('/fields/elementos_medicos') // Ruta para obtener los campos dinámicos
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.error) {
-                console.error(data.error);
-                return;
-            }
-
-            const formHtml = data.map(field => `
-                <div class="mb-3">
-                    <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                    <input type="text" class="form-control" name="${field}" id="${field}">
-                </div>
-            `).join('');
-
-            document.getElementById('dynamicFormMedico').innerHTML = formHtml;
-
-            var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalMedico'));
-            myModal.show();
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            alert('Ocurrió un error al cargar los campos. Por favor, inténtelo de nuevo.');
-        });
-}
-    </script>

@@ -5,6 +5,7 @@ namespace App\Services\Implementations;
 use App\Services\InventarioTecnologicoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use App\Models\ElementoTecnologico;
 
 class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
 
@@ -94,4 +95,12 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
         $resultado = DB::table('elementos_tecnologicos')->insertGetId($datos);
         return $resultado;
     } 
+
+     public function verElementoTecnologico($id)
+    {
+        // Carga el elemento junto con la relación de categoría
+        return ElementoTecnologico::with('categoria')->find($id);
+    }
+
+
 }

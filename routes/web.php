@@ -21,7 +21,7 @@ use App\Http\Controllers\InventarioController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard.dashboard');
 });
 
 Route::get('inventario/tecnologicos',[InventarioController::class,'inventarioTecnologico'])->name('inventarioTecnologico.index');
@@ -37,10 +37,12 @@ Route::post('/guardar-elemento-insumo', [InventarioController::class, 'guardarEl
 
 
 Route::post('/guardar-categoria-tecnologico', [InventarioController::class, 'guardarCategoriaTecnologico'])->name('guardar.categoria.tecnologico');
+Route::post('/guardar-categoria-fisico', [InventarioController::class, 'guardarCategoriaFisico'])->name('guardar.categoria.fisico');
+Route::post('/guardar-categoria-medico', [InventarioController::class, 'guardarCategoriaMedico'])->name('guardar.categoria.medico');
+Route::post('/guardar-categoria-insumo', [InventarioController::class, 'guardarCategoriaInsumo'])->name('guardar.categoria.insumo');
 
 
-
-
+Route::get('/elemento/{id}', [InventarioController::class, 'verElemento'])->name('elemento.show');
 
 
 
