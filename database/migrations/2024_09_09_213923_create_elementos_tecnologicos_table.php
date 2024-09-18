@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('serial')->nullable();
             $table->string('ubicacion');
             $table->set('disponibilidad',['SI','NO']);
-            $table->longText('codigo_QR');
+            $table->text('codigo_QR');
             $table->string('procesador')->nullable();
             $table->string('ram')->nullable();
             $table->string('tipo_almacenamiento')->nullable();

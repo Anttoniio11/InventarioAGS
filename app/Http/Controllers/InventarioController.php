@@ -9,6 +9,7 @@ use App\Services\InventarioTecnologicoService;
 use App\Services\InventarioFisicoService;
 use App\Services\InventarioMedicoService;
 use App\Services\InventarioInsumoService;
+use Illuminate\Support\Facades\Log;
 
 class InventarioController extends Controller
 {
@@ -58,165 +59,109 @@ class InventarioController extends Controller
 
     }
 
-    public function guardarElementoTecnologico(Request $request)
-    {
-        try {
-            // Validar los datos
-            $elementos = $request->validate([
-                'codigo' => 'required|string|unique:elementos_tecnologicos,codigo',
-                'marca' => 'required|string',
-                'referencia' => 'required|string',
-                'serial' => 'nullable|string',
-                'ubicacion' => 'required|string',
-                'disponibilidad' => 'required|string|in:SI,NO',
-                'codigo_QR' => 'required|string',
-                'procesador' => 'nullable|string',
-                'ram' => 'nullable|string',
-                'tipo_almacenamiento' => 'nullable|string',
-                'almacenamiento' => 'nullable|string',
-                'tarjeta_grafica' => 'nullable|string',
-                'garantia' => 'nullable|string',
-                'id_empleado' => 'nullable|integer|exists:empleados,id',
-                'id_area' => 'nullable|integer|exists:areas,id',
-                'id_sede' => 'nullable|integer|exists:sedes,id',
-                'id_factura' => 'required|integer|exists:facturas,id',
-                'id_categoria' => 'required|integer|exists:categorias_tecnologicos,id',
-                'id_estado' => 'required|integer|exists:estado_elementos,id',
-            ]);
-
-            // Llamar al servicio para crear el elemento
-            $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($elementos);
-
-            return response()->json(['mensaje' => 'Elemento creado exitosamente', 'id' => $resultado], 201);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['mensaje' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
-        }
-    }
 
     public function guardarElementoFisico(Request $request)
     {
         try {
-            // Validar los datos del formulario
             $elementos = $request->validate([
                 'codigo' => 'required|string',
                 'marca' => 'required|string',
                 'modelo' => 'required|string',
                 'ubicacion_interna' => 'required|string',
-                'disponibilidad' => 'required|string|in:SI,NO',
+                'disponibilidad' => 'required|string',
                 'codigo_QR' => 'required|string',
-                'id_estado' => 'required|integer',
-                'id_categoria' => 'required|integer',
+                'id_empleado' => 'required|integer',
+                'id_area' => 'required|integer',
+                'id_sede' => 'required|integer',
                 'id_factura' => 'required|integer',
-                'id_empleado' => 'nullable|integer',
-                'id_area' => 'nullable|integer',
-                'id_sede' => 'nullable|integer',
+                'id_categoria' => 'required|integer',
+                'id_estado' => 'required|integer',
             ]);
 
-            // Llamar al servicio para crear el elemento
             $resultado = $this->inventarioFisicoService->crearElementoFisico($elementos);
 
             return response()->json($resultado);
-
         } catch (\Illuminate\Validation\ValidationException $e) {
-            // Enviar errores de validación
             return response()->json(['mensaje' => $e->errors()], 422);
         } catch (\Exception $e) {
-            // Manejar errores generales
             return response()->json(['mensaje' => 'Error interno del servidor'], 500);
         }
     }
-
-    public function guardarElementoMedico(Request $request)
-    {
-        try {
-            // Validar los datos del formulario
-            $elementos = $request->validate([
-                'codigo' => 'required|string',
-                'marca' => 'required|string',
-                'modelo' => 'required|string',
-                'serie' => 'nullable|string',
-                'registro_sanitario' => 'required|string',
-                'ubicacion_interna' => 'required|string',
-                'disponibilidad' => 'required|string|in:SI,NO',
-                'codigo_QR' => 'required|string',
-                'id_estado' => 'required|integer',
-                'id_categoria' => 'required|integer',
-                'id_factura' => 'required|integer',
-                'id_empleado' => 'nullable|integer',
-                'id_area' => 'nullable|integer',
-                'id_sede' => 'nullable|integer',
-            ]);
-
-            // Llamar al servicio para crear el elemento
-            $resultado = $this->inventarioMedicoService->crearElementoMedico($elementos);
-
-            return response()->json($resultado);
-
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Enviar errores de validación
-            return response()->json(['mensaje' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            // Manejar errores generales
-            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
-        }
-    }
-
-    public function guardarElementoInsumo(Request $request)
-    {
-        try {
-            // Validar los datos del formulario
-            $elementos = $request->validate([
-                'registro_sanitario' => 'required|string',
-                'marca' => 'required|string',
-                'fecha_vencimiento' => 'required|date',
-                'indicaciones' => 'nullable|string',
-                'observacion' => 'nullable|string',
-                'cantidad' => 'required|integer',
-                'id_categoria' => 'required|integer',
-                'id_factura' => 'required|integer',
-                'id_empleado' => 'nullable|integer',
-                'id_area' => 'nullable|integer',
-                'id_sede' => 'nullable|integer',
-            ]);
-
-            // Llamar al servicio para crear el elemento
-            $resultado = $this->inventarioInsumoService->crearElementoInsumo($elementos);
-
-            return response()->json($resultado);
-
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Enviar errores de validación
-            return response()->json(['mensaje' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            // Manejar errores generales
-            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
-        }
-    }
-
     
 
 
+        // public function getFields($table)
+        // {
+        //     try {
+
+        //         if (!Schema::hasTable($table)) {
+        //             return response()->json(['error' => 'Table not found'], 404);
+        //         }
+
+        //         $columns = DB::getSchemaBuilder()->getColumnListing($table);
+
+
+        //         $filteredColumns = array_filter($columns, function($column) {
+        //             return !in_array($column, ['id', 'created_at', 'updated_at']);
+        //         });
+
+        //         return response()->json(array_values($filteredColumns));
+        //     } catch (\Exception $e) {
+        //         return response()->json(['error' => 'An error occurred'], 500);
+        //     }
+        // }
+
         public function getFields($table)
-        {
-            try {
-                // Verifica si la tabla existe
-                if (!Schema::hasTable($table)) {
-                    return response()->json(['error' => 'Table not found'], 404);
-                }
-
-                // Obtiene los nombres de las columnas de la tabla
-                $columns = DB::getSchemaBuilder()->getColumnListing($table);
-
-                // Filtra 'id' y timestamps
-                $filteredColumns = array_filter($columns, function($column) {
-                    return !in_array($column, ['id', 'created_at', 'updated_at']);
-                });
-
-                return response()->json(array_values($filteredColumns));
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'An error occurred'], 500);
-            }
+{
+    try {
+        if (!Schema::hasTable($table)) {
+            return response()->json(['error' => 'Table not found'], 404);
         }
+
+        $columns = DB::select("SHOW COLUMNS FROM $table");
+
+        $excludedColumns = ['id', 'created_at', 'updated_at'];
+        $columnTypes = [];
+        
+        foreach ($columns as $column) {
+            if (in_array($column->Field, $excludedColumns)) {
+                continue;
+            }
+
+            $type = $column->Type;
+
+            // Extraer las opciones si el tipo es 'set'
+            if (strpos($type, 'set') !== false) {
+                preg_match("/^set\((.*)\)$/", $type, $matches);
+                $options = explode(',', str_replace("'", '', $matches[1])); // Extraer opciones de 'set'
+                $type = 'set';
+            } elseif (strpos($type, 'bigint') !== false) {
+                $type = 'unsignedBigInteger';
+            } elseif (strpos($type, 'timestamp') !== false) {
+                $type = 'timestamp';
+            } else {
+                $type = preg_replace('/\([0-9]+\)$/', '', $type);
+            }
+
+            // Si es tipo 'set', agrega las opciones en un campo adicional
+            $columnData = [
+                'name' => $column->Field,
+                'type' => $type
+            ];
+
+            if (isset($options)) {
+                $columnData['values'] = $options;
+            }
+
+            $columnTypes[] = $columnData;
+        }
+
+        return response()->json($columnTypes); 
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
+
+
+        
 }

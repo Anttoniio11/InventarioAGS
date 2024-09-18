@@ -4,7 +4,6 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="{{ asset('js/inventario.js') }}"></script>
-<link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
     <div class="content">
 

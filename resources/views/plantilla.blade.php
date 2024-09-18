@@ -8,6 +8,7 @@
     <title>Inventario AGS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
+    <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
     <style>
         .wrapper {
             display: flex;

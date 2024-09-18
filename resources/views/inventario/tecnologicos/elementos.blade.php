@@ -6,7 +6,7 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="{{ asset('js/inventario.js') }}"></script>
-<link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
+
 
     <div class="content">
 
@@ -24,7 +24,7 @@
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
                 <div class="table-responsive">
 
-                    <button onclick="loadFormTecnologico('elementos_tecnologicos')">Crear Elemento Tecnológico</button>
+                    <button type="button" class="btn btn-submit" onclick="loadFormTecnologico('elementos_tecnologicos')">Crear Elemento Tecnológico</button>
 
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -90,17 +90,15 @@
         </div>
     </div>
 
-    {{-- modal elementos --}}
     <div class="modal fade" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="dynamicFormModalLabel">Crear Elemento Tecnológico</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="dynamicForm"> <!-- Asegúrate de que el ID coincida -->
-                        <!-- Los campos del formulario se generan aquí -->
+                    <form id="dynamicForm"> 
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -111,30 +109,96 @@
         </div>
     </div>
     
-    <script>
-        function loadFormTecnologico(tableName) {
-            fetch(`/fields/${tableName}`)
-                .then(response => response.json())
-                .then(data => {
-                    const formHtml = data.map(field => `
-                        <div class="mb-3">
-                            <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                            <input type="text" class="form-control" name="${field}" id="${field}">
-                        </div>
-                    `).join('');
     
-                    document.getElementById('dynamicForm').innerHTML = formHtml;
-                    var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
-                    myModal.show();
-                })
-                .catch(error => {
-                    console.error('Ocurrió un error al cargar los campos:', error);
-                    alert('Error al cargar los campos. Inténtalo de nuevo.');
-                });
-        }
+    <script>
+
+        
+function loadFormTecnologico(tableName) {
+    fetch(`/fields/${tableName}`)
+        .then(response => response.json())
+        .then(data => {
+            const formHtml = data.reduce((html, field, index) => {
+                if (index % 2 === 0) {
+                    html += '<div class="row mb-3">';
+                }
+
+                const fieldName = field.name;
+                const fieldType = field.type;
+
+                let inputHtml = '';
+
+                switch (fieldType) {
+                    case 'date':
+                        inputHtml = `
+                            <label for="${fieldName}" class="form-label">${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}</label>
+                            <input type="date" class="form-control" name="${fieldName}" id="${fieldName}">
+                        `;
+                        break;
+                    case 'unsignedBigInteger':
+                        inputHtml = `
+                            <label for="${fieldName}" class="form-label">${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}</label>
+                             <select class="form-control" name="${fieldName}" id="${fieldName}">
+                                <!-- Opciones se agregarán aquí con JavaScript -->
+                            </select>
+                        `;
+                        break;
+                    case 'set':
+                        inputHtml = `
+                            <label for="${fieldName}" class="form-label">${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}</label>
+                            <select class="form-control" name="${fieldName}" id="${fieldName}">
+                                <!-- Opciones se agregarán aquí con JavaScript -->
+                            </select>
+                        `;
+                        break;
+                    default:
+                        inputHtml = `
+                            <label for="${fieldName}" class="form-label">${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}</label>
+                            <input type="text" class="form-control" name="${fieldName}" id="${fieldName}">
+                        `;
+                        break;
+                }
+
+                html += `
+                    <div class="col-md-6">
+                        ${inputHtml}
+                    </div>
+                `;
+
+                if (index % 2 === 1 || index === data.length - 1) {
+                    html += '</div>';
+                }
+
+                return html;
+            }, '');
+
+            document.getElementById('dynamicForm').innerHTML = formHtml;
+
+            // Manejar los campos tipo 'set' para agregar opciones
+            data.forEach(field => {
+                if (field.type === 'set') {
+                    const selectElement = document.getElementById(field.name);
+                    // Extraer las opciones del 'set' y agregarlas al select
+                    const options = field.values || []; // Asumiendo que `field.values` contiene las opciones
+                    options.forEach(option => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = option;
+                        optionElement.textContent = option;
+                        selectElement.appendChild(optionElement);
+                    });
+                }
+            });
+
+            var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
+            myModal.show();
+        })
+        .catch(error => {
+            console.error('Ocurrió un error al cargar los campos:', error);
+            alert('Error al cargar los campos. Inténtalo de nuevo.');
+        });
+}
+
     </script>
 
-    {{-- modal categorias --}}
 
     <div class="modal fade" id="dynamicFormModalCategoria" tabindex="-1" aria-labelledby="dynamicFormModalLabelCategoria" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">

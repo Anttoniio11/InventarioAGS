@@ -39,6 +39,7 @@ Route::post('/guardar-elemento-insumo', [InventarioController::class, 'guardarEl
 Route::post('/guardar-categoria-tecnologico', [InventarioController::class, 'guardarCategoriaTecnologico'])->name('guardar.categoria.tecnologico');
 
 
+Route::get('/fields/{table}', [InventarioController::class, 'getFields']);
 
 
 
