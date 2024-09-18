@@ -36,6 +36,10 @@ Route::post('/guardar-elemento-medico', [InventarioController::class, 'guardarEl
 Route::post('/guardar-elemento-insumo', [InventarioController::class, 'guardarElementoInsumo'])->name('guardar.elemento.insumo');
 
 
+Route::post('/guardar-categoria-tecnologico', [InventarioController::class, 'guardarCategoriaTecnologico'])->name('guardar.categoria.tecnologico');
+
+
+
 
 
 

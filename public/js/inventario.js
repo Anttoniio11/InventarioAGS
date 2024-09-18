@@ -166,3 +166,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+//---------------------------------------------------
+// Categoria Tecnologica
+//---------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submitFormCategoria').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
+
+        let formData = new FormData(document.getElementById('dynamicFormCategoria'));
+
+        fetch('/guardar-categoria-tecnologico', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(error => {
+                    throw new Error(error.mensaje || 'Error del servidor');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.mensaje) {
+                alert(data.mensaje);
+            } else {
+                alert('Categoría tecnológica creada exitosamente');
+                var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalCategoria'));
+                myModal.hide();
+                window.location.reload(); // Recargar la página si es necesario
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al guardar la categoría tecnológica.');
+        });
+    });
+});
+
+
