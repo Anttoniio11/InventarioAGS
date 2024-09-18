@@ -39,6 +39,7 @@ class InventarioInsumoServiceImpl implements InventarioInsumoService {
                 'ci.id',
                 'ci.codigo',
                 'ci.categoria',
+                'ci.descripcion',
                 
             )
             ->get();
@@ -50,7 +51,16 @@ class InventarioInsumoServiceImpl implements InventarioInsumoService {
 
     public function crearElementoInsumo(array $data)
     {
+        // Verificar si el registro sanitario ya existe
+        $elementoExistente = DB::table('elementos_insumos')
+            ->where('registro_sanitario', $data['registro_sanitario'])
+            ->exists();
 
+        if ($elementoExistente) {
+            return response()->json(['mensaje' => 'El registro sanitario ya existe. Por favor, elija otro.'], 422);
+        }
+
+        // Datos a insertar en la base de datos
         $datos = [
             'registro_sanitario' => $data['registro_sanitario'],
             'marca' => $data['marca'],
@@ -58,15 +68,17 @@ class InventarioInsumoServiceImpl implements InventarioInsumoService {
             'indicaciones' => $data['indicaciones'],
             'observacion' => $data['observacion'],
             'cantidad' => $data['cantidad'],
+            'id_categoria' => $data['id_categoria'],
+            'id_factura' => $data['id_factura'],
             'id_empleado' => $data['id_empleado'],
             'id_area' => $data['id_area'],
             'id_sede' => $data['id_sede'],
-            'id_factura' => $data['id_factura'],
-            'id_categoria' => $data['id_categoria'],
             'created_at' => now(),
         ];
 
+        // Insertar el nuevo elemento y obtener el ID generado
         $resultado = DB::table('elementos_insumos')->insertGetId($datos);
+
         return $resultado;
     }
 

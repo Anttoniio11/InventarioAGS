@@ -49,6 +49,7 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
             ->select(
                 'ct.id',
                 'ct.categoria',
+                'ct.descripcion',
                 
             )
             ->get();
@@ -92,5 +93,5 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
         ];
         $resultado = DB::table('elementos_tecnologicos')->insertGetId($datos);
         return $resultado;
-    }
+    } 
 }

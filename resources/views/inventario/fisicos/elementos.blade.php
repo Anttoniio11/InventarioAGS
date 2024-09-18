@@ -24,7 +24,8 @@
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
                
                 {{-- boton crear elemento: --}}
-                <button onclick="loadForm('elementos_fisicos')">Crear Elemento Fisico</button>
+                <button onclick="loadFormFisico('elementos_fisicos')">Crear Elemento Fisico</button>
+                {{-- <button type="button" class="btn btn-primary" onclick="loadFormFisico()">Crear Elemento Insumo</button> --}}
 
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -64,13 +65,14 @@
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
                 <div class="table-responsive">
 
-                    <button onclick="loadForm('categorias_fisicos')">Crear Categoria Tecnológico</button>
+                    <button onclick="loadForm('categorias_fisicos')">Crear Categoria Fisico</button>
 
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
                                 <th scope="col">ID Categoría</th>
                                 <th scope="col">Categoría</th>
+                                <th scope="col">Descripcion</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -80,6 +82,7 @@
                                 <tr>
                                     <td>{{$categoriaFisico->id}}</td>
                                     <td>{{$categoriaFisico->categoria}}</td>
+                                    <td>{{$categoriaFisico->descripcion}}</td>
                                     <td>   </td>
                                 </tr>
                                 @endforeach
@@ -91,7 +94,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
+    <div class="modal fade" id="dynamicFormModalFisico" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -99,13 +102,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="dynamicForm">
+                    <form id="dynamicFormFisico">
                         <!-- Los campos del formulario se generarán aquí -->
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" id="submitForm">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="submitFormFisico">Guardar</button>
                 </div>
             </div>
         </div>
@@ -113,8 +116,8 @@
 
 
     <script>
-        function loadForm(tableName) {
-            fetch(`/fields/${tableName}`)
+        function loadFormFisico() {
+            fetch('/fields/elementos_fisicos') // Ruta para obtener los campos dinámicos
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -134,14 +137,9 @@
                         </div>
                     `).join('');
     
-                    document.getElementById('dynamicForm').innerHTML = formHtml;
+                    document.getElementById('dynamicFormFisico').innerHTML = formHtml;
     
-                    document.getElementById('submitForm').onclick = function() {
-                        document.getElementById('dynamicForm').action = `/save-${tableName}`;
-                        document.getElementById('dynamicForm').submit();
-                    };
-    
-                    var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
+                    var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalFisico'));
                     myModal.show();
                 })
                 .catch(error => {

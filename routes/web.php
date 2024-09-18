@@ -30,9 +30,15 @@ Route::get('inventario/medicos',[InventarioController::class,'inventarioMedico']
 Route::get('inventario/insumos',[InventarioController::class,'inventarioInsumo'])->name('inventarioInsumo.index');
 
 
-Route::post('/guardarElementoTecnologico',[InventarioController::class,'guardarElementoTecnologico']);
-
+Route::post('/guardar-elemento-tecnologico', [InventarioController::class, 'guardarElementoTecnologico'])->name('guardar.elemento.tecnologico');
 Route::post('/guardar-elemento-fisico', [InventarioController::class, 'guardarElementoFisico'])->name('guardar.elemento.fisico');
+Route::post('/guardar-elemento-medico', [InventarioController::class, 'guardarElementoMedico'])->name('guardar.elemento.medico');
+Route::post('/guardar-elemento-insumo', [InventarioController::class, 'guardarElementoInsumo'])->name('guardar.elemento.insumo');
+
+
+
+
+
 
 
 

@@ -41,6 +41,7 @@ class InventarioMedicoServiceImpl implements InventarioMedicoService {
                 'cm.id',
                 'cm.codigo',
                 'cm.categoria',
+                'cm.descripcion',
                 
             )
             ->get();
@@ -52,6 +53,7 @@ class InventarioMedicoServiceImpl implements InventarioMedicoService {
 
     public function crearElementoMedico(array $data)
     {
+        // Verificar si el código ya existe
         $elementoExistente = DB::table('elementos_medicos')
             ->where('codigo', $data['codigo'])
             ->exists();
@@ -60,6 +62,7 @@ class InventarioMedicoServiceImpl implements InventarioMedicoService {
             return response()->json(['mensaje' => 'El código del elemento ya existe. Por favor, elija otro código.'], 422);
         }
 
+        // Datos a insertar en la base de datos
         $datos = [
             'codigo' => $data['codigo'],
             'marca' => $data['marca'],
@@ -69,17 +72,21 @@ class InventarioMedicoServiceImpl implements InventarioMedicoService {
             'ubicacion_interna' => $data['ubicacion_interna'],
             'disponibilidad' => $data['disponibilidad'],
             'codigo_QR' => $data['codigo_QR'],
+            'id_estado' => $data['id_estado'],
+            'id_categoria' => $data['id_categoria'],
+            'id_factura' => $data['id_factura'],
             'id_empleado' => $data['id_empleado'],
             'id_area' => $data['id_area'],
             'id_sede' => $data['id_sede'],
-            'id_factura' => $data['id_factura'],
-            'id_categoria' => $data['id_categoria'],
-            'id_estado' => $data['id_estado'],
             'created_at' => now(),
         ];
+
+        // Insertar el nuevo elemento y obtener el ID generado
         $resultado = DB::table('elementos_medicos')->insertGetId($datos);
+
         return $resultado;
     }
+
 
  
 }

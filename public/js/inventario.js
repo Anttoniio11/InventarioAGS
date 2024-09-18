@@ -1,9 +1,51 @@
-
+//---------------------------------------------------
+// Elemento Tecnologico
+//---------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('submitForm').addEventListener('click', function(event) {
         event.preventDefault(); // Evitar el envío normal del formulario
 
+        // Verifica si el formulario y sus campos están correctamente construidos
         let formData = new FormData(document.getElementById('dynamicForm'));
+
+        fetch('/guardar-elemento-tecnologico', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(error => {
+                    throw new Error(error.mensaje || 'Error del servidor');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.mensaje);
+            var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
+            myModal.hide();
+            window.location.reload(); // Recargar la página tras éxito
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al guardar el elemento.');
+        });
+    });
+});
+
+//---------------------------------------------------
+// Elemento Fisico
+//---------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submitFormFisico').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
+
+        let formData = new FormData(document.getElementById('dynamicFormFisico'));
 
         fetch('/guardar-elemento-fisico', {
             method: 'POST', // Asegúrate de usar POST
@@ -16,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => {
             if (!response.ok) {
                 return response.json().then(error => {
-                    throw new Error(error.message || 'Server error');
+                    throw new Error(error.mensaje || 'Error del servidor');
                 });
             }
             return response.json();
@@ -25,53 +67,102 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.mensaje) {
                 alert(data.mensaje);
             } else {
-                alert('Elemento creado exitosamente');
-                var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
+                alert('Elemento Físico creado exitosamente');
+                var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalFisico'));
                 myModal.hide();
-                window.location.reload(); // Recargar la página
+                window.location.reload(); // Recargar la página si es necesario
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Ocurrió un error al guardar el elemento.');
+            alert('Ocurrió un error al guardar el elemento físico.');
         });
     });
 });
 
+//---------------------------------------------------
+// Elemento Medico
+//---------------------------------------------------
 
-function loadForm(tableName) {
-    fetch(`/fields/${tableName}`)
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submitFormMedico').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
+
+        let formData = new FormData(document.getElementById('dynamicFormMedico'));
+
+        fetch('/guardar-elemento-medico', {
+            method: 'POST', // Asegúrate de usar POST
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                return response.json().then(error => {
+                    throw new Error(error.mensaje || 'Error del servidor');
+                });
             }
             return response.json();
         })
         .then(data => {
-            if (data.error) {
-                console.error(data.error);
-                return;
+            if (data.mensaje) {
+                alert(data.mensaje);
+            } else {
+                alert('Elemento Médico creado exitosamente');
+                var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalMedico'));
+                myModal.hide();
+                window.location.reload(); // Recargar la página si es necesario
             }
-
-            const formHtml = data.map(field => `
-                <div class="mb-3">
-                    <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                    <input type="text" class="form-control" name="${field}" id="${field}">
-                </div>
-            `).join('');
-
-            document.getElementById('dynamicForm').innerHTML = formHtml;
-
-            document.getElementById('btnGuardarElemento').onclick = function() {
-                document.getElementById('dynamicForm').action = `/save-${tableName}`;
-                document.getElementById('dynamicForm').submit();
-            };
-
-            var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
-            myModal.show();
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            alert('Ocurrió un error al cargar los campos. Por favor, inténtelo de nuevo.');
+            console.error('Error:', error);
+            alert('Ocurrió un error al guardar el elemento médico.');
         });
-}
+    });
+});
+
+//---------------------------------------------------
+// Elemento Insumo
+//---------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submitFormInsumo').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
+
+        let formData = new FormData(document.getElementById('dynamicFormInsumo'));
+
+        fetch('/guardar-elemento-insumo', {
+            method: 'POST', // Asegúrate de usar POST
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(error => {
+                    throw new Error(error.mensaje || 'Error del servidor');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.mensaje) {
+                alert(data.mensaje);
+            } else {
+                alert('Elemento de Insumo creado exitosamente');
+                var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalInsumo'));
+                myModal.hide();
+                window.location.reload(); // Recargar la página si es necesario
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al guardar el elemento de insumo.');
+        });
+    });
+});
+

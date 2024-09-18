@@ -2,7 +2,9 @@
 @section('panelLateral')
 @endsection
 
-    <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="{{ asset('js/inventario.js') }}"></script>
+<link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
     <div class="content">
 
@@ -20,7 +22,10 @@
 
             <!-- Pestaña de Elementos -->
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
-                <button onclick="loadForm('elementos_medicos')">Crear Elemento Medico</button>
+
+                <button onclick="loadFormMedico('elementos_medicos')">Crear Elemento Medico</button>
+                {{-- <button type="button" class="btn btn-primary" onclick="loadFormMedico()">Crear Elemento Médico</button> --}}
+                
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -58,7 +63,7 @@
             <!-- Pestaña de Categorías -->
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
             
-                <button onclick="loadForm('categorias_medicos')">Crear Categoria Tecnológico</button>
+                <button onclick="loadForm('categorias_medicos')">Crear Categoria Medico</button>
 
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -67,6 +72,7 @@
                                 <th scope="col">ID Categoría</th>
                                 <th scope="col">Codigo</th>
                                 <th scope="col">Categoría</th>
+                                <th scope="col">Descripcion</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -76,6 +82,7 @@
                                 <td>{{$categoriaMedico->id}}</td>
                                 <td>{{$categoriaMedico->codigo}}</td>
                                 <td>{{$categoriaMedico->categoria}}</td>
+                                <td>{{$categoriaMedico->descripcion}}</td>
                                 <td>   </td>
                             </tr>
                             @endforeach
@@ -86,7 +93,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
+    <div class="modal fade" id="dynamicFormModalMedico" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -94,55 +101,48 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="dynamicForm">
+                    <form id="dynamicFormMedico">
                         <!-- Los campos del formulario se generarán aquí -->
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" id="submitForm">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="submitFormMedico">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
-
-
+    
     <script>
-        function loadForm(tableName) {
-            fetch(`/fields/${tableName}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        console.error(data.error);
-                        return;
-                    }
-    
-                    const formHtml = data.map(field => `
-                        <div class="mb-3">
-                            <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                            <input type="text" class="form-control" name="${field}" id="${field}">
-                        </div>
-                    `).join('');
-    
-                    document.getElementById('dynamicForm').innerHTML = formHtml;
-    
-                    document.getElementById('submitForm').onclick = function() {
-                        document.getElementById('dynamicForm').action = `/save-${tableName}`;
-                        document.getElementById('dynamicForm').submit();
-                    };
-    
-                    var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModal'));
-                    myModal.show();
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                    alert('Ocurrió un error al cargar los campos. Por favor, inténtelo de nuevo.');
-                });
-        }
+       function loadFormMedico() {
+    fetch('/fields/elementos_medicos') // Ruta para obtener los campos dinámicos
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                return;
+            }
+
+            const formHtml = data.map(field => `
+                <div class="mb-3">
+                    <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
+                    <input type="text" class="form-control" name="${field}" id="${field}">
+                </div>
+            `).join('');
+
+            document.getElementById('dynamicFormMedico').innerHTML = formHtml;
+
+            var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalMedico'));
+            myModal.show();
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            alert('Ocurrió un error al cargar los campos. Por favor, inténtelo de nuevo.');
+        });
+}
     </script>
-    

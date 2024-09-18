@@ -38,6 +38,7 @@ class InventarioFisicoServiceImpl implements InventarioFisicoService {
             ->select(
                 'cf.id',
                 'cf.categoria',
+                'cf.descripcion',
                 
             )
             ->get();
@@ -49,36 +50,36 @@ class InventarioFisicoServiceImpl implements InventarioFisicoService {
 
     public function crearElementoFisico(array $data)
     {
-        try {
-            $elementoExistente = DB::table('elementos_fisicos')
-                ->where('codigo', $data['codigo'])
-                ->exists();
-
-            if ($elementoExistente) {
-                return response()->json(['mensaje' => 'El código del elemento ya existe. Por favor, elija otro código.'], 422);
-            }
-
-            $datos = [
-                'codigo' => $data['codigo'],
-                'marca' => $data['marca'],
-                'modelo' => $data['modelo'],
-                'ubicacion_interna' => $data['ubicacion_interna'],
-                'disponibilidad' => $data['disponibilidad'],
-                'codigo_QR' => $data['codigo_QR'],
-                'id_empleado' => $data['id_empleado'],
-                'id_area' => $data['id_area'],
-                'id_sede' => $data['id_sede'],
-                'id_factura' => $data['id_factura'],
-                'id_categoria' => $data['id_categoria'],
-                'id_estado' => $data['id_estado'],
-                'created_at' => now(),
-            ];
-
-            $resultado = DB::table('elementos_fisicos')->insertGetId($datos);
-            return ['id' => $resultado];
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
+        // Verificar si el código ya existe
+        $elementoExistente = DB::table('elementos_fisicos')
+            ->where('codigo', $data['codigo'])
+            ->exists();
+    
+        if ($elementoExistente) {
+            return response()->json(['mensaje' => 'El código del elemento ya existe. Por favor, elija otro código.'], 422);
         }
+    
+        // Datos a insertar en la base de datos
+        $datos = [
+            'codigo' => $data['codigo'],
+            'marca' => $data['marca'],
+            'modelo' => $data['modelo'],
+            'ubicacion_interna' => $data['ubicacion_interna'],
+            'disponibilidad' => $data['disponibilidad'],
+            'codigo_QR' => $data['codigo_QR'],
+            'id_estado' => $data['id_estado'],
+            'id_categoria' => $data['id_categoria'],
+            'id_factura' => $data['id_factura'],
+            'id_empleado' => $data['id_empleado'],
+            'id_area' => $data['id_area'],
+            'id_sede' => $data['id_sede'],
+            'created_at' => now(),
+        ];
+    
+        // Insertar el nuevo elemento y obtener el ID generado
+        $resultado = DB::table('elementos_fisicos')->insertGetId($datos);
+    
+        return $resultado;
     }
 
 
