@@ -1,9 +1,9 @@
 @extends('plantilla')
 @section('panelLateral')
 @endsection
-
+ 
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="{{ asset('js/inventario.js') }}"></script>
+<script src="{{ asset('js/inventarioMedico.js') }}"></script>
 <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
 <div class="content">
@@ -22,37 +22,46 @@
 
     <div class="tab-content mt-3" id="myTabContent">
 
-        <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
+            <!-- Pestaña de Elementos -->
+            <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
+                <div class="table-responsive">
 
-            <button onclick="loadFormMedico('elementos_medicos')">Crear Elemento Medico</button>
-            {{-- <button type="button" class="btn btn-primary" onclick="loadFormMedico()">Crear Elemento Médico</button> --}}
-
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col">ID Elemento</th>
-                            <th scope="col">Categoria</th>
-                            <th scope="col">Codigo</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Modelo</th>
-                            <th scope="col">Registro sanitario</th>
-                            <th scope="col">Ubicacion interna</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <button onclick="loadFormMedico('elementos_medicos')">Crear Elemento Medico</button>
+                {{-- <button type="button" class="btn btn-primary" onclick="loadFormMedico()">Crear Elemento Médico</button> --}}
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">ID Elemento</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Modelo</th>
+                                <th scope="col">Registro sanitario</th>
+                                <th scope="col">Ubicacion interna</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
                         @foreach ($elementosMedicos as $elementosMedico)
                             <tr>
-                                <td>{{ $elementosMedico->id }}</td>
-                                <td>{{ $elementosMedico->categoria }}</td>
-                                <td>{{ $elementosMedico->codigo }}</td>
-                                <td>{{ $elementosMedico->marca }}</td>
-                                <td>{{ $elementosMedico->modelo }}</td>
-                                <td>{{ $elementosMedico->registro_sanitario }}</td>
-                                <td>{{ $elementosMedico->ubicacion_interna }}</td>
-                                <td> </td>
+                                <td>{{$elementosMedico->id}}</td>
+                                <td>{{$elementosMedico->categoria}}</td>
+                                <td>{{$elementosMedico->codigo}}</td>
+                                <td>{{$elementosMedico->marca}}</td>
+                                <td>{{$elementosMedico->modelo}}</td>
+                                <td>{{$elementosMedico->registro_sanitario}}</td>
+                                <td>{{$elementosMedico->ubicacion_interna}}</td>
+                                <td>
+                                    <button onclick="viewElement({{ $elementosMedico->id }})" class="btn btn-link">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button onclick="editElement({{ $elementosMedico->id }})" class="btn btn-link">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
                             </tr>
                         @endforeach
 
@@ -80,70 +89,45 @@
                     <tbody>
                         @foreach ($categoriasMedicos as $categoriaMedico)
                             <tr>
-                                <td>{{ $categoriaMedico->id }}</td>
-                                <td>{{ $categoriaMedico->codigo }}</td>
-                                <td>{{ $categoriaMedico->categoria }}</td>
-                                <td>{{ $categoriaMedico->descripcion }}</td>
-                                <td> </td>
+                                <td>{{$categoriaMedico->id}}</td>
+                                <td>{{$categoriaMedico->codigo}}</td>
+                                <td>{{$categoriaMedico->categoria}}</td>
+                                <td>{{$categoriaMedico->descripcion}}</td>
+                                <td>
+                                    <button onclick="verCategoria({{ $categoriaMedico->id }})" class="btn btn-link">
+                                    <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button onclick="editarCategoria({{ $categoriaMedico->id }})" class="btn btn-link">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="dynamicFormModalMedico" tabindex="-1" aria-labelledby="dynamicFormModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="dynamicFormModalLabel">Formulario Dinámico</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="dynamicFormMedico">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" id="submitFormMedico">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function loadFormMedico() {
-        fetch('/fields/elementos_medicos')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                    return;
-                }
-
-                const formHtml = data.map(field => `
-                <div class="mb-3">
-                    <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                    <input type="text" class="form-control" name="${field}" id="${field}">
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-            `).join('');
+            </div>
+        </div>
+    </div>
 
-                document.getElementById('dynamicFormMedico').innerHTML = formHtml;
+    {{-- Modal para ver Elemento Medico --}}
 
-                var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalMedico'));
-                myModal.show();
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-                alert('Ocurrió un error al cargar los campos. Por favor, inténtelo de nuevo.');
-            });
-    }
-</script>
+    <div class="modal fade" id="dynamicFormModalMedico" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dynamicFormModalLabel">Formulario Dinámico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="dynamicFormMedico">
+                        <!-- Los campos del formulario se generarán aquí -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="submitFormMedico">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>

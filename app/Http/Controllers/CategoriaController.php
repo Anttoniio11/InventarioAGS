@@ -45,25 +45,5 @@ class InventarioController extends Controller
         }
     }
 
-    public function getFields($table)
-        {
-            try {
-                // Verifica si la tabla existe
-                if (!Schema::hasTable($table)) {
-                    return response()->json(['error' => 'Table not found'], 404);
-                }
-
-                // Obtiene los nombres de las columnas de la tabla
-                $columns = DB::getSchemaBuilder()->getColumnListing($table);
-
-                // Filtra 'id' y timestamps
-                $filteredColumns = array_filter($columns, function($column) {
-                    return !in_array($column, ['id', 'created_at', 'updated_at']);
-                });
-
-                return response()->json(array_values($filteredColumns));
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'An error occurred'], 500);
-            }
-        }
+   
 }

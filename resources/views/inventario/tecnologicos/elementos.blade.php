@@ -1,6 +1,5 @@
 @extends('plantilla')
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
 @section('panelLateral')
 @endsection
 
@@ -50,7 +49,14 @@
                                 <td>{{$elementosTecnologico->referencia}}</td>
                                 <td>{{$elementosTecnologico->serial}}</td>
                                 <td>{{$elementosTecnologico->ubicacion}}</td>
-                                <td></td>
+                                <td>
+                                    <button onclick="verElemento({{ $elementosTecnologico->id }})" class="btn btn-link">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button onclick="editarElemento({{ $elementosTecnologico->id }})" class="btn btn-link">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
                             </tr>
                             @endforeach
 
@@ -62,7 +68,6 @@
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
                 <div class="table-responsive">
 
-                    {{-- <button onclick="loadFormCategoria('categorias_tecnologicos')">Crear Categoria Tecnológico</button> --}}
                     <button onclick="loadFormCategoria()">Crear Categoría Tecnológica</button>
 
                     <table class="table table-hover">
@@ -80,7 +85,14 @@
                                 <td>{{$categoriaTecnologico->id}}</td>
                                 <td>{{$categoriaTecnologico->categoria}}</td>
                                 <td>{{$categoriaTecnologico->descripcion}}</td>
-                                <td>   </td>
+                                <td>
+                                    <button onclick="verCategoria({{ $categoriaTecnologico->id }})" class="btn btn-link">
+                                    <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button onclick="editarCategoria({{ $categoriaTecnologico->id }})" class="btn btn-link">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -90,6 +102,87 @@
         </div>
     </div>
 
+    {{-- Modal para ver Elemento Tecnologico --}}
+    
+    <div class="modal fade" id="viewElementModal" tabindex="-1" aria-labelledby="viewElementModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewElementModalLabel">Detalles del Elemento Tecnológico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="viewElementDetails">
+                    <!-- Los detalles del elemento se cargarán aquí -->
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><strong>ID:</strong></td>
+                                <td id="element-id"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Categoría:</strong></td>
+                                <td id="element-categoria"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Código:</strong></td>
+                                <td id="element-codigo"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Marca:</strong></td>
+                                <td id="element-marca"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Referencia:</strong></td>
+                                <td id="element-referencia"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Serial:</strong></td>
+                                <td id="element-serial"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ubicación:</strong></td>
+                                <td id="element-ubicacion"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Disponibilidad:</strong></td>
+                                <td id="element-disponibilidad"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Procesador:</strong></td>
+                                <td id="element-procesador"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>RAM:</strong></td>
+                                <td id="element-ram"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo de Almacenamiento:</strong></td>
+                                <td id="element-tipo-almacenamiento"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Almacenamiento:</strong></td>
+                                <td id="element-almacenamiento"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tarjeta Gráfica:</strong></td>
+                                <td id="element-tarjeta-grafica"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Garantía:</strong></td>
+                                <td id="element-garantia"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {{-- Modal para crear Elemento Tecnologico --}}
+    
     <div class="modal fade" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
@@ -98,7 +191,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="dynamicForm"> 
+                    <form id="dynamicForm"> <!-- Asegúrate de que el ID coincida -->
+                        <!-- Los campos del formulario se generan aquí -->
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -226,27 +320,4 @@ function loadFormTecnologico(tableName) {
             </div>
         </div>
     </div>
-
-    <script>
-        function loadFormCategoria() {
-            fetch('/fields/categorias_tecnologicos') // Ruta para obtener los campos dinámicos para categorías
-                .then(response => response.json())
-                .then(data => {
-                    const formHtml = data.map(field => `
-                        <div class="mb-3">
-                            <label for="${field}" class="form-label">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                            <input type="text" class="form-control" name="${field}" id="${field}">
-                        </div>
-                    `).join('');
     
-                    document.getElementById('dynamicFormCategoria').innerHTML = formHtml;
-    
-                    var myModal = new bootstrap.Modal(document.getElementById('dynamicFormModalCategoria'));
-                    myModal.show();
-                })
-                .catch(error => {
-                    console.error('Ocurrió un error al cargar los campos:', error);
-                    alert('Error al cargar los campos. Inténtalo de nuevo.');
-                });
-        }
-    </script>

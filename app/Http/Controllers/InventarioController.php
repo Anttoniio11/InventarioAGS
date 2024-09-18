@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use App\Models\ElementoTecnologico;
 use App\Services\InventarioTecnologicoService;
 use App\Services\InventarioFisicoService;
 use App\Services\InventarioMedicoService;
@@ -87,7 +88,17 @@ class InventarioController extends Controller
             return response()->json(['mensaje' => 'Error interno del servidor'], 500);
         }
     }
-    
+
+     public function verElemento($id)
+    {
+        $elemento = $this->inventarioTecnologicoService->verElementoTecnologico($id);
+
+        if (!$elemento) {
+            return response()->json(['error' => 'Elemento no encontrado'], 404);
+        }
+
+        return response()->json($elemento);
+    }
 
 
         // public function getFields($table)
