@@ -185,88 +185,89 @@
             </div>
         </div>
     </div>
-</div><x-modal modalId="modalElementoTecnologico" title="Crear Elemento Tecnológico" 
-action="{{ route('guardar.elemento.tecnologico') }}" buttonText="Guardar">
-<div class="row">
-    
-    <div class="col-md-3 mb-3">
-        <label for="codigo" class="form-label">Código</label>
-        <input type="text" class="form-control" id="codigo" name="codigo" required>
-    </div>
-    
-  
-    <div class="col-md-3 mb-3">
-        <label for="marca" class="form-label">Marca</label>
-        <input type="text" class="form-control" id="marca" name="marca" required>
-    </div>
-    
-    <div class="col-md-3 mb-3">
-        <label for="referencia" class="form-label">Referencia</label>
-        <input type="text" class="form-control" id="referencia" name="referencia" required>
-    </div>
-    
-    <div class="col-md-3 mb-3">
-        <label for="serial" class="form-label">Serial</label>
-        <input type="text" class="form-control" id="serial" name="serial">
-    </div>
-    
-    <div class="col-md-3 mb-3">
-        <label for="ubicacion" class="form-label">Ubicación</label>
-        <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
-    </div>
+</div>
+<x-modal modalId="modalElementoTecnologico" title="Crear Elemento Tecnológico"
+    action="{{ route('guardar.elemento.tecnologico') }}" buttonText="Guardar">
+    <div class="row">
 
-   
-    <div class="col-md-3 mb-3">
-        <label for="disponibilidad" class="form-label">Disponibilidad</label>
-        <select class="form-select" id="disponibilidad" name="disponibilidad" required>
-            <option value="">Seleccione disponibilidad</option>
-            <option value="SI">Sí</option>
-            <option value="NO">No</option>
-        </select>
-    </div>
-    
-
-    <div class="col-md-3 mb-3">
-        <label for="codigo_QR" class="form-label">Código QR</label>
-        <input type="text" class="form-control" id="codigo_QR" name="codigo_QR">
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="procesador" class="form-label">Procesador</label>
-        <input type="text" class="form-control" id="procesador" name="procesador">
-    </div>
+        <div class="col-md-3 mb-3">
+            <label for="codigo" class="form-label">Código</label>
+            <input type="text" class="form-control" id="codigo" name="codigo" required>
+        </div>
 
 
-    <div class="col-md-3 mb-3">
-        <label for="ram" class="form-label">RAM</label>
-        <input type="text" class="form-control" id="ram" name="ram">
-    </div>
+        <div class="col-md-3 mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <input type="text" class="form-control" id="marca" name="marca" required>
+        </div>
 
-    <div class="col-md-3 mb-3">
-        <label for="tipo_almacenamiento" class="form-label">Tipo de Almacenamiento</label>
-        <input type="text" class="form-control" id="tipo_almacenamiento" name="tipo_almacenamiento">
-    </div>
+        <div class="col-md-3 mb-3">
+            <label for="referencia" class="form-label">Referencia</label>
+            <input type="text" class="form-control" id="referencia" name="referencia" required>
+        </div>
 
-    <div class="col-md-3 mb-3">
-        <label for="almacenamiento" class="form-label">Almacenamiento</label>
-        <input type="text" class="form-control" id="almacenamiento" name="almacenamiento">
-    </div>
+        <div class="col-md-3 mb-3">
+            <label for="serial" class="form-label">Serial</label>
+            <input type="text" class="form-control" id="serial" name="serial">
+        </div>
 
-    <div class="col-md-3 mb-3">
-        <label for="tarjeta_grafica" class="form-label">Tarjeta Gráfica</label>
-        <input type="text" class="form-control" id="tarjeta_grafica" name="tarjeta_grafica">
-    </div>
+        <div class="col-md-3 mb-3">
+            <label for="ubicacion" class="form-label">Ubicación</label>
+            <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+        </div>
 
-    <div class="col-md-3 mb-3">
-        <label for="garantia" class="form-label">Garantía</label>
-        <input type="text" class="form-control" id="garantia" name="garantia">
-    </div>
 
-    {{-- <div class="col-md-3 mb-3">
+        <div class="col-md-3 mb-3">
+            <label for="disponibilidad" class="form-label">Disponibilidad</label>
+            <select class="form-select" id="disponibilidad" name="disponibilidad" required>
+                <option value="">Seleccione disponibilidad</option>
+                <option value="SI">Sí</option>
+                <option value="NO">No</option>
+            </select>
+        </div>
+
+
+        <div class="col-md-3 mb-3">
+            <label for="codigo_QR" class="form-label">Código QR</label>
+            <input type="text" class="form-control" id="codigo_QR" name="codigo_QR">
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="procesador" class="form-label">Procesador</label>
+            <input type="text" class="form-control" id="procesador" name="procesador">
+        </div>
+
+
+        <div class="col-md-3 mb-3">
+            <label for="ram" class="form-label">RAM</label>
+            <input type="text" class="form-control" id="ram" name="ram">
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="tipo_almacenamiento" class="form-label">Tipo de Almacenamiento</label>
+            <input type="text" class="form-control" id="tipo_almacenamiento" name="tipo_almacenamiento">
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="almacenamiento" class="form-label">Almacenamiento</label>
+            <input type="text" class="form-control" id="almacenamiento" name="almacenamiento">
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="tarjeta_grafica" class="form-label">Tarjeta Gráfica</label>
+            <input type="text" class="form-control" id="tarjeta_grafica" name="tarjeta_grafica">
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="garantia" class="form-label">Garantía</label>
+            <input type="text" class="form-control" id="garantia" name="garantia">
+        </div>
+
+        {{-- <div class="col-md-3 mb-3">
         <label for="id_empleado" class="form-label">Empleado</label>
         <select class="form-select" name="id_empleado" id="id_empleado">
             <option value="">Seleccione un empleado</option>
-            @foreach($empleados as $empleado)
+            @foreach ($empleados as $empleado)
                 <option value="{{ $empleado->id }}">{{ $empleado->nombre1 }} {{ $empleado->apellido1 }}</option>
             @endforeach
         </select>
@@ -276,7 +277,7 @@ action="{{ route('guardar.elemento.tecnologico') }}" buttonText="Guardar">
         <label for="id_area" class="form-label">Área</label>
         <select class="form-select" id="id_area" name="id_area">
             <option value="">Seleccione un área</option>
-            @foreach($areas as $area)
+            @foreach ($areas as $area)
                 <option value="{{ $area->id }}">{{ $area->area }}</option>
             @endforeach
         </select>
@@ -286,42 +287,42 @@ action="{{ route('guardar.elemento.tecnologico') }}" buttonText="Guardar">
         <label for="id_sede" class="form-label">Sede</label>
         <select class="form-select" id="id_sede" name="id_sede">
             <option value="">Seleccione una sede</option>
-            @foreach($sedes as $sede)
+            @foreach ($sedes as $sede)
                 <option value="{{ $sede->id }}">{{ $sede->municipio }}</option>
             @endforeach
         </select>
     </div> --}}
 
-    <div class="col-md-3 mb-3">
-        <label for="id_factura" class="form-label">Factura</label>
-        <select class="form-select" id="id_factura" name="id_factura">
-            <option value="">Seleccione una factura</option>
-            @foreach($facturas as $factura)
-                <option value="{{ $factura->id }}">{{ $factura->codigo_factura }}</option>
-            @endforeach
-        </select>
-    </div>
+        <div class="col-md-3 mb-3">
+            <label for="id_factura" class="form-label">Factura</label>
+            <select class="form-select" id="id_factura" name="id_factura">
+                <option value="">Seleccione una factura</option>
+                @foreach ($facturas as $factura)
+                    <option value="{{ $factura->id }}">{{ $factura->codigo_factura }}</option>
+                @endforeach
+            </select>
+        </div>
 
-    <div class="col-md-3 mb-3">
-        <label for="id_categoria" class="form-label">Categoría</label>
-        <select class="form-select" id="id_categoria" name="id_categoria">
-            <option value="">Seleccione una categoría</option>
-            @foreach($categorias as $categoria)
-                <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
-            @endforeach
-        </select>
-    </div>
+        <div class="col-md-3 mb-3">
+            <label for="id_categoria" class="form-label">Categoría</label>
+            <select class="form-select" id="id_categoria" name="id_categoria">
+                <option value="">Seleccione una categoría</option>
+                @foreach ($categorias as $categoria)
+                    <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
+                @endforeach
+            </select>
+        </div>
 
-    <div class="col-md-3 mb-3">
-        <label for="id_estado" class="form-label">Estado</label>
-        <select class="form-select" id="id_estado" name="id_estado">
-            <option value="">Seleccione el estado</option>
-            @foreach($estados as $estado)
-                <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
-            @endforeach
-        </select>
+        <div class="col-md-3 mb-3">
+            <label for="id_estado" class="form-label">Estado</label>
+            <select class="form-select" id="id_estado" name="id_estado">
+                <option value="">Seleccione el estado</option>
+                @foreach ($estados as $estado)
+                    <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
-</div>
 </x-modal>
 
 <div class="modal fade" id="dynamicFormModalCategoria" tabindex="-1"

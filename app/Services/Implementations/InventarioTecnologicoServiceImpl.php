@@ -64,10 +64,9 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
 
     public function crearElementoTecnologico(array $data)
     {
-        // Validaciones
+
         $this->validarElemento($data);
 
-        // Comprobar si el elemento ya existe
         $elementoExistente = DB::table('elementos_tecnologicos')
             ->where('codigo', $data['codigo'])
             ->exists();
@@ -76,7 +75,6 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
             throw new ValidationException('El código del elemento ya existe. Por favor, elija otro código.');
         }
 
-        // Preparar los datos para insertar
         $datos = [
             'codigo' => $data['codigo'],
             'marca' => $data['marca'],
@@ -91,9 +89,9 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
             'almacenamiento' => $data['almacenamiento'],
             'tarjeta_grafica' => $data['tarjeta_grafica'],
             'garantia' => $data['garantia'],
-            'id_empleado' => $data['id_empleado'],
-            'id_area' => $data['id_area'],
-            'id_sede' => $data['id_sede'],
+            // 'id_empleado' => $data['id_empleado'],
+            // 'id_area' => $data['id_area'],
+            // 'id_sede' => $data['id_sede'],
             'id_factura' => $data['id_factura'],
             'id_categoria' => $data['id_categoria'],
             'id_estado' => $data['id_estado'],

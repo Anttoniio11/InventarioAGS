@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="{{ $modalId }}" tabindex="-1" aria-labelledby="{{ $modalId }}Label" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
@@ -11,10 +12,8 @@
                     <div class="row">
                         {{ $slot }}
                     </div>
+                    <button type="submit" class="btn btn-submit">{{ $buttonText }}</button>
                 </form>
-            </div>
-            <div class="modal-footer justify-content-center">
-                <button type="submit" class="btn btn-guardar" form="yourFormId">{{ $buttonText }}</button>
             </div>
         </div>
     </div>

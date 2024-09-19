@@ -26,11 +26,9 @@ class InventarioController extends Controller
 
     public function inventarioTecnologico()
 {
-    // Obtener los elementos tecnológicos y categorías
     $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
     $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
 
-    // Obtener datos foráneos
     $datos = $this->inventarioTecnologicoService->obtenerDatosForaneos();
 
     return view('inventario.tecnologicos.elementos', [
@@ -75,45 +73,12 @@ class InventarioController extends Controller
     }
 
 
-    public function guardarElementoFisico(Request $request)
-    {
-        try {
-            $elementos = $request->validate([
-                'codigo' => 'required|string',
-                'marca' => 'required|string',
-                'modelo' => 'required|string',
-                'ubicacion_interna' => 'required|string',
-                'disponibilidad' => 'required|string',
-                'codigo_QR' => 'required|string',
-                'id_empleado' => 'required|integer',
-                'id_area' => 'required|integer',
-                'id_sede' => 'required|integer',
-                'id_factura' => 'required|integer',
-                'id_categoria' => 'required|integer',
-                'id_estado' => 'required|integer',
-            ]);
-
-            $resultado = $this->inventarioFisicoService->crearElementoFisico($elementos);
-
-            return response()->json($resultado);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['mensaje' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
-        }
-    }
-
-
     public function guardarElementoTecnologico(Request $request)
 {
     try {
-        // Validar y guardar el elemento utilizando el servicio
+
         $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($request->all());
 
-        // Guardar un mensaje de éxito en la sesión
-        session()->flash('mensaje', 'Elemento tecnológico guardado con éxito.');
-
-        // Redirigir a la ruta donde se carga la vista
         return redirect()->route('inventarioTecnologico.index');
     } catch (\Illuminate\Validation\ValidationException $e) {
         return response()->json(['mensaje' => $e->errors()], 422);
@@ -136,27 +101,5 @@ class InventarioController extends Controller
     }
 
 
-        // public function getFields($table)
-        // {
-        //     try {
-
-        //         if (!Schema::hasTable($table)) {
-        //             return response()->json(['error' => 'Table not found'], 404);
-        //         }
-
-        //         $columns = DB::getSchemaBuilder()->getColumnListing($table);
-
-
-        //         $filteredColumns = array_filter($columns, function($column) {
-        //             return !in_array($column, ['id', 'created_at', 'updated_at']);
-        //         });
-
-        //         return response()->json(array_values($filteredColumns));
-        //     } catch (\Exception $e) {
-        //         return response()->json(['error' => 'An error occurred'], 500);
-        //     }
-        // }
-
-     
-        
+      
 }
