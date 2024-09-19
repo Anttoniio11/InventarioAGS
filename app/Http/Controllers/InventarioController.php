@@ -24,15 +24,29 @@ class InventarioController extends Controller
         $this->inventarioInsumoService = $inventarioInsumoService;
     }
 
-    public function inventarioTecnologico(){
+    public function inventarioTecnologico()
+{
+    // Obtener los elementos tecnológicos y categorías
+    $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
+    $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
 
-        $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
-        $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
+    // Obtener datos foráneos
+    $datos = $this->inventarioTecnologicoService->obtenerDatosForaneos();
 
-        return view('inventario.tecnologicos.elementos',compact('elementosTecnologicos', 'categoriasTecnologicos'));
+    return view('inventario.tecnologicos.elementos', [
+        'elementosTecnologicos' => $elementosTecnologicos,
+        'categoriasTecnologicos' => $categoriasTecnologicos,
+        'empleados' => $datos['empleados'],
+        'areas' => $datos['areas'],
+        'sedes' => $datos['sedes'],
+        'facturas' => $datos['facturas'],
+        'categorias' => $datos['categorias'],
+        'estados' => $datos['estados'],
+    ]);
+}
 
-    }
 
+    
     public function inventarioFisico(){
 
         $elementosFisicos = $this->inventarioFisicoService->obtenerInventarioFisico();
@@ -89,6 +103,27 @@ class InventarioController extends Controller
         }
     }
 
+
+    public function guardarElementoTecnologico(Request $request)
+{
+    try {
+        // Validar y guardar el elemento utilizando el servicio
+        $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($request->all());
+
+        // Guardar un mensaje de éxito en la sesión
+        session()->flash('mensaje', 'Elemento tecnológico guardado con éxito.');
+
+        // Redirigir a la ruta donde se carga la vista
+        return redirect()->route('inventarioTecnologico.index');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json(['mensaje' => $e->errors()], 422);
+    } catch (\Exception $e) {
+        return response()->json(['mensaje' => 'Error interno del servidor'], 500);
+    }
+}
+
+
+
      public function verElemento($id)
     {
         $elemento = $this->inventarioTecnologicoService->verElementoTecnologico($id);
@@ -122,57 +157,6 @@ class InventarioController extends Controller
         //     }
         // }
 
-        public function getFields($table)
-{
-    try {
-        if (!Schema::hasTable($table)) {
-            return response()->json(['error' => 'Table not found'], 404);
-        }
-
-        $columns = DB::select("SHOW COLUMNS FROM $table");
-
-        $excludedColumns = ['id', 'created_at', 'updated_at'];
-        $columnTypes = [];
-        
-        foreach ($columns as $column) {
-            if (in_array($column->Field, $excludedColumns)) {
-                continue;
-            }
-
-            $type = $column->Type;
-
-            // Extraer las opciones si el tipo es 'set'
-            if (strpos($type, 'set') !== false) {
-                preg_match("/^set\((.*)\)$/", $type, $matches);
-                $options = explode(',', str_replace("'", '', $matches[1])); // Extraer opciones de 'set'
-                $type = 'set';
-            } elseif (strpos($type, 'bigint') !== false) {
-                $type = 'unsignedBigInteger';
-            } elseif (strpos($type, 'timestamp') !== false) {
-                $type = 'timestamp';
-            } else {
-                $type = preg_replace('/\([0-9]+\)$/', '', $type);
-            }
-
-            // Si es tipo 'set', agrega las opciones en un campo adicional
-            $columnData = [
-                'name' => $column->Field,
-                'type' => $type
-            ];
-
-            if (isset($options)) {
-                $columnData['values'] = $options;
-            }
-
-            $columnTypes[] = $columnData;
-        }
-
-        return response()->json($columnTypes); 
-    } catch (\Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
-    }
-}
-
-
+     
         
 }

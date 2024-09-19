@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('elementos_bajas', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
+            $table->text('descripcion');
             $table->unsignedBigInteger('id_elemento_medico')->nullable();
             $table->foreign('id_elemento_medico')->references('id')->on('elementos_medicos')->nullable();
             $table->unsignedBigInteger('id_elemento_fisico')->nullable();
