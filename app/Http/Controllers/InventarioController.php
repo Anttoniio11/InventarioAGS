@@ -28,14 +28,24 @@ class InventarioController extends Controller
         $this->inventarioInsumoService = $inventarioInsumoService;
     }
 
-    public function inventarioTecnologico(){
+    public function inventarioTecnologico()
+{
+    $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
+    $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
 
-        $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
-        $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
+    $datos = $this->inventarioTecnologicoService->obtenerDatosForaneos();
 
-        return view('inventario.tecnologicos.elementos',compact('elementosTecnologicos', 'categoriasTecnologicos'));
-
-    }
+    return view('inventario.tecnologicos.elementos', [
+        'elementosTecnologicos' => $elementosTecnologicos,
+        'categoriasTecnologicos' => $categoriasTecnologicos,
+        'empleados' => $datos['empleados'],
+        'areas' => $datos['areas'],
+        'sedes' => $datos['sedes'],
+        'facturas' => $datos['facturas'],
+        'categorias' => $datos['categorias'],
+        'estados' => $datos['estados'],
+    ]);
+}
 
     public function inventarioFisico(){
 
@@ -64,34 +74,20 @@ class InventarioController extends Controller
 
     }
 
-    public function guardarElementoFisico(Request $request)
-    {
-        try {
-            $elementos = $request->validate([
-                'codigo' => 'required|string',
-                'marca' => 'required|string',
-                'modelo' => 'required|string',
-                'ubicacion_interna' => 'required|string',
-                'disponibilidad' => 'required|string',
-                'codigo_QR' => 'required|string',
-                'id_empleado' => 'required|integer',
-                'id_area' => 'required|integer',
-                'id_sede' => 'required|integer',
-                'id_factura' => 'required|integer',
-                'id_categoria' => 'required|integer',
-                'id_estado' => 'required|integer',
-            ]);
 
-            $resultado = $this->inventarioFisicoService->crearElementoFisico($elementos);
+    public function guardarElementoTecnologico(Request $request)
+{
+    try {
 
-            return response()->json($resultado);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['mensaje' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
-        }
+        $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($request->all());
+
+        return redirect()->route('inventarioTecnologico.index');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json(['mensaje' => $e->errors()], 422);
+    } catch (\Exception $e) {
+        return response()->json(['mensaje' => 'Error interno del servidor'], 500);
     }
-
+}
 
     public function verElementoTecnologico($id)
     {
@@ -112,10 +108,6 @@ class InventarioController extends Controller
     {
         return $this->inventarioInsumoService->generarHojaDeVidaInsumo($id);
     }
-
-  
-    
-
 
         public function getFields($table)
     {
@@ -168,5 +160,5 @@ class InventarioController extends Controller
         }
     }
 
-        
+      
 }

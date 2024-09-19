@@ -37,5 +37,10 @@ class EstadoElementoSeeder extends Seeder
             'estado' => 'PERDIDO'
         ]);
 
+        EstadoElemento::create([
+            'estado' => 'DADO DE BAJA'
+        ]);
+
+
     }
 }

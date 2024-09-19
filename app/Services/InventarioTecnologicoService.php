@@ -8,5 +8,6 @@ interface InventarioTecnologicoService{
     public function obtenerCategoriasTecnologico();
     public function crearElementoTecnologico(array $data);
     public function generarHojaDeVidaTecnologico($id);
+    public function obtenerDatosForaneos();
 
 }

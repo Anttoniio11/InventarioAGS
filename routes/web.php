@@ -29,7 +29,6 @@ Route::get('inventario/fisicos',[InventarioController::class,'inventarioFisico']
 Route::get('inventario/medicos',[InventarioController::class,'inventarioMedico'])->name('inventarioMedico.index');
 Route::get('inventario/insumos',[InventarioController::class,'inventarioInsumo'])->name('inventarioInsumo.index');
 
-
 Route::post('/guardar-elemento-tecnologico', [InventarioController::class, 'guardarElementoTecnologico'])->name('guardar.elemento.tecnologico');
 Route::post('/guardar-elemento-fisico', [InventarioController::class, 'guardarElementoFisico'])->name('guardar.elemento.fisico');
 Route::post('/guardar-elemento-medico', [InventarioController::class, 'guardarElementoMedico'])->name('guardar.elemento.medico');
@@ -96,7 +95,7 @@ Route::delete('categorias-tecnologicos/{id}', [CategoriaTecnologicoController::c
 // Buscar categorías tecnológicas
 Route::get('buscar-categorias-tecnologicos', [CategoriaTecnologicoController::class, 'buscarCategorias'])->name('categorias-tecnologicos.buscar');
 
-Route::get('/fields/{table}', [InventarioController::class, 'getFields']);
+// Route::get('/fields/{table}', [InventarioController::class, 'getFields']);
 
 
 Route::get('categorias-fisicos', [CategoriaFisicoController::class, 'index'])->name('categorias-fisicos.index');
