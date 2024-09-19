@@ -5,6 +5,9 @@ namespace App\Services\Implementations;
 use App\Services\InventarioMedicoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\ElementoMedico;
+
 
 class InventarioMedicoServiceImpl implements InventarioMedicoService {
 
@@ -85,6 +88,15 @@ class InventarioMedicoServiceImpl implements InventarioMedicoService {
         $resultado = DB::table('elementos_medicos')->insertGetId($datos);
 
         return $resultado;
+    }
+
+    public function generarHojaDeVidaMedico($id)
+    {
+        $elemento = ElementoMedico::findOrFail($id);
+
+        return PDF::loadView('pdf.hojaDeVidaMedicos', compact('elemento'))
+            ->setPaper('letter', 'landscape')
+            ->stream('HojaDeVidaFisico.pdf');
     }
 
 

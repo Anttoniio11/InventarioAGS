@@ -51,10 +51,10 @@
                                 <td>{{$elementosFisico->ubicacion_interna}}</td>
                                 <td>{{$elementosFisico->disponibilidad}}</td>
                                 <td>
-                                    <button onclick="viewElement({{ $elementosFisico->id }})" class="btn btn-link">
+                                    <button onclick="window.open('{{ route('elementoFisico.ver', $elementosFisico->id) }}', '_blank')" class="btn btn-link">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button onclick="editElement({{ $elementosFisico->id }})" class="btn btn-link">
+                                    <button onclick="editarElemento({{ $elementosFisico->id }})" class="btn btn-link">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
@@ -106,7 +106,6 @@
         </div>
     </div>
 
-    {{-- Modal para ver Elemento Fisico --}}
 
     <div class="modal fade" id="dynamicFormModalFisico" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">

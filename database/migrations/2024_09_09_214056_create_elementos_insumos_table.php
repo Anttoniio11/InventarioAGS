@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('elementos_insumos', function (Blueprint $table) {
             $table->id();
+            // $table->string('tipo_elemento');
             $table->string('registro_sanitario');
             $table->string('marca');
             $table->date('fecha_vencimiento');

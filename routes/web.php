@@ -41,8 +41,12 @@ Route::post('/guardar-categoria-fisico', [InventarioController::class, 'guardarC
 Route::post('/guardar-categoria-medico', [InventarioController::class, 'guardarCategoriaMedico'])->name('guardar.categoria.medico');
 Route::post('/guardar-categoria-insumo', [InventarioController::class, 'guardarCategoriaInsumo'])->name('guardar.categoria.insumo');
 
+Route::get('/elementos-tecnologicos/{id}', [InventarioController::class, 'verElementoTecnologico'])->name('elementoTecnologico.ver');
+Route::get('/elementos-fisicos/{id}', [InventarioController::class, 'verElementoFisico'])->name('elementoFisico.ver');
+Route::get('/elementos-medicos/{id}', [InventarioController::class, 'verElementoMedico'])->name('elementoMedico.ver');
+Route::get('/elementos-insumos/{id}', [InventarioController::class, 'verElementoInsumo'])->name('elementoInsumo.ver');
 
-Route::get('/elemento/{id}', [InventarioController::class, 'verElemento'])->name('elemento.show');
+
 Route::get('/fields/{table}', [InventarioController::class, 'getFields']);
 
 

@@ -10,7 +10,7 @@ use App\Services\CategoriaFisicoService;
 use App\Services\CategoriaMedicoService;
 use App\Services\CategoriaInsumoService;
 
-class InventarioController extends Controller
+class CategoriaController extends Controller
 {
 
     protected $categoriaTecnologicoService, $categoriaFisicoService, $categoriaMedicoService, $categoriaInsumoService;

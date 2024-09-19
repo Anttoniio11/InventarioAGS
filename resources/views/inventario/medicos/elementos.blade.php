@@ -55,10 +55,10 @@
                                 <td>{{$elementosMedico->registro_sanitario}}</td>
                                 <td>{{$elementosMedico->ubicacion_interna}}</td>
                                 <td>
-                                    <button onclick="viewElement({{ $elementosMedico->id }})" class="btn btn-link">
+                                    <button onclick="window.open('{{ route('elementoMedico.ver', $elementosMedico->id) }}', '_blank')" class="btn btn-link">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button onclick="editElement({{ $elementosMedico->id }})" class="btn btn-link">
+                                    <button onclick="editarElemento({{ $elementosMedico->id }})" class="btn btn-link">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </td>

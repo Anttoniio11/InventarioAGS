@@ -50,7 +50,7 @@
                                 <td>{{$elementosTecnologico->serial}}</td>
                                 <td>{{$elementosTecnologico->ubicacion}}</td>
                                 <td>
-                                    <button onclick="verElemento({{ $elementosTecnologico->id }})" class="btn btn-link">
+                                    <button onclick="window.open('{{ route('elementoTecnologico.ver', $elementosTecnologico->id) }}', '_blank')" class="btn btn-link">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                     <button onclick="editarElemento({{ $elementosTecnologico->id }})" class="btn btn-link">

@@ -5,6 +5,7 @@ namespace App\Services\Implementations;
 use App\Services\InventarioTecnologicoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ElementoTecnologico;
 
 class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
@@ -96,10 +97,13 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
         return $resultado;
     } 
 
-     public function verElementoTecnologico($id)
+    public function generarHojaDeVidaTecnologico($id)
     {
-        // Carga el elemento junto con la relación de categoría
-        return ElementoTecnologico::with('categoria')->find($id);
+        $elemento = ElementoTecnologico::findOrFail($id);
+
+        return PDF::loadView('pdf.hojaDeVidaTecnologicos', compact('elemento'))
+            ->setPaper('letter', 'landscape')
+            ->stream('HojaDeVidaFisico.pdf');
     }
 
 

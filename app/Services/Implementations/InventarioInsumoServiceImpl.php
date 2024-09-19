@@ -5,6 +5,8 @@ namespace App\Services\Implementations;
 use App\Services\InventarioInsumoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\ElementoInsumo;
 
 class InventarioInsumoServiceImpl implements InventarioInsumoService {
 
@@ -80,6 +82,15 @@ class InventarioInsumoServiceImpl implements InventarioInsumoService {
         $resultado = DB::table('elementos_insumos')->insertGetId($datos);
 
         return $resultado;
+    }
+
+    public function generarHojaDeVidaInsumo($id)
+    {
+        $elemento = ElementoInsumo::findOrFail($id);
+
+        return PDF::loadView('pdf.hojaDeVidaInsumos', compact('elemento'))
+            ->setPaper('letter', 'landscape')
+            ->stream('HojaDeVidaFisico.pdf');
     }
 
 }

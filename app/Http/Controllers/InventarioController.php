@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use App\Models\ElementoTecnologico;
+use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\InventarioTecnologicoService;
 use App\Services\InventarioFisicoService;
 use App\Services\InventarioMedicoService;
 use App\Services\InventarioInsumoService;
-use Illuminate\Support\Facades\Log;
+use App\Models\ElementoTecnologico;
+use App\Models\ElementoFisico;
+use App\Models\ElementoMedico;
+use App\Models\ElementoInsumo;
 
 class InventarioController extends Controller
 {
@@ -60,7 +64,6 @@ class InventarioController extends Controller
 
     }
 
-
     public function guardarElementoFisico(Request $request)
     {
         try {
@@ -89,90 +92,81 @@ class InventarioController extends Controller
         }
     }
 
-     public function verElemento($id)
+
+    public function verElementoTecnologico($id)
     {
-        $elemento = $this->inventarioTecnologicoService->verElementoTecnologico($id);
-
-        if (!$elemento) {
-            return response()->json(['error' => 'Elemento no encontrado'], 404);
-        }
-
-        return response()->json($elemento);
+        return $this->inventarioTecnologicoService->generarHojaDeVidaTecnologico($id);
     }
 
+    public function verElementoFisico($id)
+    {
+        return $this->inventarioFisicoService->generarHojaDeVidaFisico($id);
+    }
 
-        // public function getFields($table)
-        // {
-        //     try {
+    public function verElementoMedico($id)
+    {
+        return $this->inventarioMedicoService->generarHojaDeVidaMedico($id);
+    }
 
-        //         if (!Schema::hasTable($table)) {
-        //             return response()->json(['error' => 'Table not found'], 404);
-        //         }
+    public function verElementoInsumo($id)
+    {
+        return $this->inventarioInsumoService->generarHojaDeVidaInsumo($id);
+    }
 
-        //         $columns = DB::getSchemaBuilder()->getColumnListing($table);
+  
+    
 
-
-        //         $filteredColumns = array_filter($columns, function($column) {
-        //             return !in_array($column, ['id', 'created_at', 'updated_at']);
-        //         });
-
-        //         return response()->json(array_values($filteredColumns));
-        //     } catch (\Exception $e) {
-        //         return response()->json(['error' => 'An error occurred'], 500);
-        //     }
-        // }
 
         public function getFields($table)
-{
-    try {
-        if (!Schema::hasTable($table)) {
-            return response()->json(['error' => 'Table not found'], 404);
+    {
+        try {
+            if (!Schema::hasTable($table)) {
+                return response()->json(['error' => 'Table not found'], 404);
+            }
+
+            $columns = DB::select("SHOW COLUMNS FROM $table");
+
+            $excludedColumns = ['id', 'created_at', 'updated_at'];
+            $columnTypes = [];
+            
+            foreach ($columns as $column) {
+                if (in_array($column->Field, $excludedColumns)) {
+                    continue;
+                }
+
+                $type = $column->Type;
+
+                // Extraer las opciones si el tipo es 'set'
+                if (strpos($type, 'set') !== false) {
+                    preg_match("/^set\((.*)\)$/", $type, $matches);
+                    $options = explode(',', str_replace("'", '', $matches[1])); // Extraer opciones de 'set'
+                    $type = 'set';
+                } elseif (strpos($type, 'bigint') !== false) {
+                    $type = 'unsignedBigInteger';
+                } elseif (strpos($type, 'timestamp') !== false) {
+                    $type = 'timestamp';
+                } else {
+                    $type = preg_replace('/\([0-9]+\)$/', '', $type);
+                }
+
+                // Si es tipo 'set', agrega las opciones en un campo adicional
+                $columnData = [
+                    'name' => $column->Field,
+                    'type' => $type
+                ];
+
+                if (isset($options)) {
+                    $columnData['values'] = $options;
+                }
+
+                $columnTypes[] = $columnData;
+            }
+
+            return response()->json($columnTypes); 
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        $columns = DB::select("SHOW COLUMNS FROM $table");
-
-        $excludedColumns = ['id', 'created_at', 'updated_at'];
-        $columnTypes = [];
-        
-        foreach ($columns as $column) {
-            if (in_array($column->Field, $excludedColumns)) {
-                continue;
-            }
-
-            $type = $column->Type;
-
-            // Extraer las opciones si el tipo es 'set'
-            if (strpos($type, 'set') !== false) {
-                preg_match("/^set\((.*)\)$/", $type, $matches);
-                $options = explode(',', str_replace("'", '', $matches[1])); // Extraer opciones de 'set'
-                $type = 'set';
-            } elseif (strpos($type, 'bigint') !== false) {
-                $type = 'unsignedBigInteger';
-            } elseif (strpos($type, 'timestamp') !== false) {
-                $type = 'timestamp';
-            } else {
-                $type = preg_replace('/\([0-9]+\)$/', '', $type);
-            }
-
-            // Si es tipo 'set', agrega las opciones en un campo adicional
-            $columnData = [
-                'name' => $column->Field,
-                'type' => $type
-            ];
-
-            if (isset($options)) {
-                $columnData['values'] = $options;
-            }
-
-            $columnTypes[] = $columnData;
-        }
-
-        return response()->json($columnTypes); 
-    } catch (\Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
     }
-}
-
 
         
 }
