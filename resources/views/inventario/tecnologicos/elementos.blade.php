@@ -4,7 +4,7 @@
 @endsection
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="{{ asset('js/inventario.js') }}"></script>
+<script src="{{ asset('js/inventarioTecnologico.js') }}"></script>
 
 
     <div class="content">
