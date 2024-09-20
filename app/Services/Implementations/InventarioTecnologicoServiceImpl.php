@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ElementoTecnologico;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
 
-    public function obtenerInventarioTecnologico(){
+    public function obtenerInventarioTecnologico()
+    {
 
         if(Schema::hasTable('elementos_tecnologicos')){
             $inventarioTecnologicos = DB::table("elementos_tecnologicos as et")
@@ -46,26 +46,17 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
         return $inventarioTecnologicos;
     }
 
-    public function obtenerCategoriasTecnologico(){
+    public function generarHojaDeVidaTecnologico($id)
+    {
+        $elemento = ElementoTecnologico::findOrFail($id);
 
-        if(Schema::hasTable('categorias_tecnologicos')){
-            $categoriaTecnologicos = DB::table("categorias_tecnologicos as ct")
-            ->select(
-                'ct.id',
-                'ct.categoria',
-                'ct.descripcion',
-                
-            )
-            ->get();
-        }else{
-            $categoriaTecnologicos = [];
-        }
-        return $categoriaTecnologicos;
+        return PDF::loadView('pdf.hojaDeVidaTecnologicos', compact('elemento'))
+            ->setPaper('letter', 'landscape')
+            ->stream('HojaDeVidaFisico.pdf');
     }
 
     public function crearElementoTecnologico(array $data)
     {
-
         $this->validarElemento($data);
 
         $elementoExistente = DB::table('elementos_tecnologicos')
@@ -101,15 +92,6 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
 
         // Insertar el elemento
         return DB::table('elementos_tecnologicos')->insertGetId($datos);
-    }
-
-    public function generarHojaDeVidaTecnologico($id)
-    {
-        $elemento = ElementoTecnologico::findOrFail($id);
-
-        return PDF::loadView('pdf.hojaDeVidaTecnologicos', compact('elemento'))
-            ->setPaper('letter', 'landscape')
-            ->stream('HojaDeVidaFisico.pdf');
     }
 
     private function validarElemento(array $data)
