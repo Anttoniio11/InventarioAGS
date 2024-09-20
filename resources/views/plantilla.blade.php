@@ -154,7 +154,7 @@
                 <img src="{{ asset('img/agsLogo.png') }}" alt="agsLogo">
 
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i class="fa-solid fa-chart-line"></i>Dashboard</a>
+                    <a class="nav-link" href=""><i class="fa-solid fa-chart-line"></i>Panel</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="" id="inventarioToggle"><i

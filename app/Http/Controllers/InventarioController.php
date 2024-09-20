@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use App\Models\ElementoTecnologico;
+use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\InventarioTecnologicoService;
 use App\Services\InventarioFisicoService;
 use App\Services\InventarioMedicoService;
 use App\Services\InventarioInsumoService;
-use Illuminate\Support\Facades\Log;
+use App\Models\ElementoTecnologico;
+use App\Models\ElementoFisico;
+use App\Models\ElementoMedico;
+use App\Models\ElementoInsumo;
 
 class InventarioController extends Controller
 {
@@ -46,8 +50,8 @@ class InventarioController extends Controller
 
 
 
-    public function inventarioFisico()
-    {
+
+    public function inventarioFisico(){
 
         $elementosFisicos = $this->inventarioFisicoService->obtenerInventarioFisico();
         $categoriasFisicos = $this->inventarioFisicoService->obtenerCategoriasFisico();
@@ -75,6 +79,7 @@ class InventarioController extends Controller
 
 
     public function guardarElementoTecnologico(Request $request)
+
     {
         try {
 
@@ -96,16 +101,21 @@ class InventarioController extends Controller
         }
 
         try {
-            dd($id);
-            // Llama al servicio para editar el elemento
-            $this->inventarioTecnologicoService->editarElementoTecnologico($request->all(), $id);
-    
-            return redirect()->route('inventarioTecnologico.index')->with('success', 'Elemento actualizado correctamente.');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['mensaje' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
-        }
+           
+        $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($request->all());
+
+        return redirect()->route('inventarioTecnologico.index');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json(['mensaje' => $e->errors()], 422);
+    } catch (\Exception $e) {
+        return response()->json(['mensaje' => 'Error interno del servidor'], 500);
+    }
+}
+
+    public function verElementoTecnologico($id)
+    {
+        return $this->inventarioTecnologicoService->generarHojaDeVidaTecnologico($id);
+
     }
     
     public function obtenerElementoTecnologico($id)
@@ -138,5 +148,71 @@ class InventarioController extends Controller
         ]);
     }
     
+
+    public function verElementoFisico($id)
+    {
+        return $this->inventarioFisicoService->generarHojaDeVidaFisico($id);
+    }
+
+    public function verElementoMedico($id)
+    {
+        return $this->inventarioMedicoService->generarHojaDeVidaMedico($id);
+    }
+
+    public function verElementoInsumo($id)
+    {
+        return $this->inventarioInsumoService->generarHojaDeVidaInsumo($id);
+    }
+
+        public function getFields($table)
+    {
+        try {
+            if (!Schema::hasTable($table)) {
+                return response()->json(['error' => 'Table not found'], 404);
+            }
+
+            $columns = DB::select("SHOW COLUMNS FROM $table");
+
+            $excludedColumns = ['id', 'created_at', 'updated_at'];
+            $columnTypes = [];
+            
+            foreach ($columns as $column) {
+                if (in_array($column->Field, $excludedColumns)) {
+                    continue;
+                }
+
+                $type = $column->Type;
+
+                // Extraer las opciones si el tipo es 'set'
+                if (strpos($type, 'set') !== false) {
+                    preg_match("/^set\((.*)\)$/", $type, $matches);
+                    $options = explode(',', str_replace("'", '', $matches[1])); // Extraer opciones de 'set'
+                    $type = 'set';
+                } elseif (strpos($type, 'bigint') !== false) {
+                    $type = 'unsignedBigInteger';
+                } elseif (strpos($type, 'timestamp') !== false) {
+                    $type = 'timestamp';
+                } else {
+                    $type = preg_replace('/\([0-9]+\)$/', '', $type);
+                }
+
+                // Si es tipo 'set', agrega las opciones en un campo adicional
+                $columnData = [
+                    'name' => $column->Field,
+                    'type' => $type
+                ];
+
+                if (isset($options)) {
+                    $columnData['values'] = $options;
+                }
+
+                $columnTypes[] = $columnData;
+            }
+
+            return response()->json($columnTypes); 
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 
 }

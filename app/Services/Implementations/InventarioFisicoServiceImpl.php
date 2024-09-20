@@ -5,6 +5,8 @@ namespace App\Services\Implementations;
 use App\Services\InventarioFisicoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\ElementoFisico;
 
 class InventarioFisicoServiceImpl implements InventarioFisicoService {
 
@@ -82,5 +84,13 @@ class InventarioFisicoServiceImpl implements InventarioFisicoService {
         return $resultado;
     }
 
+    public function generarHojaDeVidaFisico($id)
+    {
+        $elemento = ElementoFisico::findOrFail($id);
+
+        return PDF::loadView('pdf.hojaDeVidaFisicos', compact('elemento'))
+            ->setPaper('letter', 'landscape')
+            ->stream('HojaDeVidaFisico.pdf');
+    }
 
 }

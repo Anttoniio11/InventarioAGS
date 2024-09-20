@@ -5,6 +5,7 @@ namespace App\Services\Implementations;
 use App\Services\InventarioTecnologicoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ElementoTecnologico;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
@@ -104,6 +105,15 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService
         return DB::table('elementos_tecnologicos')->insertGetId($datos);
     }
 
+    public function generarHojaDeVidaTecnologico($id)
+    {
+        $elemento = ElementoTecnologico::findOrFail($id);
+
+        return PDF::loadView('pdf.hojaDeVidaTecnologicos', compact('elemento'))
+            ->setPaper('letter', 'landscape')
+            ->stream('HojaDeVidaFisico.pdf');
+    }
+
     private function validarElemento(array $data)
     {
         $validator = validator()->make($data, [
@@ -133,11 +143,13 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService
         }
     }
 
+
     public function verElementoTecnologico($id)
     {
         // Carga el elemento junto con la relación de categoría
         return ElementoTecnologico::with('categoria')->find($id);
     }
+
 
 
     public function obtenerDatosForaneos()
