@@ -34,6 +34,13 @@ Route::post('/guardar-elemento-fisico', [InventarioController::class, 'guardarEl
 Route::post('/guardar-elemento-medico', [InventarioController::class, 'guardarElementoMedico'])->name('guardar.elemento.medico');
 Route::post('/guardar-elemento-insumo', [InventarioController::class, 'guardarElementoInsumo'])->name('guardar.elemento.insumo');
 
+// Ruta para obtener un elemento tecnológico por ID
+Route::get('/inventario-tecnologico/elemento/{id}', [InventarioController::class, 'obtenerElementoTecnologico'])
+    ->name('obtener.elemento.tecnologico');
+
+// Ruta para actualizar un elemento tecnológico por ID
+Route::put('/elemento-tecnologico/{id}/actualizar', [InventarioController::class, 'actualizarElementoTecnologico'])
+    ->name('actualizar.elemento.tecnologico');
 
 Route::post('/guardar-categoria-tecnologico', [InventarioController::class, 'guardarCategoriaTecnologico'])->name('guardar.categoria.tecnologico');
 Route::post('/guardar-categoria-fisico', [InventarioController::class, 'guardarCategoriaFisico'])->name('guardar.categoria.fisico');
