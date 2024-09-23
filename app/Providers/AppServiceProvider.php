@@ -11,6 +11,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind('App\Services\PanelService','App\Services\Implementations\PanelServiceImpl');
+
         $this->app->bind('App\Services\InventarioTecnologicoService','App\Services\Implementations\InventarioTecnologicoServiceImpl');
         $this->app->bind('App\Services\InventarioFisicoService','App\Services\Implementations\InventarioFisicoServiceImpl');
         $this->app->bind('App\Services\InventarioMedicoService','App\Services\Implementations\InventarioMedicoServiceImpl');
@@ -21,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Services\CategoriaMedicoService','App\Services\Implementations\CategoriaMedicoServiceImpl');
         $this->app->bind('App\Services\CategoriaInsumoService','App\Services\Implementations\CategoriaInsumoServiceImpl');
 
+        $this->app->bind('App\Services\EmpleadoService','App\Services\Implementations\EmpleadoServiceImpl');
+        
     }
 
     /**

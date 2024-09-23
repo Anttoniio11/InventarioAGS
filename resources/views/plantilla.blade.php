@@ -154,10 +154,10 @@
                 <img src="{{ asset('img/agsLogo.png') }}" alt="agsLogo">
 
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i class="fa-solid fa-chart-line"></i>Panel</a>
+                    <a class="nav-link" href="#"><i class="fa-solid fa-chart-line"></i>Panel</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('inventarioTecnologico.index') }}" id="inventarioToggle"><i
+                    <a class="nav-link" id="inventarioToggle"><i
                             class="fa-solid fa-boxes-stacked"></i>Inventario</a>
                     <ul class="submenu">
                         <li><a class="nav-link sub-item" href="{{ route('inventarioTecnologico.index') }}">Tecnológico</a></li>
@@ -167,7 +167,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-users"></i>Usuarios</a>
+                    <a class="nav-link" href="{{ route('empleados.index') }}"><i class="fa-solid fa-users"></i>Empleados</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fa-solid fa-user-check"></i>Asignaciones</a>

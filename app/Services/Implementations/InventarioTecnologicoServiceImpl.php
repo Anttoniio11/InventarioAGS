@@ -12,11 +12,10 @@ use Illuminate\Validation\ValidationException;
 class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
 
     public function obtenerInventarioTecnologico()
-    {
-
-        if(Schema::hasTable('elementos_tecnologicos')){
-            $inventarioTecnologicos = DB::table("elementos_tecnologicos as et")
-            ->join('categorias_tecnologicos as ct', 'et.id_categoria', '=', 'et.id_categoria')
+{
+    if(Schema::hasTable('elementos_tecnologicos')) {
+        $inventarioTecnologicos = DB::table('elementos_tecnologicos as et')
+            ->join('categorias_tecnologicos as ct', 'et.id_categoria', '=', 'ct.id')
             ->select(
                 'et.id',
                 'et.codigo',
@@ -36,15 +35,14 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService {
                 'et.id_factura',
                 'et.id_categoria',
                 'et.id_estado',
-                'et.id_categoria', 
                 'ct.categoria'
             )
             ->get();
-        }else{
-            $inventarioTecnologicos = [];
-        }
-        return $inventarioTecnologicos;
+    } else {
+        $inventarioTecnologicos = [];
     }
+    return $inventarioTecnologicos;
+}
 
     public function generarHojaDeVidaTecnologico($id)
     {

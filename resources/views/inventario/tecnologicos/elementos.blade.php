@@ -3,7 +3,7 @@
 @endsection
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{ asset('js/inventarioTecnologico.js') }}"></script>
+    <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
     <div class="content">
 
@@ -23,10 +23,16 @@
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
                 <div class="table-responsive">
 
-                    <button type="button" class="btn btn-submit" data-bs-toggle="modal"
-                        data-bs-target="#modalElementoTecnologico">
-                        Crear Elemento Tecnológico
-                    </button>
+                    <div class="d-flex justify-content-end mb-3">
+                        <button type="button" class="btn btn-submit ms-2" data-bs-toggle="modal"
+                            data-bs-target="#modalElementoTecnologico">
+                            Crear Elemento Tecnológico
+                        </button>
+                        <button type="button" class="btn btn-submit">
+                            Asignar
+                        </button>
+                    </div>
+
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
@@ -52,12 +58,12 @@
                                     <td>{{ $elementosTecnologico->serial }}</td>
                                     <td>{{ $elementosTecnologico->ubicacion }}</td>
                                     <td>
-                                        <button onclick="window.open('{{ route('elementoTecnologico.ver', $elementosTecnologico->id) }}', '_blank')" class="btn btn-link">
-                                            <i class="fas fa-file-alt"></i>
+                                        <button onclick="window.open('{{ route('elementoTecnologico.ver', $elementosTecnologico->id) }}', '_blank')" class="btn btn-link" title="Hoja de vida">
+                                            <i class="fas fa-file-alt icon-color"></i>
                                         </button>
                                         <button onclick="editarElemento({{ $elementosTecnologico->id }})"
-                                            class="btn btn-link">
-                                            <i class="fas fa-edit"></i>
+                                            class="btn btn-link" title="Actualizar">
+                                            <i class="fas fa-edit icon-color"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -71,7 +77,10 @@
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
                 <div class="table-responsive">
 
-                    <button onclick="loadFormCategoria()">Crear Categoría Tecnológica</button>
+                <button type="button" class="btn btn-submit" data-bs-toggle="modal"
+                    data-bs-target="#modalCategoriaTecnologico">
+                    Crear Categoria Tecnologico
+                </button>
 
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -89,13 +98,9 @@
                                     <td>{{ $categoriaTecnologico->categoria }}</td>
                                     <td>{{ $categoriaTecnologico->descripcion }}</td>
                                     <td>
-                                        <button onclick="verCategoria({{ $categoriaTecnologico->id }})"
-                                            class="btn btn-link">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
                                         <button onclick="editarCategoria({{ $categoriaTecnologico->id }})"
-                                            class="btn btn-link">
-                                            <i class="fas fa-edit"></i>
+                                            class="btn btn-link" title="Actualizar">
+                                            <i class="fas fa-edit icon-color"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -149,7 +154,6 @@
                 </select>
             </div>
 
-
             <div class="col-md-3 mb-3">
                 <label for="codigo_QR" class="form-label">Código QR</label>
                 <input type="text" class="form-control" id="codigo_QR" name="codigo_QR">
@@ -159,7 +163,6 @@
                 <label for="procesador" class="form-label">Procesador</label>
                 <input type="text" class="form-control" id="procesador" name="procesador">
             </div>
-
 
             <div class="col-md-3 mb-3">
                 <label for="ram" class="form-label">RAM</label>
@@ -248,22 +251,22 @@
         </div>
     </x-modal>
 
-    {{-- Modal para crear Categoria Fisica
+    {{-- Modal para crear Categoria Tecnologica --}}
+    
+    <x-modal modalId="modalCategoriaTecnologico" title="Crear Categoria Tecnologico"
+        action="{{ route('guardar.categoria.tecnologico') }}" buttonText="Guardar">
         
-    <x-modal modalId="modalCategoriaFisico" title="Crear Categoria Fisico"
-    action="{{ route('guardar.categoria.fisico') }}" buttonText="Guardar">
+        <div class="row">
+    
+            <div class="col-md-3 mb-3">
+                <label for="categoria" class="form-label">Categoria</label>
+                <input type="text" class="form-control" id="categoria" name="categoria" required>
+            </div>
+    
+            <div class="col-md-3 mb-3">
+                <label for="descripcion" class="form-label">Descripcion</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+            </div>
 
-    <div class="row">
-
-        <div class="col-md-3 mb-3">
-            <label for="categoria" class="form-label">Categoria</label>
-            <input type="text" class="form-control" id="categoria" name="categoria" required>
         </div>
-
-        <div class="col-md-3 mb-3">
-            <label for="descripcion" class="form-label">Descripcion</label>
-            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
-        </div>
-
-    </div>
-    </x-modal> --}}
+    </x-modal>

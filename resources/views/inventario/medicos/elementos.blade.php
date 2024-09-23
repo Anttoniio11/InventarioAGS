@@ -3,7 +3,6 @@
 @endsection
  
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="{{ asset('js/inventarioMedico.js') }}"></script>
 <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
 <div class="content">
@@ -25,10 +24,15 @@
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
                 <div class="table-responsive">
 
-                <button type="button" class="btn btn-submit" data-bs-toggle="modal"
-                    data-bs-target="#modalElementoMedico">
-                    Crear Elemento Medico
-                </button>
+                    <div class="d-flex justify-content-end mb-3">
+                        <button type="button" class="btn btn-submit ms-2" data-bs-toggle="modal"
+                            data-bs-target="#modalElementoMedico">
+                            Crear Elemento Medico
+                        </button>
+                        <button type="button" class="btn btn-submit">
+                            Asignar
+                        </button>
+                    </div>
 
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -55,11 +59,11 @@
                                 <td>{{$elementosMedico->registro_sanitario}}</td>
                                 <td>{{$elementosMedico->ubicacion_interna}}</td>
                                 <td>
-                                    <button onclick="window.open('{{ route('elementoMedico.ver', $elementosMedico->id) }}', '_blank')" class="btn btn-link">
-                                        <i class="fas fa-file-alt"></i>
+                                    <button onclick="window.open('{{ route('elementoMedico.ver', $elementosMedico->id) }}', '_blank')" class="btn btn-link" title="Hoja de vida">
+                                        <i class="fas fa-file-alt icon-color"></i>
                                     </button>
-                                    <button onclick="editarElemento({{ $elementosMedico->id }})" class="btn btn-link">
-                                        <i class="fas fa-edit"></i>
+                                    <button onclick="editarElemento({{ $elementosMedico->id }})" class="btn btn-link" title="Actualizar">
+                                        <i class="fas fa-edit icon-color"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -72,10 +76,13 @@
 
 
         <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
-
-            <button onclick="loadForm('categorias_medicos')">Crear Categoria Medico</button>
-
             <div class="table-responsive">
+
+            <button type="button" class="btn btn-submit" data-bs-toggle="modal"
+                    data-bs-target="#modalCategoriaMedico">
+                    Crear Categoria Medico
+            </button>
+
                 <table class="table table-hover">
                     <thead class="table-light">
                         <tr>
@@ -94,11 +101,8 @@
                                 <td>{{$categoriaMedico->categoria}}</td>
                                 <td>{{$categoriaMedico->descripcion}}</td>
                                 <td>
-                                    <button onclick="verCategoria({{ $categoriaMedico->id }})" class="btn btn-link">
-                                    <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button onclick="editarCategoria({{ $categoriaMedico->id }})" class="btn btn-link">
-                                        <i class="fas fa-edit"></i>
+                                    <button onclick="editarCategoria({{ $categoriaMedico->id }})" class="btn btn-link" title="Actualizar">
+                                        <i class="fas fa-edit icon-color"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -224,30 +228,27 @@
         </div>
     </x-modal>
 
-    <div class="modal fade" id="dynamicFormModalCategoria" tabindex="-1"
-        aria-labelledby="dynamicFormModalLabelCategoria" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="dynamicFormModalLabelCategoria">Crear Categoría Medica</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="dynamicFormCategoria">
-                        <div class="mb-3">
-                            <label for="categoria" class="form-label">Categoría</label>
-                            <input type="text" class="form-control" name="categoria" id="categoria">
-                        </div>
-                        <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="submitFormCategoria">Guardar</button>
-                </div>
+    {{-- Modal para crear Categoria Medico --}}
+    
+    <x-modal modalId="modalCategoriaMedico" title="Crear Categoria Medico"
+        action="{{ route('guardar.categoria.medico') }}" buttonText="Guardar">
+        
+        <div class="row">
+    
+            <div class="col-md-3 mb-3">
+                <label for="codigo" class="form-label">Codigo</label>
+                <input type="text" class="form-control" id="codigo" name="codigo" required>
             </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="categoria" class="form-label">Categoria</label>
+                <input type="text" class="form-control" id="categoria" name="categoria" required>
+            </div>
+    
+            <div class="col-md-3 mb-3">
+                <label for="descripcion" class="form-label">Descripcion</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+            </div>
+
         </div>
-    </div>
+    </x-modal>

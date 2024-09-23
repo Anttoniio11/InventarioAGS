@@ -12,23 +12,22 @@ use Illuminate\Validation\ValidationException;
 class InventarioFisicoServiceImpl implements InventarioFisicoService {
 
     public function obtenerInventarioFisico(){
-
-        if(Schema::hasTable('elementos_fisicos')){
-            $inventarioFisicos = DB::table("elementos_fisicos as ef")
-            ->join('categorias_fisicos as cf', 'ef.id_categoria', '=', 'ef.id_categoria')
-            ->select(
-                'ef.id',
-                'ef.codigo',
-                'ef.marca',
-                'ef.modelo',
-                'ef.ubicacion_interna',
-                'ef.disponibilidad',
-                'ef.codigo_QR',
-                'ef.id_categoria', 
-                'cf.categoria'
-            )
-            ->get();
-        }else{
+        if (Schema::hasTable('elementos_fisicos')) {
+            $inventarioFisicos = DB::table('elementos_fisicos as ef')
+                ->join('categorias_fisicos as cf', 'ef.id_categoria', '=', 'cf.id') // Corregido el JOIN
+                ->select(
+                    'ef.id',
+                    'ef.codigo',
+                    'ef.marca',
+                    'ef.modelo',
+                    'ef.ubicacion_interna',
+                    'ef.disponibilidad',
+                    'ef.codigo_QR',
+                    'ef.id_categoria',
+                    'cf.categoria' // Este campo trae el nombre de la categoría asociada
+                )
+                ->get();
+        } else {
             $inventarioFisicos = [];
         }
         return $inventarioFisicos;

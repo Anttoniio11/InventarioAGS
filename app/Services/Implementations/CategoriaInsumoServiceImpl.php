@@ -2,9 +2,10 @@
 
 namespace App\Services\Implementations;
 
-use App\Services\CategoriaInsumoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
+use App\Services\CategoriaInsumoService;
 
 class CategoriaInsumoServiceImpl implements CategoriaInsumoService {
 
@@ -24,6 +25,21 @@ class CategoriaInsumoServiceImpl implements CategoriaInsumoService {
             $categoriaInsumos = [];
         }
         return $categoriaInsumos;
+    }
+
+    public function crearCategoriaInsumo(array $data)
+    {           
+        $rta = DB::table('categorias_insumos')
+                    ->insertGetId([
+                        'codigo' => $data['codigo'],
+                        'categoria' => $data['categoria'],
+                        'descripcion' => $data['descripcion'],
+                        'created_at' => Carbon::now(),            
+                        'updated_at' => Carbon::now(),            
+                    ]);
+        
+        return $rta;
+        
     }
 
 }
