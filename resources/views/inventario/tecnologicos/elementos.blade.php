@@ -224,7 +224,7 @@
                     <option value="{{ $sede->id }}">{{ $sede->municipio }}</option>
                 @endforeach
             </select>
-        </div> --}}
+        </div>
 
         <div class="col-md-3 mb-3">
             <label for="id_factura" class="form-label">Factura</label>
@@ -285,4 +285,4 @@
         </div>
 
     </div>
-    </x-modal> --}}
+    </x-modal> 

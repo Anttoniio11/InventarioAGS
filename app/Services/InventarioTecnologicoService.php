@@ -10,5 +10,5 @@ interface InventarioTecnologicoService{
     public function obtenerDatosForaneos();
     public function editarElementoTecnologico(array $data, $id);
     public function obtenerElementoTecnologicoPorId($id);
-
+    public function obtenerCategoriasTecnologico();
 }
