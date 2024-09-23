@@ -9,16 +9,20 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ElementoTecnologico;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Validation\ValidationException;
 
 class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService
 {
 
- public function obtenerInventarioTecnologico()
-{
-    if (Schema::hasTable('elementos_tecnologicos')) {
-        $inventarioTecnologicos = DB::table("elementos_tecnologicos as et")
-            ->join('categorias_tecnologicos as ct', 'et.id_categoria', '=', 'ct.id') // Corrige aquí
+    
+    public function obtenerInventarioTecnologico()
+    {
+
+        if(Schema::hasTable('elementos_tecnologicos')){
+            $inventarioTecnologicos = DB::table("elementos_tecnologicos as et")
+            ->join('categorias_tecnologicos as ct', 'et.id_categoria', '=', 'et.id_categoria')
+
             ->select(
                 'et.id',
                 'et.codigo',
@@ -63,11 +67,20 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService
             $categoriaTecnologicos = [];
         }
         return $categoriaTecnologicos;
+
+    }
+    public function generarHojaDeVidaTecnologico($id)
+    {
+        $elemento = ElementoTecnologico::findOrFail($id);
+
+        return PDF::loadView('pdf.hojaDeVidaTecnologicos', compact('elemento'))
+            ->setPaper('letter', 'landscape')
+            ->stream('HojaDeVidaFisico.pdf');
+
     }
 
     public function crearElementoTecnologico(array $data)
     {
-
         $this->validarElemento($data);
 
         $elementoExistente = DB::table('elementos_tecnologicos')
@@ -103,15 +116,6 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService
 
         // Insertar el elemento
         return DB::table('elementos_tecnologicos')->insertGetId($datos);
-    }
-
-    public function generarHojaDeVidaTecnologico($id)
-    {
-        $elemento = ElementoTecnologico::findOrFail($id);
-
-        return PDF::loadView('pdf.hojaDeVidaTecnologicos', compact('elemento'))
-            ->setPaper('letter', 'landscape')
-            ->stream('HojaDeVidaFisico.pdf');
     }
 
     private function validarElemento(array $data)
@@ -290,4 +294,5 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService
             throw new ValidationException($validator);
         }
     }
+
 }
