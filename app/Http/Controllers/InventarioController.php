@@ -193,6 +193,7 @@ class InventarioController extends Controller
         return $this->inventarioInsumoService->generarHojaDeVidaInsumo($id);
     }
 
+    
     public function obtenerElementoTecnologico($id)
 
     {

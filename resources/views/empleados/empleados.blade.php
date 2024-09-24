@@ -19,11 +19,34 @@
         <div class="tab-pane fade show active" id="empleados" role="tabpanel" aria-labelledby="empleados-tab">
             <div class="table-responsive">
 
-                <div class="d-flex justify-content-end mb-3">
-                    <button type="button" class="btn btn-submit ms-2" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
-                        Crear Empleado
-                    </button>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="input-group me-2" style="max-width: 300px;">
+                        <input type="text" class="form-control" id="searchTecnologicos" placeholder="Buscar..." aria-label="Buscar..." style="height: calc(2rem + 2px);">
+                        <span class="input-group-text" style="background-color: #fff; border: 1px solid #ced4da; border-left: none; height: calc(2rem + 2px); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-search" style="color: #01A497; font-size: 14px;"></i>
+                        </span>
+                    </div>
+                
+                    <div class="input-group me-2" style="max-width: 300px;">
+                        <select class="form-select" id="filterOptions" aria-label="Filtrar opciones" style="height: calc(2rem + 2px);">
+                            <option selected>Seleccionar opción...</option>
+                            <option value="1">Opción 1</option>
+                            <option value="2">Opción 2</option>
+                            <option value="3">Opción 3</option>
+                            <option value="4">Opción 4</option>
+                        </select>
+                        <span class="input-group-text" style="background-color: #fff; border: 1px solid #ced4da; border-left: none; height: calc(2rem + 2px); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-filter" style="color: #01A497; font-size: 14px;"></i>
+                        </span>
+                    </div>
+                
+                    <div class="ms-auto">
+                        <button type="button" class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
+                            Crear Empleado
+                        </button>
+                    </div>
                 </div>
+
 
                 <table class="table table-hover">
                     <thead class="table-light">

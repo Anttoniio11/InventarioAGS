@@ -14,7 +14,11 @@ class ElementosBajaController extends Controller
         $this->elementosBajaService = $elementosBajaService;
     }
 
-    
+    public function elementosBaja()
+    {
+        return view('bajas.elementosBaja');
+    }
 
+    
 
 }
