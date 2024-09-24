@@ -4,62 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Empleado;
 use Illuminate\Http\Request;
+use App\Services\EmpleadoService;
 
 class EmpleadoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+   
+    protected $empleadoService;
+
+    public function __construct(EmpleadoService $empleadoService) {
+        $this->empleadoService = $empleadoService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function empleados()
     {
-        //
+        $empleados = $this->empleadoService->obtenerEmpleados();
+        $sedes = $this->empleadoService->obtenerDatosForaneos()['sedes'];
+        $areas = $this->empleadoService->obtenerDatosForaneos()['areas'];
+        $roles = $this->empleadoService->obtenerDatosForaneos()['roles'];
+
+        return view('empleados.empleados', compact('empleados', 'sedes', 'areas', 'roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function guardarEmpleado(Request $request)
     {
-        //
+        $this->empleadoService->crearEmpleado($request->all());
+        return redirect()->route('empleados.index')->with('success', 'Empleado creado exitosamente.');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Empleado $empleado)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Empleado $empleado)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Empleado $empleado)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Empleado $empleado)
-    {
-        //
-    }
+    
 }

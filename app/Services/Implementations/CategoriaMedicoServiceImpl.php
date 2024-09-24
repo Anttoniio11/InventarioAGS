@@ -2,9 +2,10 @@
 
 namespace App\Services\Implementations;
 
-use App\Services\CategoriaMedicoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
+use App\Services\CategoriaMedicoService;
 
 class CategoriaMedicoServiceImpl implements CategoriaMedicoService {
 
@@ -24,6 +25,21 @@ class CategoriaMedicoServiceImpl implements CategoriaMedicoService {
             $categoriaMedicos = [];
         }
         return $categoriaMedicos;
+    }
+
+    public function crearCategoriaMedico(array $data)
+    {           
+        $rta = DB::table('categorias_medicos')
+                    ->insertGetId([
+                        'codigo' => $data['codigo'],
+                        'categoria' => $data['categoria'],
+                        'descripcion' => $data['descripcion'],
+                        'created_at' => Carbon::now(),            
+                        'updated_at' => Carbon::now(),            
+                    ]);
+        
+        return $rta;
+        
     }
     
 

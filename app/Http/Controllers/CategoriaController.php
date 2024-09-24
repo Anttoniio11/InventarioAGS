@@ -22,18 +22,31 @@ class CategoriaController extends Controller
         $this->categoriaInsumoService = $categoriaInsumoService;
     }
 
+    public function guardarCategoriaTecnologico(Request $request)
+    {   
+        $resultado = $this->categoriaTecnologicoService->crearCategoriaTecnologico($request->all());
+
+        if ($resultado == true) {
+            return redirect()->route('inventarioTecnologico.index');
+        } else {
+            return response()->json(['mensaje' => 'Error al registrar'], 500);
+        }
+    
+    }
+
     public function guardarCategoriaFisico(Request $request)
     {   
         $resultado = $this->categoriaFisicoService->crearCategoriaFisico($request->all());
 
         if ($resultado == true) {
-            dd('Se registro');
+            // dd('Se registro');
+            return redirect()->route('inventarioFisico.index');
         } else {
-            dd('No se registro');
+            // dd('No se registro');
+            return response()->json(['mensaje' => 'Error al registrar'], 500);
         }
-        
+         
         // try {
-
 
         //     return redirect()->route('inventarioFisico.index');
         // } catch (\Illuminate\Validation\ValidationException $e) {
@@ -41,6 +54,30 @@ class CategoriaController extends Controller
         // } catch (\Exception $e) {
         //     return response()->json(['mensaje' => 'Error interno del servidor'], 500);
         // }
+    }
+
+    public function guardarCategoriaMedico(Request $request)
+    {   
+        $resultado = $this->categoriaMedicoService->crearCategoriaMedico($request->all());
+
+        if ($resultado == true) {
+            return redirect()->route('inventarioMedico.index');
+        } else {
+            return response()->json(['mensaje' => 'Error al registrar'], 500);
+        }
+    
+    }
+
+    public function guardarCategoriaInsumo(Request $request)
+    {   
+        $resultado = $this->categoriaInsumoService->crearCategoriaInsumo($request->all());
+
+        if ($resultado == true) {
+            return redirect()->route('inventarioInsumo.index');
+        } else {
+            return response()->json(['mensaje' => 'Error al registrar'], 500);
+        }
+    
     }
 
 }

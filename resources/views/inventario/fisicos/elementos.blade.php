@@ -3,7 +3,6 @@
 @endsection
  
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{ asset('js/inventarioFisico.js') }}"></script>
     <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
 
     <div class="content">
@@ -23,10 +22,15 @@
             <div class="tab-pane fade show active" id="elementos" role="tabpanel" aria-labelledby="elementos-tab">
                 <div class="table-responsive">
 
-                <button type="button" class="btn btn-submit" data-bs-toggle="modal"
-                    data-bs-target="#modalElementoFisico">
-                    Crear Elemento Fisico
-                </button>
+                    <div class="d-flex justify-content-end mb-3">
+                        <button type="button" class="btn btn-submit ms-2" data-bs-toggle="modal"
+                            data-bs-target="#modalElementoFisico">
+                            Crear Elemento Fisico
+                        </button>
+                        <button type="button" class="btn btn-submit">
+                            Asignar
+                        </button>
+                    </div>
 
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -53,11 +57,11 @@
                                 <td>{{$elementosFisico->ubicacion_interna}}</td>
                                 <td>{{$elementosFisico->disponibilidad}}</td>
                                 <td>
-                                    <button onclick="window.open('{{ route('elementoFisico.ver', $elementosFisico->id) }}', '_blank')" class="btn btn-link">
-                                        <i class="fas fa-file-alt"></i>
+                                    <button onclick="window.open('{{ route('elementoFisico.ver', $elementosFisico->id) }}', '_blank')" class="btn btn-link" title="Hoja de vida">
+                                        <i class="fas fa-file-alt icon-color"></i>
                                     </button>
-                                    <button onclick="editarElemento({{ $elementosFisico->id }})" class="btn btn-link">
-                                        <i class="fas fa-edit"></i>
+                                    <button onclick="editarElemento({{ $elementosFisico->id }})" class="btn btn-link" title="Actualizar">
+                                        <i class="fas fa-edit icon-color"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -72,7 +76,7 @@
             <div class="tab-pane fade" id="categorias" role="tabpanel" aria-labelledby="categorias-tab">
                 <div class="table-responsive">
 
-                    <button type="button" class="btn btn-submit" data-bs-toggle="modal"
+                <button type="button" class="btn btn-submit" data-bs-toggle="modal"
                     data-bs-target="#modalCategoriaFisico">
                     Crear Categoria Fisico
                 </button>
@@ -94,8 +98,8 @@
                                     <td>{{$categoriaFisico->categoria}}</td>
                                     <td>{{$categoriaFisico->descripcion}}</td>
                                     <td>
-                                        <button onclick="editarCategoria({{ $categoriaFisico->id }})" class="btn btn-link">
-                                            <i class="fas fa-edit"></i>
+                                        <button onclick="editarCategoria({{ $categoriaFisico->id }})" class="btn btn-link" title="Actualizar">
+                                            <i class="fas fa-edit icon-color"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -150,36 +154,6 @@
                 <input type="text" class="form-control" id="codigo_QR" name="codigo_QR">
             </div>
     
-            {{-- <div class="col-md-3 mb-3">
-            <label for="id_empleado" class="form-label">Empleado</label>
-            <select class="form-select" name="id_empleado" id="id_empleado">
-                <option value="">Seleccione un empleado</option>
-                @foreach ($empleados as $empleado)
-                    <option value="{{ $empleado->id }}">{{ $empleado->nombre1 }} {{ $empleado->apellido1 }}</option>
-                @endforeach
-            </select>
-        </div>
-    
-        <div class="col-md-3 mb-3">
-            <label for="id_area" class="form-label">Área</label>
-            <select class="form-select" id="id_area" name="id_area">
-                <option value="">Seleccione un área</option>
-                @foreach ($areas as $area)
-                    <option value="{{ $area->id }}">{{ $area->area }}</option>
-                @endforeach
-            </select>
-        </div>
-    
-        <div class="col-md-3 mb-3">
-            <label for="id_sede" class="form-label">Sede</label>
-            <select class="form-select" id="id_sede" name="id_sede">
-                <option value="">Seleccione una sede</option>
-                @foreach ($sedes as $sede)
-                    <option value="{{ $sede->id }}">{{ $sede->municipio }}</option>
-                @endforeach
-            </select>
-        </div> --}}
-    
             <div class="col-md-3 mb-3">
                 <label for="id_factura" class="form-label">Factura</label>
                 <select class="form-select" id="id_factura" name="id_factura">
@@ -231,8 +205,3 @@
 
         </div>
     </x-modal>
-
-
-
-    
-    

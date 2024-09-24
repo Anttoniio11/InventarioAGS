@@ -3,12 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\SedeController;
-use App\Http\Controllers\CategoriaTecnologicoController;
-use App\Http\Controllers\CategoriaFisicoController;
-use App\Http\Controllers\CategoriaMedicoController;
-use App\Http\Controllers\CategoriaInsumoController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ElementosBajaController;
+use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\PanelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,32 +24,51 @@ Route::get('/', function () {
     return view('panel.panel');
 });
 
+//Panel
+Route::get('/panel', [PanelController::class, 'panel'])->name('panel.index');
 
-
+//Inventario
 Route::get('inventario/tecnologicos',[InventarioController::class,'inventarioTecnologico'])->name('inventarioTecnologico.index');
 Route::get('inventario/fisicos',[InventarioController::class,'inventarioFisico'])->name('inventarioFisico.index');
 Route::get('inventario/medicos',[InventarioController::class,'inventarioMedico'])->name('inventarioMedico.index');
 Route::get('inventario/insumos',[InventarioController::class,'inventarioInsumo'])->name('inventarioInsumo.index');
 
+//Crear Elementos
 Route::post('/guardar-elemento-tecnologico', [InventarioController::class, 'guardarElementoTecnologico'])->name('guardar.elemento.tecnologico');
 Route::post('/guardar-elemento-fisico', [InventarioController::class, 'guardarElementoFisico'])->name('guardar.elemento.fisico');
 Route::post('/guardar-elemento-medico', [InventarioController::class, 'guardarElementoMedico'])->name('guardar.elemento.medico');
 Route::post('/guardar-elemento-insumo', [InventarioController::class, 'guardarElementoInsumo'])->name('guardar.elemento.insumo');
 
 // Ruta para obtener un elemento tecnológico por ID
-Route::get('/inventario-tecnologico/elemento/{id}', [InventarioController::class, 'obtenerElementoTecnologico'])
-    ->name('obtener.elemento.tecnologico');
+// Route::get('/inventario-tecnologico/elemento/{id}', [InventarioController::class, 'obtenerElementoTecnologico'])
+//     ->name('obtener.elemento.tecnologico');
 
-// Ruta para actualizar un elemento tecnológico por ID
-Route::put('/elemento-tecnologico/{id}/actualizar', [InventarioController::class, 'actualizarElementoTecnologico'])
-    ->name('actualizar.elemento.tecnologico');
+    Route::get('/elemento/tecnologico/editar/{id}', [InventarioController::class, 'obtenerElementoTecnologico'])
+    ->name('editar.elemento.tecnologico');
 
-//Ver hoja de vida
+
+    Route::put('/elemento/tecnologico/actualizar/{id}', [InventarioController::class, 'actualizarElementoTecnologico'])->name('actualizar.elemento.tecnologico');
+
+
+
+//Crear Categorias
+Route::post('/guardar-categoria-tecnologico', [CategoriaController::class, 'guardarCategoriaTecnologico'])->name('guardar.categoria.tecnologico');
+Route::post('/guardar-categoria-fisico', [CategoriaController::class, 'guardarCategoriaFisico'])->name('guardar.categoria.fisico');
+Route::post('/guardar-categoria-medico', [CategoriaController::class, 'guardarCategoriaMedico'])->name('guardar.categoria.medico');
+Route::post('/guardar-categoria-insumo', [CategoriaController::class, 'guardarCategoriaInsumo'])->name('guardar.categoria.insumo');
+
+//Ver Hoja De Vida Elementos
 Route::get('/elementos-tecnologicos/{id}', [InventarioController::class, 'verElementoTecnologico'])->name('elementoTecnologico.ver');
 Route::get('/elementos-fisicos/{id}', [InventarioController::class, 'verElementoFisico'])->name('elementoFisico.ver');
 Route::get('/elementos-medicos/{id}', [InventarioController::class, 'verElementoMedico'])->name('elementoMedico.ver');
 Route::get('/elementos-insumos/{id}', [InventarioController::class, 'verElementoInsumo'])->name('elementoInsumo.ver');
 
+//Empleados
+Route::get('empleados', [EmpleadoController::class, 'Empleados'])->name('empleados.index');
+Route::post('guardar-empleados', [EmpleadoController::class, 'guardarEmpleado'])->name('guardar.empleado');
+
+//Elementos Dados De Baja
+Route::get('elementos-baja',[ElementosBajaController::class,'elementosBaja'])->name('elementosBaja.index');
 
 
 

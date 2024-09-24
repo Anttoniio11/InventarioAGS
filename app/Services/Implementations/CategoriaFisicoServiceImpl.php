@@ -2,11 +2,11 @@
 
 namespace App\Services\Implementations;
 
-use App\Services\CategoriaFisicoService;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
+use App\Services\CategoriaFisicoService;
 
 class CategoriaFisicoServiceImpl implements CategoriaFisicoService {
 
@@ -18,8 +18,11 @@ class CategoriaFisicoServiceImpl implements CategoriaFisicoService {
                 'cf.id',
                 'cf.categoria',
                 'cf.descripcion',
-                
+                 
             )
+        //     ->paginate(10);
+        // }else{
+        //     $categoriaFisicos = collect();
             ->get();
         }else{
             $categoriaFisicos = [];
@@ -48,22 +51,22 @@ class CategoriaFisicoServiceImpl implements CategoriaFisicoService {
                         'updated_at' => Carbon::now(),            
                     ]);
         
-        dd($rta);
+        // dd($rta);
         return $rta;
         // Insertar el nuevo elemento y obtener el ID generado
         // return DB::table('categorias_fisicos')->insertOrIgnore($datos);
     }
 
-    private function validarElemento(array $data)
-    {
-        $validator = validator()->make($data, [
-            'categoria' => 'required|string|unique:categorias_fisicos',
-            'descripcion' => 'required|string',
-        ]);
+    // private function validarElemento(array $data)
+    // {
+    //     $validator = validator()->make($data, [
+    //         'categoria' => 'required|string|unique:categorias_fisicos',
+    //         'descripcion' => 'required|string',
+    //     ]);
 
-        if ($validator->fails()) {
-            throw new ValidationException($validator);
-        }
-    }
+    //     if ($validator->fails()) {
+    //         throw new ValidationException($validator);
+    //     }
+    // }
 
 }

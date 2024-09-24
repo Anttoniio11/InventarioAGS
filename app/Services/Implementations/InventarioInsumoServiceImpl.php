@@ -11,11 +11,11 @@ use Illuminate\Validation\ValidationException;
 
 class InventarioInsumoServiceImpl implements InventarioInsumoService {
 
-    public function obtenerInventarioInsumo(){
-
-        if(Schema::hasTable('elementos_insumos')){
-            $inventarioInsumos = DB::table("elementos_insumos as ei")
-            ->join('categorias_insumos as ci', 'ei.id_categoria', '=', 'ei.id_categoria')
+    public function obtenerInventarioInsumo()
+{
+    if(Schema::hasTable('elementos_insumos')) {
+        $inventarioInsumos = DB::table('elementos_insumos as ei')
+            ->join('categorias_insumos as ci', 'ei.id_categoria', '=', 'ci.id')
             ->select(
                 'ei.id',
                 'ei.registro_sanitario',
@@ -24,17 +24,15 @@ class InventarioInsumoServiceImpl implements InventarioInsumoService {
                 'ei.indicaciones',
                 'ei.observacion',
                 'ei.cantidad',
-                'ei.id_categoria', 
+                'ei.id_categoria',
                 'ci.categoria'
             )
             ->get();
-        }else{
-            $inventarioInsumos = [];
-        }
-        return $inventarioInsumos;
+    } else {
+        $inventarioInsumos = [];
     }
-
-    
+    return $inventarioInsumos;
+}
 
     public function generarHojaDeVidaInsumo($id)
     {
@@ -67,9 +65,9 @@ class InventarioInsumoServiceImpl implements InventarioInsumoService {
             'cantidad' => $data['cantidad'],
             'id_categoria' => $data['id_categoria'],
             'id_factura' => $data['id_factura'],
-            'id_empleado' => $data['id_empleado'],
-            'id_area' => $data['id_area'],
-            'id_sede' => $data['id_sede'],
+            // 'id_empleado' => $data['id_empleado'],
+            // 'id_area' => $data['id_area'],
+            // 'id_sede' => $data['id_sede'],
             'created_at' => now(),
         ];
 

@@ -2,6 +2,13 @@
 @section('panelLateral')
 @endsection
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="{{ asset('js/inventario.js') }}"></script>
-<link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
+<div class="content">
+    <h3>Panel de Control</h3>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Cantidad de Elementos Físicos</h5>
+            <p class="card-text"></p>
+        </div>
+    </div>
+</div>

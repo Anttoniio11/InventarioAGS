@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Log;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Services\InventarioTecnologicoService;
 use App\Services\InventarioFisicoService;
 use App\Services\InventarioMedicoService;
@@ -130,26 +128,26 @@ class InventarioController extends Controller
         }
     }
 
-    public function actualizarElementoTecnologico(Request $request, $id)
-    {
+    // public function actualizarElementoTecnologico(Request $request, $id)
+    // {
 
-        if (!$id) {
-            return response()->json(['mensaje' => 'El ID es nulo o inválido'], 400);
-        }
+    //     if (!$id) {
+    //         return response()->json(['mensaje' => 'El ID es nulo o inválido'], 400);
+    //     }
 
         
-        try {
+    //     try {
 
-            $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($request->all());
+    //         $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($request->all());
 
 
-            return redirect()->route('inventarioTecnologico.index');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['mensaje' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error interno del servidor'], 500);
-        }
-    }
+    //         return redirect()->route('inventarioTecnologico.index');
+    //     } catch (\Illuminate\Validation\ValidationException $e) {
+    //         return response()->json(['mensaje' => $e->errors()], 422);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['mensaje' => 'Error interno del servidor'], 500);
+    //     }
+    // }
     
 
     public function guardarElementoFisico(Request $request)
@@ -200,37 +198,36 @@ class InventarioController extends Controller
 
     }
     
-    public function obtenerElementoTecnologico($id)
-    {
+    // public function obtenerElementoTecnologico($id)
+    // {
 
-        $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
-        $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
+    //     $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
+    //     $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
 
-        $datos = $this->inventarioTecnologicoService->obtenerDatosForaneos();
+    //     $datos = $this->inventarioTecnologicoService->obtenerDatosForaneos();
 
-        $elemento = $this->inventarioTecnologicoService->obtenerElementoTecnologicoPorId($id);
+    //     $elemento = $this->inventarioTecnologicoService->obtenerElementoTecnologicoPorId($id);
     
         
-        if (!$elemento) {
-            return redirect()->route('inventarioTecnologico.index')->with('error', 'Elemento no encontrado.');
-        }
+    //     if (!$elemento) {
+    //         return redirect()->route('inventarioTecnologico.index')->with('error', 'Elemento no encontrado.');
+    //     }
     
    
-        return view('inventario.tecnologicos.elementos', [
-            'elemento' => $elemento,
-            'elementosTecnologicos' => $elementosTecnologicos,
-            'categoriasTecnologicos' => $categoriasTecnologicos,
-            'empleados' => $datos['empleados'],
-            'areas' => $datos['areas'],
-            'sedes' => $datos['sedes'],
-            'facturas' => $datos['facturas'],
-            'categorias' => $datos['categorias'],
-            'estados' => $datos['estados']
+    //     return view('inventario.tecnologicos.elementos', [
+    //         'elemento' => $elemento,
+    //         'elementosTecnologicos' => $elementosTecnologicos,
+    //         'categoriasTecnologicos' => $categoriasTecnologicos,
+    //         'empleados' => $datos['empleados'],
+    //         'areas' => $datos['areas'],
+    //         'sedes' => $datos['sedes'],
+    //         'facturas' => $datos['facturas'],
+    //         'categorias' => $datos['categorias'],
+    //         'estados' => $datos['estados']
         
-        ]);
-    }
+    //     ]);
+    // }
     
-
     public function verElementoFisico($id)
     {
         return $this->inventarioFisicoService->generarHojaDeVidaFisico($id);
@@ -246,55 +243,28 @@ class InventarioController extends Controller
         return $this->inventarioInsumoService->generarHojaDeVidaInsumo($id);
     }
 
-        public function getFields($table)
+    public function obtenerElementoTecnologico($id)
     {
-        try {
-            if (!Schema::hasTable($table)) {
-                return response()->json(['error' => 'Table not found'], 404);
-            }
-
-            $columns = DB::select("SHOW COLUMNS FROM $table");
-
-            $excludedColumns = ['id', 'created_at', 'updated_at'];
-            $columnTypes = [];
-            
-            foreach ($columns as $column) {
-                if (in_array($column->Field, $excludedColumns)) {
-                    continue;
-                }
-
-                $type = $column->Type;
-
-                // Extraer las opciones si el tipo es 'set'
-                if (strpos($type, 'set') !== false) {
-                    preg_match("/^set\((.*)\)$/", $type, $matches);
-                    $options = explode(',', str_replace("'", '', $matches[1])); // Extraer opciones de 'set'
-                    $type = 'set';
-                } elseif (strpos($type, 'bigint') !== false) {
-                    $type = 'unsignedBigInteger';
-                } elseif (strpos($type, 'timestamp') !== false) {
-                    $type = 'timestamp';
-                } else {
-                    $type = preg_replace('/\([0-9]+\)$/', '', $type);
-                }
-
-                // Si es tipo 'set', agrega las opciones en un campo adicional
-                $columnData = [
-                    'name' => $column->Field,
-                    'type' => $type
-                ];
-
-                if (isset($options)) {
-                    $columnData['values'] = $options;
-                }
-
-                $columnTypes[] = $columnData;
-            }
-
-            return response()->json($columnTypes); 
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+        // Obtén el elemento tecnológico usando el servicio
+        $elemento = $this->inventarioTecnologicoService->obtenerElementoTecnologico($id);
+    
+        // Verifica si el elemento existe
+        if (!$elemento) {
+            return response()->json(['error' => 'Elemento no encontrado'], 404);
         }
+    
+        // Pasar el elemento como JSON
+        return response()->json($elemento);
+    }
+    
+
+    public function actualizarElementoTecnologico(Request $request, $id)
+    {
+        $data = $request->all();
+        $this->inventarioTecnologicoService->actualizarElementoTecnologico($id, $data);
+        
+                return redirect()->back()->with('success', 'Elemento tecnológico actualizado correctamente.');
+
     }
 
 }
