@@ -81,14 +81,14 @@
 }
 
 .table {
-    border: none; /* Sin bordes */
+    border: none;
    
     padding: 1rem;
-    background-color: white; /* Fondo blanco */
+    background-color: white; 
 }
 
 .table th, .table td {
-    border: none; /* Sin bordes en las celdas */
+    border: none; 
     padding: 1rem;
     text-align: center;
     font-size: 1rem;
@@ -103,7 +103,7 @@
     font-weight: 700;
 }
 
-.nav-link {
+.nav-tabs .nav-item .nav-link {
     font-weight: normal;
 }
 
@@ -114,29 +114,33 @@
     border: none;
 }
 
-.nav-link.active {
+.nav-tabs .nav-item .nav-link.active {
     border: none;
-    
-    font-weight: bold; /* Establece el texto en negrita cuando está activo */
-    position: relative; /* Necesario para la pseudo-clase */
+    font-weight: bold; 
+    position: relative;
 }
 
 
-.nav-link:hover {
+.nav-tabs .nav-item .nav-link:hover {
     border: none;
     color: #01A497;
-    position: relative; /* Necesario para la pseudo-clase */
+    position: relative;
 }
 
-.nav-link.active::after {
-    content: ""; /* Crea un elemento pseudo para la línea */
-    display: block; /* Cambia a bloque para que ocupe espacio */
-    width: 100%; /* Ancho completo */
-    height: 3px; /* Alto de la línea */
+.nav-tabs .nav-item .nav-link.active::after {
+    content: ""; 
+    display: block; 
+    width: 100%; 
+    height: 3px; 
     border: none;
-    background-color: #01A497; /* Color de la línea, ajusta según sea necesario */
-    position: absolute; /* Posiciona absolutamente */
-    left: 0; /* Alinea a la izquierda */
-    
-    bottom: -5px; /* Distancia desde la parte inferior del texto */
+    background-color: #01A497; 
+    position: absolute; 
+    left: 0; 
+    bottom: 0px; 
+}
+
+.nav-tabs  .nav-item .nav-link {
+    border:none; 
+     border-top-left-radius: none; 
+    border-top-right-radius:none; 
 }

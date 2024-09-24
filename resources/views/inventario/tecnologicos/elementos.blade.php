@@ -36,14 +36,15 @@
                 <table class="table table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th scope="col">ID Elemento</th>
-                            <th scope="col">Categoria</th>
-                            <th scope="col">Codigo</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Referencia</th>
-                            <th scope="col">Serial</th>
-                            <th scope="col">Ubicacion</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">N°</th>
+                            <th scope="col">CODIGO</th>
+                            <th scope="col">DISPOSITIVO</th>
+                            <th scope="col">MARCA</th>
+                            <th scope="col">REFERENCIA</th>
+                            <th scope="col">SERIAL</th>
+                            <th scope="col">ESTADO</th>
+                            <th scope="col">UBICACION</th>
+                            <th scope="col">ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,11 +52,12 @@
                         @foreach ($elementosTecnologicos as $elemento)
                             <tr id="row-{{ $elemento->id }}">
                                 <td>{{ $elemento->id }}</td>
-                                <td class="id_categoria">{{ $elemento->categoria }}</td>
                                 <td class="codigo">{{ $elemento->codigo }}</td>
+                                <td class="id_categoria">{{ $elemento->categoria }}</td>
                                 <td class="marca">{{ $elemento->marca }}</td>
                                 <td class="referencia">{{ $elemento->referencia }}</td>
                                 <td class="serial">{{ $elemento->serial }}</td>
+                                <td class="id_estado">{{ $elemento->estado }}</td>
                                 <td class="ubicacion">{{ $elemento->ubicacion }}</td>
                                 <td>
                                     <button
@@ -277,147 +279,6 @@
 
 
 
-{{-- MODAL PARA EDITAR ELEMENTO TECNOLOGICO  --}}
-{{-- 
-<x-modal modalId="modalEditarElementoTecnologico" title="Editar Elemento Tecnológico"
-action="{{ route('actualizar.elemento.tecnologico', $elemento->id) }}" buttonText="Guardar" >
-@method('PUT')
-<div class="row">
-
-    <div class="col-md-3 mb-3">
-        <label for="codigo" class="form-label">Código</label>
-        <input type="text" class="form-control" id="codigo" name="codigo" value="{{ old('codigo', $elemento->codigo) }}" required>
-    </div>
-
-
-    <div class="col-md-3 mb-3">
-        <label for="marca" class="form-label">Marca</label>
-        <input type="text" class="form-control" id="marca" name="marca" required>
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="referencia" class="form-label">Referencia</label>
-        <input type="text" class="form-control" id="referencia" name="referencia" required>
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="serial" class="form-label">Serial</label>
-        <input type="text" class="form-control" id="serial" name="serial">
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="ubicacion" class="form-label">Ubicación</label>
-        <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
-    </div>
-
-
-    <div class="col-md-3 mb-3">
-        <label for="disponibilidad" class="form-label">Disponibilidad</label>
-        <select class="form-select" id="disponibilidad" name="disponibilidad" required>
-            <option value="">Seleccione disponibilidad</option>
-            <option value="SI">Sí</option>
-            <option value="NO">No</option>
-        </select>
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="codigo_QR" class="form-label">Código QR</label>
-        <input type="text" class="form-control" id="codigo_QR" name="codigo_QR">
-    </div>
-    <div class="col-md-3 mb-3">
-        <label for="procesador" class="form-label">Procesador</label>
-        <input type="text" class="form-control" id="procesador" name="procesador">
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="ram" class="form-label">RAM</label>
-        <input type="text" class="form-control" id="ram" name="ram">
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="tipo_almacenamiento" class="form-label">Tipo de Almacenamiento</label>
-        <input type="text" class="form-control" id="tipo_almacenamiento" name="tipo_almacenamiento">
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="almacenamiento" class="form-label">Almacenamiento</label>
-        <input type="text" class="form-control" id="almacenamiento" name="almacenamiento">
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="tarjeta_grafica" class="form-label">Tarjeta Gráfica</label>
-        <input type="text" class="form-control" id="tarjeta_grafica" name="tarjeta_grafica">
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="garantia" class="form-label">Garantía</label>
-        <input type="text" class="form-control" id="garantia" name="garantia">
-    </div>
-
-<div class="col-md-3 mb-3">
-<label for="id_empleado" class="form-label">Empleado</label>
-<select class="form-select" name="id_empleado" id="id_empleado">
-    <option value="">Seleccione un empleado</option>
-    @foreach ($empleados as $empleado)
-        <option value="{{ $empleado->id }}">{{ $empleado->nombre1 }} {{ $empleado->apellido1 }}</option>
-    @endforeach
-</select>
-</div>
-
-<div class="col-md-3 mb-3">
-    <label for="id_area" class="form-label">Área</label>
-    <select class="form-select" id="id_area" name="id_area">
-        <option value="">Seleccione un área</option>
-        @foreach ($areas as $area)
-            <option value="{{ $area->id }}">{{ $area->area }}</option>
-        @endforeach
-    </select>
-</div>
-
-<div class="col-md-3 mb-3">
-<label for="id_sede" class="form-label">Sede</label>
-<select class="form-select" id="id_sede" name="id_sede">
-    <option value="">Seleccione una sede</option>
-    @foreach ($sedes as $sede)
-        <option value="{{ $sede->id }}">{{ $sede->municipio }}</option>
-    @endforeach
-</select>
-</div>
-
-
-<div class="col-md-3 mb-3">
-    <label for="id_factura" class="form-label">Factura</label>
-    <select class="form-select" id="id_factura" name="id_factura" required>
-        <option value="">Seleccione una factura</option>
-        @foreach ($facturas as $factura)
-            <option value="{{ $factura->id }}">{{ $factura->codigo_factura }}</option>
-        @endforeach
-    </select>
-</div> 
-
-<div class="col-md-3 mb-3">
-    <label for="id_categoria" class="form-label">Categoría</label>
-    <select class="form-select" id="id_categoria" name="id_categoria" required>
-        <option value="">Seleccione una categoría</option>
-        @foreach ($categorias as $categoria)
-            <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
-        @endforeach
-    </select>
-</div>
-
- <div class="col-md-3 mb-3">
-    <label for="id_estado" class="form-label">Estado</label>
-    <select class="form-select" id="id_estado" name="id_estado">
-        <option value="">Seleccione el estado</option>
-        @foreach ($estados as $estado)
-            <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
-        @endforeach
-    </select> 
-</div>
-</div>
-</x-modal> --}}
-
-
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -605,8 +466,6 @@ action="{{ route('actualizar.elemento.tecnologico', $elemento->id) }}" buttonTex
 
 </div>
 
-{{-- Modal para crear Categoria Tecnologica --}}
-
 <x-modal modalId="modalCategoriaTecnologico" title="Crear Categoria Tecnologico"
     action="{{ route('guardar.categoria.tecnologico') }}" buttonText="Guardar">
 
@@ -635,7 +494,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const id = this.getAttribute('data-id');
             const modalId = this.getAttribute('data-bs-target');
 
-            // Hacer la solicitud para obtener los datos del elemento
             fetch(`/elemento/tecnologico/editar/${id}`)
                 .then(response => {
                     if (!response.ok) {
@@ -646,7 +504,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     const modal = document.querySelector(modalId);
 
-                    // Poblar el formulario del modal con los datos
                     modal.querySelector('#elementId').value = data.id;
                     modal.querySelector('#codigo').value = data.codigo;
                     modal.querySelector('#marca').value = data.marca;
@@ -665,18 +522,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     modal.querySelector('#id_area').value = data.id_area || '';
                     modal.querySelector('#id_sede').value = data.id_sede || '';
                     modal.querySelector('#id_factura').value = data.id_factura;
-                    modal.querySelector('#id_categoria').value = data.id_categoria;
+                    modal.querySelector('#id_categoria').value = data.id_categoria; 
                     modal.querySelector('#id_estado').value = data.id_estado;
 
-                    // Obtener el formulario y remover cualquier evento 'submit' previo
                     const editForm = modal.querySelector('form');
                     const newFormSubmitHandler = (event) => {
-                        event.preventDefault();  // Evitar la recarga de la página
+                        event.preventDefault();  
 
-                        // Preparar los datos del formulario
                         const formData = new FormData(editForm);
 
-                        // Hacer la solicitud AJAX para actualizar el elemento
                         fetch(`/elemento/tecnologico/actualizar/${id}`, {
                             method: 'POST',
                             headers: {
@@ -692,39 +546,24 @@ document.addEventListener('DOMContentLoaded', function () {
                         })
                         .then(result => {
                             if (result.success) {
-                                // Cerrar el modal automáticamente
                                 const bootstrapModal = bootstrap.Modal.getInstance(modal);
                                 bootstrapModal.hide();
 
-                                // Actualizar la fila de la tabla con los nuevos datos
                                 const row = document.querySelector(`#row-${id}`);
                                 row.querySelector('.codigo').textContent = formData.get('codigo');
                                 row.querySelector('.marca').textContent = formData.get('marca');
                                 row.querySelector('.referencia').textContent = formData.get('referencia');
                                 row.querySelector('.serial').textContent = formData.get('serial') || '';
                                 row.querySelector('.ubicacion').textContent = formData.get('ubicacion');
-                                row.querySelector('.disponibilidad').textContent = formData.get('disponibilidad');
-                                row.querySelector('.codigo_QR').textContent = formData.get('codigo_QR');
-                                row.querySelector('.procesador').textContent = formData.get('procesador') || '';
-                                row.querySelector('.ram').textContent = formData.get('ram') || '';
-                                row.querySelector('.tipo_almacenamiento').textContent = formData.get('tipo_almacenamiento') || '';
-                                row.querySelector('.almacenamiento').textContent = formData.get('almacenamiento') || '';
-                                row.querySelector('.tarjeta_grafica').textContent = formData.get('tarjeta_grafica') || '';
-                                row.querySelector('.garantia').textContent = formData.get('garantia') || '';
-                                row.querySelector('.id_empleado').textContent = formData.get('id_empleado') || '';
-                                row.querySelector('.id_area').textContent = formData.get('id_area') || '';
-                                row.querySelector('.id_sede').textContent = formData.get('id_sede') || '';
-                                row.querySelector('.id_factura').textContent = formData.get('id_factura');
-                                row.querySelector('.id_categoria').textContent = formData.get('id_categoria');
-                                row.querySelector('.id_estado').textContent = formData.get('id_estado');
+                                row.querySelector('.id_categoria').textContent = formData.get('categoria');
+                                row.querySelector('.id_estado').textContent = formData.get('estado');
                             }
                         })
                         .catch(error => console.error('Error:', error));
                     };
 
-                    // Limpiar el evento submit anterior y agregar uno nuevo
                     editForm.removeEventListener('submit', editForm._submitHandler || (() => {}));
-                    editForm._submitHandler = newFormSubmitHandler;  // Guardar el nuevo manejador en la propiedad personalizada
+                    editForm._submitHandler = newFormSubmitHandler; 
                     editForm.addEventListener('submit', newFormSubmitHandler);
                 })
                 .catch(error => console.error('Error:', error));

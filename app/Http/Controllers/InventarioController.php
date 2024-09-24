@@ -207,12 +207,15 @@ class InventarioController extends Controller
     public function actualizarElementoTecnologico(Request $request, $id)
     {
         $data = $request->all();
-        $elemento = $this->inventarioTecnologicoService->actualizarElementoTecnologico($id, $data);
-
+        $this->inventarioTecnologicoService->actualizarElementoTecnologico($id, $data);
+    
+        // Obtener el elemento actualizado
+        $elementoActualizado = $this->inventarioTecnologicoService->obtenerElementoTecnologico($id);
+    
         return response()->json([
             'success' => true,
             'message' => 'Elemento tecnológico actualizado correctamente.',
-            'elemento' => $elemento
+            'elemento' => $elementoActualizado // Retorna el elemento actualizado
         ]);
     }
 }
