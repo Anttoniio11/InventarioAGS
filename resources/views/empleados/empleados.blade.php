@@ -42,7 +42,7 @@
                 
                     <div class="ms-auto">
                         <button type="button" class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
-                            Crear Empleado
+                            Crear Nuevo Empleado
                         </button>
                     </div>
                 </div>
