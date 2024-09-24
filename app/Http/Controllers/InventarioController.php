@@ -60,8 +60,18 @@ class InventarioController extends Controller
         $elementosFisicos = $this->inventarioFisicoService->obtenerInventarioFisico();
         $categoriasFisicos = $this->categoriaFisicoService->obtenerCategoriasFisico();
 
+        $datos = $this->inventarioFisicoService->obtenerDatosForaneos();
 
-        return view('inventario.fisicos.elementos', compact('elementosFisicos', 'categoriasFisicos'));
+        return view('inventario.fisicos.elementos', [
+            'elementosFisicos' => $elementosFisicos,
+            'categoriasFisicos' => $categoriasFisicos,
+            'empleados' => $datos['empleados'],
+            'areas' => $datos['areas'],
+            'sedes' => $datos['sedes'],
+            'facturas' => $datos['facturas'],
+            'categorias' => $datos['categorias'],
+            'estados' => $datos['estados'],
+        ]);
     }
 
    
@@ -70,9 +80,6 @@ class InventarioController extends Controller
 
         $elementosMedicos = $this->inventarioMedicoService->obtenerInventarioMedico();
         $categoriasMedicos = $this->categoriaMedicoService->obtenerCategoriasMedico();
-
-
-        return view('inventario.medicos.elementos', compact('elementosMedicos', 'categoriasMedicos'));
 
         $datos = $this->inventarioMedicoService->obtenerDatosForaneos();
 
@@ -94,9 +101,6 @@ class InventarioController extends Controller
 
         $elementosInsumos = $this->inventarioInsumoService->obtenerInventarioInsumo();
         $categoriasInsumos = $this->categoriaInsumoService->obtenerCategoriasInsumo();
-
-
-        return view('inventario.insumos.elementos', compact('elementosInsumos', 'categoriasInsumos'));
 
         $datos = $this->inventarioInsumoService->obtenerDatosForaneos();
 

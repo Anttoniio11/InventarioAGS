@@ -1,5 +1,5 @@
 .modal-dialog {
-    width: 100%; /* Cambia este valor según sea necesario */
+    width: 100%; 
 }
 
 /* Estilo para hacer dos columnas en el formulario */
@@ -10,7 +10,7 @@
 }
 
 .form-row .col-md-6 {
-    flex: 0 0 48%; /* Cada columna ocupará el 48% del ancho */
+    flex: 0 0 48%; 
 }
 
 .btn-submit{

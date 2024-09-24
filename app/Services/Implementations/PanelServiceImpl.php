@@ -12,10 +12,27 @@ use App\Models\ElementoInsumo;
 
 class PanelServiceImpl implements PanelService {
 
+    public function obtenerCantidadElementosTecnologicos()
+    {
+        return DB::table('elementos_tecnologicos')->count();
+    }
+
     public function obtenerCantidadElementosFisicos()
     {
         return DB::table('elementos_fisicos')->count();
     }
+
+    public function obtenerCantidadElementosMedicos()
+    {
+        return DB::table('elementos_medicos')->count();
+    }
+
+    public function obtenerCantidadElementosInsumos()
+    {
+        return DB::table('elementos_insumos')->count();
+    }
+
+    
 
 }
 

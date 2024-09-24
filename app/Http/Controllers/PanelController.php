@@ -16,8 +16,18 @@ class PanelController extends Controller
 
     public function panel()
     {
-        // $cantidadElementosFisicos = $this->panelService->obtenerCantidadElementosFisicos();
+        $cantidadElementosTecnologicos = $this->panelService->obtenerCantidadElementosTecnologicos();
+        $cantidadElementosFisicos = $this->panelService->obtenerCantidadElementosFisicos();
+        $cantidadElementosMedicos = $this->panelService->obtenerCantidadElementosMedicos();
+        $cantidadElementosInsumos = $this->panelService->obtenerCantidadElementosInsumos();
 
-        return view('panel.index');
+        // dd($cantidadElementosTecnologicos, $cantidadElementosFisicos);
+
+        return view('panel.panel', [
+            'cantidadElementosTecnologicos' => $cantidadElementosTecnologicos,
+            'cantidadElementosFisicos' => $cantidadElementosFisicos,
+            'cantidadElementosMedicos' => $cantidadElementosMedicos,
+            'cantidadElementosInsumos' => $cantidadElementosInsumos,
+        ]);
     }
 }

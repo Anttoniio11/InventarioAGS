@@ -156,7 +156,7 @@
                 <img src="{{ asset('img/agsLogo.png') }}" alt="agsLogo">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-chart-line"></i>Panel</a>
+                    <a class="nav-link" href="{{ route('panel.index') }}"><i class="fa-solid fa-chart-line"></i>Panel</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" id="inventarioToggle"><i
@@ -169,10 +169,10 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('empleados.index') }}"><i class="fa-solid fa-users"></i>Empleados</a>
+                    <a class="nav-link" href="#"><i class="fa-solid fa-user-check"></i>Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-user-check"></i>Asignaciones</a>
+                    <a class="nav-link" href="{{ route('empleados.index') }}"><i class="fa-solid fa-users"></i>Empleados</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fa-solid fa-arrow-trend-down"></i>Bajas</a>

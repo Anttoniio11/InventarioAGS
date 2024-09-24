@@ -64,8 +64,6 @@
 
     {{-- Modal para crear Empleado --}}
     <x-modal modalId="modalEmpleado" title="Crear Empleado" action="{{ route('guardar.empleado') }}" buttonText="Guardar">
-        <form method="POST" action="{{ route('guardar.empleado') }}">
-            @csrf
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="nombre1" class="form-label">Primer Nombre</label>
@@ -143,7 +141,5 @@
                 </div>
                 
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
     </x-modal>
     
