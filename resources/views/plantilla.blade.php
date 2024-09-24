@@ -31,6 +31,7 @@
             margin-right: 1rem
         }
 
+     
         .content {
             margin-left: 200px;
             padding: 20px;
@@ -53,6 +54,7 @@
         }
 
         .nav-item .nav-link {
+            font-size: 0.3rem
             color: #343a40;
         }
 
@@ -103,7 +105,7 @@
         }
 
         #sidebar img {
-            max-width: 100%;
+            max-width: 70%;
             height: auto;
             display: block;
             margin: 0 auto;
