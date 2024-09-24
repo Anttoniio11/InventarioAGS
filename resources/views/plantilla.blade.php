@@ -176,7 +176,7 @@
                     <a class="nav-link" href="{{ route('empleados.index') }}"><i class="fa-solid fa-users"></i>Empleados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-arrow-trend-down"></i>Bajas</a>
+                    <a class="nav-link" href="{{ route('elementosBaja.index') }}"><i class="fa-solid fa-arrow-trend-down"></i>Bajas</a>
                 </li>
             </ul>
         </div>

@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Services\CategoriaInsumoService','App\Services\Implementations\CategoriaInsumoServiceImpl');
 
         $this->app->bind('App\Services\EmpleadoService','App\Services\Implementations\EmpleadoServiceImpl');
+
+        $this->app->bind('App\Services\ElementosBajaService','App\Services\Implementations\ElementosBajaServiceImpl');
         
     }
 
