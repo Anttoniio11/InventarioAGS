@@ -21,7 +21,7 @@ use App\Http\Controllers\PanelController;
 */
 
 Route::get('/', function () {
-    return view('panel.panel');
+    return redirect()->route('panel.index');
 });
 
 //Panel
