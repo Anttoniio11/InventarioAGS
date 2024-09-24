@@ -17,11 +17,12 @@ use App\Services\CategoriaInsumoService;
 class InventarioController extends Controller
 {
 
-    protected $inventarioTecnologicoService, $inventarioFisicoService, $inventarioMedicoService, $inventarioInsumoService, $categoriaTecnologicoService, $categoriaFisicoService, $categoriaMedicoService, $categoriaInsumoService ;
+    protected $inventarioTecnologicoService, $inventarioFisicoService, $inventarioMedicoService, $inventarioInsumoService, $categoriaTecnologicoService, $categoriaFisicoService, $categoriaMedicoService, $categoriaInsumoService;
 
 
 
-    public function __construct(InventarioTecnologicoService $inventarioTecnologicoService, InventarioFisicoService $inventarioFisicoService, InventarioMedicoService $inventarioMedicoService, InventarioInsumoService $inventarioInsumoService, CategoriaTecnologicoService $categoriaTecnologicoService, CategoriaFisicoService $categoriaFisicoService, CategoriaMedicoService $categoriaMedicoService, CategoriaInsumoService $categoriaInsumoService) {
+    public function __construct(InventarioTecnologicoService $inventarioTecnologicoService, InventarioFisicoService $inventarioFisicoService, InventarioMedicoService $inventarioMedicoService, InventarioInsumoService $inventarioInsumoService, CategoriaTecnologicoService $categoriaTecnologicoService, CategoriaFisicoService $categoriaFisicoService, CategoriaMedicoService $categoriaMedicoService, CategoriaInsumoService $categoriaInsumoService)
+    {
 
         $this->inventarioTecnologicoService = $inventarioTecnologicoService;
         $this->inventarioFisicoService = $inventarioFisicoService;
@@ -55,7 +56,8 @@ class InventarioController extends Controller
 
 
 
-    public function inventarioFisico(){
+    public function inventarioFisico()
+    {
 
         $elementosFisicos = $this->inventarioFisicoService->obtenerInventarioFisico();
         $categoriasFisicos = $this->categoriaFisicoService->obtenerCategoriasFisico();
@@ -64,8 +66,9 @@ class InventarioController extends Controller
         return view('inventario.fisicos.elementos', compact('elementosFisicos', 'categoriasFisicos'));
     }
 
-   
-    public function inventarioMedico(){ 
+
+    public function inventarioMedico()
+    {
 
 
         $elementosMedicos = $this->inventarioMedicoService->obtenerInventarioMedico();
@@ -86,7 +89,6 @@ class InventarioController extends Controller
             'categorias' => $datos['categorias'],
             'estados' => $datos['estados'],
         ]);
-
     }
 
     public function inventarioInsumo()
@@ -109,12 +111,9 @@ class InventarioController extends Controller
             'facturas' => $datos['facturas'],
             'categorias' => $datos['categorias'],
         ]);
-
     }
 
     public function guardarElementoTecnologico(Request $request)
-
-
     {
         try {
 
@@ -127,28 +126,6 @@ class InventarioController extends Controller
             return response()->json(['mensaje' => 'Error interno del servidor'], 500);
         }
     }
-
-    // public function actualizarElementoTecnologico(Request $request, $id)
-    // {
-
-    //     if (!$id) {
-    //         return response()->json(['mensaje' => 'El ID es nulo o inválido'], 400);
-    //     }
-
-        
-    //     try {
-
-    //         $resultado = $this->inventarioTecnologicoService->crearElementoTecnologico($request->all());
-
-
-    //         return redirect()->route('inventarioTecnologico.index');
-    //     } catch (\Illuminate\Validation\ValidationException $e) {
-    //         return response()->json(['mensaje' => $e->errors()], 422);
-    //     } catch (\Exception $e) {
-    //         return response()->json(['mensaje' => 'Error interno del servidor'], 500);
-    //     }
-    // }
-    
 
     public function guardarElementoFisico(Request $request)
     {
@@ -163,7 +140,7 @@ class InventarioController extends Controller
             return response()->json(['mensaje' => 'Error interno del servidor'], 500);
         }
     }
- 
+
     public function guardarElementoMedico(Request $request)
     {
         try {
@@ -195,39 +172,8 @@ class InventarioController extends Controller
     public function verElementoTecnologico($id)
     {
         return $this->inventarioTecnologicoService->generarHojaDeVidaTecnologico($id);
-
     }
-    
-    // public function obtenerElementoTecnologico($id)
-    // {
 
-    //     $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
-    //     $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
-
-    //     $datos = $this->inventarioTecnologicoService->obtenerDatosForaneos();
-
-    //     $elemento = $this->inventarioTecnologicoService->obtenerElementoTecnologicoPorId($id);
-    
-        
-    //     if (!$elemento) {
-    //         return redirect()->route('inventarioTecnologico.index')->with('error', 'Elemento no encontrado.');
-    //     }
-    
-   
-    //     return view('inventario.tecnologicos.elementos', [
-    //         'elemento' => $elemento,
-    //         'elementosTecnologicos' => $elementosTecnologicos,
-    //         'categoriasTecnologicos' => $categoriasTecnologicos,
-    //         'empleados' => $datos['empleados'],
-    //         'areas' => $datos['areas'],
-    //         'sedes' => $datos['sedes'],
-    //         'facturas' => $datos['facturas'],
-    //         'categorias' => $datos['categorias'],
-    //         'estados' => $datos['estados']
-        
-    //     ]);
-    // }
-    
     public function verElementoFisico($id)
     {
         return $this->inventarioFisicoService->generarHojaDeVidaFisico($id);
@@ -244,27 +190,25 @@ class InventarioController extends Controller
     }
 
     public function obtenerElementoTecnologico($id)
+
     {
-        // Obtén el elemento tecnológico usando el servicio
         $elemento = $this->inventarioTecnologicoService->obtenerElementoTecnologico($id);
-    
-        // Verifica si el elemento existe
+
         if (!$elemento) {
             return response()->json(['error' => 'Elemento no encontrado'], 404);
         }
-    
-        // Pasar el elemento como JSON
         return response()->json($elemento);
     }
-    
 
     public function actualizarElementoTecnologico(Request $request, $id)
     {
         $data = $request->all();
-        $this->inventarioTecnologicoService->actualizarElementoTecnologico($id, $data);
-        
-                return redirect()->back()->with('success', 'Elemento tecnológico actualizado correctamente.');
+        $elemento = $this->inventarioTecnologicoService->actualizarElementoTecnologico($id, $data);
 
+        return response()->json([
+            'success' => true,
+            'message' => 'Elemento tecnológico actualizado correctamente.',
+            'elemento' => $elemento
+        ]);
     }
-
 }

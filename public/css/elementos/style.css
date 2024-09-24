@@ -14,37 +14,30 @@
 }
 
 .btn-submit{
-    background-color:  #01A497;
-    border: none;
-    color: white;
+    background-color:  white;
+    border: 1px solid #01A497;
+    color: #01A497;
     font-size: 14px;
-    margin: 1rem;
+    margin: 0.4rem;
     float: right;
 }
 
 .btn-submit:hover, .btn-submit:active, .btn-submit:focus{
-    background-color: white;
-    border: 1px solid #01A497;
-    color: #01A497;
-    font-weight: 600;
-    font-size: 14px;
-}
-.btn-submit{
     background-color:  #01A497;
     border: none;
     color: white;
-    font-size: 14px;
-    margin: 1rem;
+    margin: 0.4rem;
     float: right;
 }
 
 
+
 .btn-guardar:hover, .btn-guardar:active, .btn-guardar:focus{
-    background-color: white;
-    border: 1px solid #01A497;
-    color: #01A497;
-    width: 20%;
-    font-weight: 600;
+    background-color:  #01A497;
+    border: none;
+    color: white;
+    margin: 0.4rem;
+    float: right;
 }
 .btn-guardar{
     background-color:  #01A497;
@@ -57,20 +50,21 @@
 
 
 .btn-primary{
-    background-color:  #01A497;
-    border: none;
-    color: white;
+    background-color:  white;
+    border: 1px solid #01A497;
+    color: #01A497;
     font-size: 14px;
     margin: 1rem;
     float: right;
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus{
-    background-color: white;
-    border: 1px solid #01A497;
-    color: #01A497;
+    background-color: #01A497;
+    border: none;
+    color: #ffffff;
     font-weight: 600;
     font-size: 14px;
+    
 }
 
 .modal-body{
@@ -79,5 +73,70 @@
 }
 
 .icon-color {
+    color: #3B4480;
+}
+
+.btn-edit{
+    color: #3B4480;
+}
+
+.table {
+    border: none; /* Sin bordes */
+   
+    padding: 1rem;
+    background-color: white; /* Fondo blanco */
+}
+
+.table th, .table td {
+    border: none; /* Sin bordes en las celdas */
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.table th {
+    background-color: white; 
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
     color: #01A497;
+    font-weight: 700;
+}
+
+.nav-link {
+    font-weight: normal;
+}
+
+
+.nav-tabs .nav-link.active {
+    color: #01A497;
+    background-color: inherit;
+    border: none;
+}
+
+.nav-link.active {
+    border: none;
+    
+    font-weight: bold; /* Establece el texto en negrita cuando está activo */
+    position: relative; /* Necesario para la pseudo-clase */
+}
+
+
+.nav-link:hover {
+    border: none;
+    color: #01A497;
+    position: relative; /* Necesario para la pseudo-clase */
+}
+
+.nav-link.active::after {
+    content: ""; /* Crea un elemento pseudo para la línea */
+    display: block; /* Cambia a bloque para que ocupe espacio */
+    width: 100%; /* Ancho completo */
+    height: 3px; /* Alto de la línea */
+    border: none;
+    background-color: #01A497; /* Color de la línea, ajusta según sea necesario */
+    position: absolute; /* Posiciona absolutamente */
+    left: 0; /* Alinea a la izquierda */
+    
+    bottom: -5px; /* Distancia desde la parte inferior del texto */
 }

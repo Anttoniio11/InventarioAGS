@@ -11,7 +11,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <link href="{{ asset('css/elementos/style.css') }}" rel="stylesheet">
     <style>
-        .wrapper {
+
+  .wrapper {
             display: flex;
         }
 
@@ -44,13 +45,14 @@
         }
 
         .navbar {
-            background-color: #ffffff;
-            font-weight: 600;
+            height: 5%;
+            background-color: #01A497;
         }
 
         .navbar-brand {
-            color: #01A497;
-
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500
         }
 
         .nav-item .nav-link {
@@ -58,10 +60,7 @@
             color: #343a40;
         }
 
-        .nav-item.active>.nav-link {
-            color: #01A497;
-        }
-
+     
 
         .nav-item.active .submenu {
             display: block;
@@ -69,7 +68,7 @@
 
         .navbar-brand:hover,
         .navbar-brand:focus {
-            color: #01A497 !important;
+            color: #ffffff;
             text-decoration: none;
         }
 
@@ -134,6 +133,7 @@
             .navbar {
                 height: 56px;
                 z-index: 1000;
+                background-color: #01A497;
             }
         }
     </style>
@@ -141,9 +141,10 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg   fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Inventario</a>
+            <a class="navbar-brand" >Inventario</a>
         </div>
     </nav>
 
@@ -158,7 +159,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fa-solid fa-chart-line"></i>Panel</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" id="inventarioToggle"><i
                             class="fa-solid fa-boxes-stacked"></i>Inventario</a>
                     <ul class="submenu">
@@ -180,6 +181,10 @@
             </ul>
         </div>
     </div>
+
+    
+
+      
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

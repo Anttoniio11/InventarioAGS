@@ -302,33 +302,45 @@ class InventarioTecnologicoServiceImpl implements InventarioTecnologicoService
     }
 
     public function actualizarElementoTecnologico($id, $data)
-    {
-        // Filtrar los campos que se pueden actualizar
-        $updateData = [
-            'codigo' => $data['codigo'],
-            'marca' => $data['marca'],
-            'referencia' => $data['referencia'],
-            'serial' => $data['serial'],
-            'ubicacion' => $data['ubicacion'],
-            'disponibilidad' => $data['disponibilidad'],
-            'codigo_QR' => $data['codigo_QR'],
-            'procesador' => $data['procesador'],
-            'ram' => $data['ram'],
-            'tipo_almacenamiento' => $data['tipo_almacenamiento'],
-            'almacenamiento' => $data['almacenamiento'],
-            'tarjeta_grafica' => $data['tarjeta_grafica'],
-            'garantia' => $data['garantia'],
-            'id_empleado' => $data['id_empleado'],
-            'id_area' => $data['id_area'],
-            'id_sede' => $data['id_sede'],
-            'id_factura' => $data['id_factura'],
-            'id_categoria' => $data['id_categoria'],
-            'id_estado' => $data['id_estado'],
-        ];
-    
-        return DB::table('elementos_tecnologicos')
-            ->where('id', $id)
-            ->update($updateData);
-    }
+{
+    // Filtrar los campos que se pueden actualizar
+    $datos = [
+        'codigo' => $data['codigo'],
+        'marca' => $data['marca'],
+        'referencia' => $data['referencia'],
+        'serial' => $data['serial'],
+        'ubicacion' => $data['ubicacion'],
+        'disponibilidad' => $data['disponibilidad'],
+        'codigo_QR' => $data['codigo_QR'],
+        'procesador' => $data['procesador'],
+        'ram' => $data['ram'],
+        'tipo_almacenamiento' => $data['tipo_almacenamiento'],
+        'almacenamiento' => $data['almacenamiento'],
+        'tarjeta_grafica' => $data['tarjeta_grafica'],
+        'garantia' => $data['garantia'],
+        'id_empleado' => $data['id_empleado'],
+        'id_area' => $data['id_area'],
+        'id_sede' => $data['id_sede'],
+        'id_factura' => $data['id_factura'],
+        'id_categoria' => $data['id_categoria'],
+        'id_estado' => $data['id_estado'],
+    ];
+
+    // Actualizar el registro
+    DB::table('elementos_tecnologicos')
+        ->where('id', $id)
+        ->update($datos);
+
+    // Obtener el elemento actualizado
+    $elementoActualizado = DB::table('elementos_tecnologicos')->where('id', $id)->first();
+
+    // Retornar una respuesta JSON que incluya el elemento actualizado
+    return response()->json([
+        'success' => true,
+        'message' => 'Elemento tecnológico actualizado correctamente.',
+        'elemento' => $elementoActualizado // Aquí se incluye el elemento actualizado
+    ]);
+}
+
 
 }

@@ -49,26 +49,20 @@
                     <tbody>
 
                         @foreach ($elementosTecnologicos as $elemento)
-                            <tr>
+                            <tr id="row-{{ $elemento->id }}">
                                 <td>{{ $elemento->id }}</td>
-                                <td>{{ $elemento->categoria }}</td>
-                                <td>{{ $elemento->codigo }}</td>
-                                <td>{{ $elemento->marca }}</td>
-                                <td>{{ $elemento->referencia }}</td>
-                                <td>{{ $elemento->serial }}</td>
-                                <td>{{ $elemento->ubicacion }}</td>
+                                <td class="id_categoria">{{ $elemento->categoria }}</td>
+                                <td class="codigo">{{ $elemento->codigo }}</td>
+                                <td class="marca">{{ $elemento->marca }}</td>
+                                <td class="referencia">{{ $elemento->referencia }}</td>
+                                <td class="serial">{{ $elemento->serial }}</td>
+                                <td class="ubicacion">{{ $elemento->ubicacion }}</td>
                                 <td>
                                     <button
                                         onclick="window.open('{{ route('elementoTecnologico.ver', $elemento->id) }}', '_blank')"
                                         class="btn btn-link" title="Hoja de vida">
                                         <i class="fas fa-file-alt icon-color"></i>
                                     </button>
-                                    {{-- <button class="btn btn-link" data-bs-toggle="modal"
-                                    data-bs-target="#modalEditarElementoTecnologico" 
-                                    onclick="location.href='{{ route('obtener.elemento.tecnologico', ['id' => $elemento->id]) }}'">
-                                   
-                                </button> --}}
-
 
                                     <button type="button" class="btn btn-edit" data-bs-toggle="modal"
                                         data-bs-target="#editModal" data-id="{{ $elemento->id }}">
@@ -82,6 +76,25 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
             </div>
         </div>
 
@@ -614,56 +627,109 @@ action="{{ route('actualizar.elemento.tecnologico', $elemento->id) }}" buttonTex
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const editButtons = document.querySelectorAll('.btn-edit');
+document.addEventListener('DOMContentLoaded', function () {
+    const editButtons = document.querySelectorAll('.btn-edit');
 
-        editButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
-                const modalId = this.getAttribute('data-bs-target');
+    editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            const modalId = this.getAttribute('data-bs-target');
 
+            // Hacer la solicitud para obtener los datos del elemento
+            fetch(`/elemento/tecnologico/editar/${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Elemento no encontrado');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const modal = document.querySelector(modalId);
 
-                fetch(`/elemento/tecnologico/editar/${id}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Elemento no encontrado');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
+                    // Poblar el formulario del modal con los datos
+                    modal.querySelector('#elementId').value = data.id;
+                    modal.querySelector('#codigo').value = data.codigo;
+                    modal.querySelector('#marca').value = data.marca;
+                    modal.querySelector('#referencia').value = data.referencia;
+                    modal.querySelector('#serial').value = data.serial || '';
+                    modal.querySelector('#ubicacion').value = data.ubicacion;
+                    modal.querySelector('#disponibilidad').value = data.disponibilidad;
+                    modal.querySelector('#codigo_QR').value = data.codigo_QR;
+                    modal.querySelector('#procesador').value = data.procesador || '';
+                    modal.querySelector('#ram').value = data.ram || '';
+                    modal.querySelector('#tipo_almacenamiento').value = data.tipo_almacenamiento || '';
+                    modal.querySelector('#almacenamiento').value = data.almacenamiento || '';
+                    modal.querySelector('#tarjeta_grafica').value = data.tarjeta_grafica || '';
+                    modal.querySelector('#garantia').value = data.garantia || '';
+                    modal.querySelector('#id_empleado').value = data.id_empleado || '';
+                    modal.querySelector('#id_area').value = data.id_area || '';
+                    modal.querySelector('#id_sede').value = data.id_sede || '';
+                    modal.querySelector('#id_factura').value = data.id_factura;
+                    modal.querySelector('#id_categoria').value = data.id_categoria;
+                    modal.querySelector('#id_estado').value = data.id_estado;
 
-                        console.log(data);
+                    // Obtener el formulario y remover cualquier evento 'submit' previo
+                    const editForm = modal.querySelector('form');
+                    const newFormSubmitHandler = (event) => {
+                        event.preventDefault();  // Evitar la recarga de la página
 
-                        const modal = document.querySelector(modalId);
-                        modal.querySelector('#elementId').value = data.id;
-                        modal.querySelector('#codigo').value = data.codigo;
-                        modal.querySelector('#marca').value = data.marca;
-                        modal.querySelector('#referencia').value = data.referencia;
-                        modal.querySelector('#serial').value = data.serial || '';
-                        modal.querySelector('#ubicacion').value = data.ubicacion;
-                        modal.querySelector('#disponibilidad').value = data.disponibilidad;
-                        modal.querySelector('#codigo_QR').value = data.codigo_QR;
-                        modal.querySelector('#procesador').value = data.procesador || '';
-                        modal.querySelector('#ram').value = data.ram || '';
-                        modal.querySelector('#tipo_almacenamiento').value = data
-                            .tipo_almacenamiento || '';
-                        modal.querySelector('#almacenamiento').value = data
-                            .almacenamiento || '';
-                        modal.querySelector('#tarjeta_grafica').value = data
-                            .tarjeta_grafica || '';
-                        modal.querySelector('#garantia').value = data.garantia || '';
-                        modal.querySelector('#id_empleado').value = data.id_empleado || '';
-                        modal.querySelector('#id_area').value = data.id_area || '';
-                        modal.querySelector('#id_sede').value = data.id_sede || '';
-                        modal.querySelector('#id_factura').value = data.id_factura;
-                        modal.querySelector('#id_categoria').value = data.id_categoria;
-                        modal.querySelector('#id_estado').value = data.id_estado;
+                        // Preparar los datos del formulario
+                        const formData = new FormData(editForm);
 
-                        modal.querySelector('form').action =
-                            `/elemento/tecnologico/actualizar/${id}`;
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
+                        // Hacer la solicitud AJAX para actualizar el elemento
+                        fetch(`/elemento/tecnologico/actualizar/${id}`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: formData
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Error al actualizar');
+                            }
+                            return response.json();
+                        })
+                        .then(result => {
+                            if (result.success) {
+                                // Cerrar el modal automáticamente
+                                const bootstrapModal = bootstrap.Modal.getInstance(modal);
+                                bootstrapModal.hide();
+
+                                // Actualizar la fila de la tabla con los nuevos datos
+                                const row = document.querySelector(`#row-${id}`);
+                                row.querySelector('.codigo').textContent = formData.get('codigo');
+                                row.querySelector('.marca').textContent = formData.get('marca');
+                                row.querySelector('.referencia').textContent = formData.get('referencia');
+                                row.querySelector('.serial').textContent = formData.get('serial') || '';
+                                row.querySelector('.ubicacion').textContent = formData.get('ubicacion');
+                                row.querySelector('.disponibilidad').textContent = formData.get('disponibilidad');
+                                row.querySelector('.codigo_QR').textContent = formData.get('codigo_QR');
+                                row.querySelector('.procesador').textContent = formData.get('procesador') || '';
+                                row.querySelector('.ram').textContent = formData.get('ram') || '';
+                                row.querySelector('.tipo_almacenamiento').textContent = formData.get('tipo_almacenamiento') || '';
+                                row.querySelector('.almacenamiento').textContent = formData.get('almacenamiento') || '';
+                                row.querySelector('.tarjeta_grafica').textContent = formData.get('tarjeta_grafica') || '';
+                                row.querySelector('.garantia').textContent = formData.get('garantia') || '';
+                                row.querySelector('.id_empleado').textContent = formData.get('id_empleado') || '';
+                                row.querySelector('.id_area').textContent = formData.get('id_area') || '';
+                                row.querySelector('.id_sede').textContent = formData.get('id_sede') || '';
+                                row.querySelector('.id_factura').textContent = formData.get('id_factura');
+                                row.querySelector('.id_categoria').textContent = formData.get('id_categoria');
+                                row.querySelector('.id_estado').textContent = formData.get('id_estado');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    };
+
+                    // Limpiar el evento submit anterior y agregar uno nuevo
+                    editForm.removeEventListener('submit', editForm._submitHandler || (() => {}));
+                    editForm._submitHandler = newFormSubmitHandler;  // Guardar el nuevo manejador en la propiedad personalizada
+                    editForm.addEventListener('submit', newFormSubmitHandler);
+                })
+                .catch(error => console.error('Error:', error));
         });
     });
+});
+
 </script>
