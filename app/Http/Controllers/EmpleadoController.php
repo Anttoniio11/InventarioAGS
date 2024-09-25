@@ -30,5 +30,35 @@ class EmpleadoController extends Controller
         $this->empleadoService->crearEmpleado($request->all());
         return redirect()->route('empleados.index')->with('success', 'Empleado creado exitosamente.');
     }
+
+    public function verActa($id)
+    {
+        return $this->empleadoService->generarActa($id);
+    }
+
+    public function obtenerEmpleado($id)
+    {
+        $empleado = $this->empleadoService->obtenerEmpleado($id);
+
+        if (!$empleado) {
+            return response()->json(['error' => 'Empleado no encontrado'], 404);
+        }
+        return response()->json($empleado);
+    }
+
+    public function actualizarEmpleado(Request $request, $id)
+    {
+        $data = $request->all();
+        $this->empleadoService->actualizarEmpleado($id, $data);
+    
+        // Obtener el elemento actualizado
+        $empleadoActualizado = $this->empleadoService->obtenerEmpleado($id);
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Empleado actualizado correctamente.',
+            'elemento' => $empleadoActualizado
+        ]);
+    }
     
 }

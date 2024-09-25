@@ -1,0 +1,94 @@
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+}
+
+.fondo{
+    background-color: #1f4e78;
+    color: white;
+  }
+
+.separator{
+    height: 3px;
+}
+
+#table{
+    border: inset 0pt;
+    border: medium transparent;
+    width: 100%;
+}
+
+table, #head tbody,#head th,#head td,#head tr{
+    border-collapse: collapse;
+    margin: 0;
+    width:100%;
+}
+
+table, #head1 tbody,#head1 th,#head1 td,#head1 tr{
+    border-collapse: collapse;
+    margin: 0;
+    width:100%;
+}
+
+table, #body tbody,#body th,#body td,#body tr{
+    border-collapse: collapse;
+    border: 1px black solid;
+    border-bottom: 1px rgb(0, 0, 0) solid;
+    margin: 0 auto;
+    width:100%;
+}
+
+.headt td {
+    height: 2px;
+    border: transparent !important;
+
+}
+
+td,th{
+    height:17px;
+}
+
+.agsLogo{
+    margin: 20px 0px 20px 0px;
+    width:140px;
+    height: 65px;
+}
+
+#firma{
+    height: 10px;
+}
+
+table #firma tr{
+    border-collapse: collapse;
+    margin: 0;
+    width:100%;
+}
+
+#firma th,#firma td{
+    border-collapse: collapse;
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+    margin: 0 auto;
+    width:100%;
+}
+
+.encabezadosLogo1{
+    width: 250px;
+    height: 85px;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.encabezadosLogo2{
+    width: 550px;
+    height: 90px;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+
+.page-break {
+    page-break-before: always;
+}
+

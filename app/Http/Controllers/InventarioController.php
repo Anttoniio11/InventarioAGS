@@ -38,7 +38,7 @@ class InventarioController extends Controller
     {
         $elementosTecnologicos = $this->inventarioTecnologicoService->obtenerInventarioTecnologico();
 
-        $categoriasTecnologicos = $this->inventarioTecnologicoService->obtenerCategoriasTecnologico();
+        $categoriasTecnologicos = $this->categoriaTecnologicoService->obtenerCategoriasTecnologico();
 
         $datos = $this->inventarioTecnologicoService->obtenerDatosForaneos();
 
@@ -53,8 +53,6 @@ class InventarioController extends Controller
             'estados' => $datos['estados'],
         ]);
     }
-
-
 
     public function inventarioFisico()
     {
@@ -75,7 +73,6 @@ class InventarioController extends Controller
             'estados' => $datos['estados'],
         ]);
     }
-
 
     public function inventarioMedico()
     {
@@ -116,6 +113,7 @@ class InventarioController extends Controller
             'categorias' => $datos['categorias'],
         ]);
     }
+
 
     public function guardarElementoTecnologico(Request $request)
     {
@@ -173,6 +171,7 @@ class InventarioController extends Controller
         }
     }
 
+
     public function verElementoTecnologico($id)
     {
         return $this->inventarioTecnologicoService->generarHojaDeVidaTecnologico($id);
@@ -219,4 +218,83 @@ class InventarioController extends Controller
             'elemento' => $elementoActualizado // Retorna el elemento actualizado
         ]);
     }
+
+    public function obtenerElementoFisico($id)
+
+    {
+        $elemento = $this->inventarioFisicoService->obtenerElementoFisico($id);
+
+        if (!$elemento) {
+            return response()->json(['error' => 'Elemento no encontrado'], 404);
+        }
+        return response()->json($elemento);
+    }
+
+    public function actualizarElementoFisico(Request $request, $id)
+    {
+        $data = $request->all();
+        $this->inventarioFisicoService->actualizarElementoFisico($id, $data);
+    
+        // Obtener el elemento actualizado
+        $elementoActualizado = $this->inventarioFisicoService->obtenerElementoFisico($id);
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Elemento fisico actualizado correctamente.',
+            'elemento' => $elementoActualizado
+        ]);
+    }
+
+    public function obtenerElementoMedico($id)
+
+    {
+        $elemento = $this->inventarioMedicoService->obtenerElementoMedico($id);
+
+        if (!$elemento) {
+            return response()->json(['error' => 'Elemento no encontrado'], 404);
+        }
+        return response()->json($elemento);
+    }
+
+    public function actualizarElementoMedico(Request $request, $id)
+    {
+        $data = $request->all();
+        $this->inventarioMedicoService->actualizarElementoMedico($id, $data);
+    
+        // Obtener el elemento actualizado
+        $elementoActualizado = $this->inventarioMedicoService->obtenerElementoMedico($id);
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Elemento medico actualizado correctamente.',
+            'elemento' => $elementoActualizado
+        ]);
+    }
+
+    public function obtenerElementoInsumo($id)
+    {
+        $elemento = $this->inventarioInsumoService->obtenerElementoInsumo($id);
+
+        if (!$elemento) {
+            return response()->json(['error' => 'Elemento no encontrado'], 404);
+        }
+        return response()->json($elemento);
+    }
+
+    public function actualizarElementoInsumo(Request $request, $id)
+    {
+        $data = $request->all();
+        $this->inventarioInsumoService->actualizarElementoInsumo($id, $data);
+    
+        // Obtener el elemento actualizado
+        $elementoActualizado = $this->inventarioInsumoService->obtenerElementoInsumo($id);
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Elemento insumo actualizado correctamente.',
+            'elemento' => $elementoActualizado
+        ]);
+    }
+
+ 
 }

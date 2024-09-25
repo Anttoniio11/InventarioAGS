@@ -123,5 +123,42 @@ class InventarioFisicoServiceImpl implements InventarioFisicoService {
         ];
     }
 
+    public function obtenerElementoFisico($id)
+    {
+        return DB::table('elementos_fisicos as ef')
+        ->join('categorias_fisicos as cf', 'ef.id_categoria', '=', 'cf.id')
+        ->join('estado_elementos as ee', 'ef.id_estado', '=', 'ee.id')
+        ->select(
+            'ef.*',
+            'cf.categoria', 
+            'ee.estado' 
+        )
+        ->where('ef.id', $id)
+        ->first();
+    }
+
+    public function actualizarElementoFisico($id, $data)
+    {
+      
+        $updateData = [
+            'codigo' => $data['codigo'],
+            'marca' => $data['marca'],
+            'modelo' => $data['modelo'],
+            'ubicacion_interna' => $data['ubicacion_interna'],
+            'disponibilidad' => $data['disponibilidad'],
+            'codigo_QR' => $data['codigo_QR'],
+            'id_estado' => $data['id_estado'],
+            'id_categoria' => $data['id_categoria'],
+            'id_factura' => $data['id_factura'],
+            // 'id_empleado' => $data['id_empleado'],
+            // 'id_area' => $data['id_area'],
+            // 'id_sede' => $data['id_sede'],
+        ];
+    
+        return DB::table('elementos_fisicos')
+            ->where('id', $id)
+            ->update($updateData);
+    }
+
 
 }

@@ -190,6 +190,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/bfdeae7cfe.js" crossorigin="anonymous"></script>
+    
     <script>
         const navLinks = document.querySelectorAll('.nav-item');
 
@@ -208,7 +209,36 @@
                 this.classList.add('active');
             });
         });
+
+        // Script de búsqueda
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const tableRows = document.querySelectorAll('table tbody tr');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+
+                tableRows.forEach(row => {
+                    const cells = row.getElementsByTagName('td');
+                    let rowContainsSearchTerm = false;
+
+                    for (let i = 0; i < cells.length; i++) {
+                        if (cells[i].innerText.toLowerCase().includes(searchTerm)) {
+                            rowContainsSearchTerm = true;
+                            break;
+                        }
+                    }
+
+                    if (rowContainsSearchTerm) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
+
 </body>
 
 </html>

@@ -121,6 +121,42 @@ class InventarioInsumoServiceImpl implements InventarioInsumoService {
         ];
     }
 
+    public function obtenerElementoInsumo($id)
+    {
+        return DB::table('elementos_insumos as ei')
+        ->join('categorias_insumos as ci', 'ei.id_categoria', '=', 'ci.id')
+        ->join('estado_elementos as ee', 'ei.id_estado', '=', 'ee.id')
+        ->select(
+            'ei.*',
+            'ci.categoria', 
+            'ee.estado' 
+        )
+        ->where('ei.id', $id)
+        ->first();
+    }
+
+    public function actualizarElementoInsumo($id, $data)
+    {
+      
+        $updateData = [
+            'registro_sanitario' => $data['registro_sanitario'],
+            'marca' => $data['marca'],
+            'fecha_vencimiento' => $data['fecha_vencimiento'],
+            'indicaciones' => $data['indicaciones'],
+            'observacion' => $data['observacion'],
+            'cantidad' => $data['cantidad'],
+            'id_categoria' => $data['id_categoria'],
+            'id_factura' => $data['id_factura'],
+            // 'id_empleado' => $data['id_empleado'],
+            // 'id_area' => $data['id_area'],
+            // 'id_sede' => $data['id_sede'],
+        ];
+    
+        return DB::table('elementos_insumos')
+            ->where('id', $id)
+            ->update($updateData);
+    }
+
     
 
 }

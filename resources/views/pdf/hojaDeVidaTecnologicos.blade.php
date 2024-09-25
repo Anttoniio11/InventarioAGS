@@ -44,8 +44,7 @@
                 <tr>
                     <td colspan="1" class="table-header" id="alineacion"><i><b>Código:</b> TEI-F-20</i> </td>
                     <td colspan="1" class="table-header" id="alineacion"><i><b>Versión:</b> 03</i> </td>
-                    <td colspan="1" class="table-header" id="alineacion"><i><b>Página </b><span
-                                class="page-number"></span> de 2</i> </td>
+                    <td colspan="1" class="table-header" id="alineacion"><i><b>Página </b><span class="page-number"></span> de 2</i> </td>
                 </tr>
             </table>
             <hr>

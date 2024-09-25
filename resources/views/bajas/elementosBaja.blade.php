@@ -31,7 +31,7 @@
 
                 <div class="d-flex mb-2" style="max-width: 760px;">
                     <div class="input-group me-2" style="max-width: 300px;">
-                        <input type="text" class="form-control" id="searchTecnologicos" placeholder="Buscar..." aria-label="Buscar...">
+                        <input type="text" class="form-control" id="search" placeholder="Buscar..." aria-label="Buscar...">
                         <span class="input-group-text" style="background-color: #fff; border: 1px solid #ced4da; border-left: none;">
                             <i class="fas fa-search" style="color: #01A497; font-size: 14px;"></i>
                         </span>
@@ -92,7 +92,7 @@
 
                 <div class="d-flex mb-2" style="max-width: 760px;">
                     <div class="input-group me-2" style="max-width: 300px;">
-                        <input type="text" class="form-control" id="searchTecnologicos" placeholder="Buscar..." aria-label="Buscar...">
+                        <input type="text" class="form-control" id="search" placeholder="Buscar..." aria-label="Buscar...">
                         <span class="input-group-text" style="background-color: #fff; border: 1px solid #ced4da; border-left: none;">
                             <i class="fas fa-search" style="color: #01A497; font-size: 14px;"></i>
                         </span>
@@ -153,7 +153,7 @@
                 
                 <div class="d-flex mb-2" style="max-width: 760px;">
                     <div class="input-group me-2" style="max-width: 300px;">
-                        <input type="text" class="form-control" id="searchTecnologicos" placeholder="Buscar..." aria-label="Buscar...">
+                        <input type="text" class="form-control" id="search" placeholder="Buscar..." aria-label="Buscar...">
                         <span class="input-group-text" style="background-color: #fff; border: 1px solid #ced4da; border-left: none;">
                             <i class="fas fa-search" style="color: #01A497; font-size: 14px;"></i>
                         </span>
@@ -217,7 +217,7 @@
 
                 <div class="d-flex mb-2" style="max-width: 760px;">
                     <div class="input-group me-2" style="max-width: 300px;">
-                        <input type="text" class="form-control" id="searchTecnologicos" placeholder="Buscar..." aria-label="Buscar...">
+                        <input type="text" class="form-control" id="search" placeholder="Buscar..." aria-label="Buscar...">
                         <span class="input-group-text" style="background-color: #fff; border: 1px solid #ced4da; border-left: none;">
                             <i class="fas fa-search" style="color: #01A497; font-size: 14px;"></i>
                         </span>
@@ -277,23 +277,6 @@
 
     </div>
 </div>
-
-{{-- <script>
-    // Función de búsqueda
-    document.querySelectorAll('input[type="text"]').forEach(input => {
-        input.addEventListener('keyup', function() {
-            const searchTerm = this.value.toLowerCase();
-            const table = this.closest('.table-responsive').querySelector('table tbody');
-            const rows = table.querySelectorAll('tr');
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(' ');
-                row.style.display = rowText.includes(searchTerm) ? '' : 'none';
-            });
-        });
-    });
-</script> --}}
 
 
 

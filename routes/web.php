@@ -45,7 +45,7 @@ Route::get('/elementos-fisicos/{id}', [InventarioController::class, 'verElemento
 Route::get('/elementos-medicos/{id}', [InventarioController::class, 'verElementoMedico'])->name('elementoMedico.ver');
 Route::get('/elementos-insumos/{id}', [InventarioController::class, 'verElementoInsumo'])->name('elementoInsumo.ver');
 
-// Ruta para actualizar un Elemento
+// Ruta para actualizar un Elemento 
 Route::get('/elemento/tecnologico/editar/{id}', [InventarioController::class, 'obtenerElementoTecnologico'])->name('editar.elemento.tecnologico');
 Route::put('/elemento/tecnologico/actualizar/{id}', [InventarioController::class, 'actualizarElementoTecnologico'])->name('actualizar.elemento.tecnologico');
 Route::get('/elemento/fisico/editar/{id}', [InventarioController::class, 'obtenerElementoFisico'])->name('editar.elemento.fisico');
@@ -64,6 +64,9 @@ Route::post('/guardar-categoria-insumo', [CategoriaController::class, 'guardarCa
 //Empleados
 Route::get('empleados', [EmpleadoController::class, 'Empleados'])->name('empleados.index');
 Route::post('guardar-empleados', [EmpleadoController::class, 'guardarEmpleado'])->name('guardar.empleado');
+Route::get('/empleado/editar/{id}', [EmpleadoController::class, 'obtenerEmpleado'])->name('editar.empleado');
+Route::put('/empleado/actualizar/{id}', [EmpleadoController::class, 'actualizarEmpleado'])->name('actualizar.empleado');
+Route::get('/empleado-acta/{id}', [EmpleadoController::class, 'verActa'])->name('empleadoActa.ver');
 
 //Elementos Dados De Baja
 Route::get('elementos-baja',[ElementosBajaController::class,'elementosBaja'])->name('elementosBaja.index');
@@ -74,23 +77,23 @@ Route::get('elementos-baja',[ElementosBajaController::class,'elementosBaja'])->n
 
 
 
-Route::get('areas', [AreaController::class, 'index'])->name('areas.index');
-Route::get('areas/create/tecnlogia', [AreaController::class, 'create'])->name('areas.create');
-Route::post('areas', [AreaController::class, 'store'])->name('areas.store');
-Route::get('areas/{id}', [AreaController::class, 'show'])->name('areas.show');
-Route::get('areas/{id}/edit', [AreaController::class, 'edit'])->name('areas.edit');
-Route::put('areas/{id}', [AreaController::class, 'update'])->name('areas.update');
-Route::delete('areas/{id}', [AreaController::class, 'destroy'])->name('areas.destroy');
-Route::get('buscar-areas', [AreaController::class, 'buscarAreas'])->name('areas.buscar');
+// Route::get('areas', [AreaController::class, 'index'])->name('areas.index');
+// Route::get('areas/create/tecnlogia', [AreaController::class, 'create'])->name('areas.create');
+// Route::post('areas', [AreaController::class, 'store'])->name('areas.store');
+// Route::get('areas/{id}', [AreaController::class, 'show'])->name('areas.show');
+// Route::get('areas/{id}/edit', [AreaController::class, 'edit'])->name('areas.edit');
+// Route::put('areas/{id}', [AreaController::class, 'update'])->name('areas.update');
+// Route::delete('areas/{id}', [AreaController::class, 'destroy'])->name('areas.destroy');
+// Route::get('buscar-areas', [AreaController::class, 'buscarAreas'])->name('areas.buscar');
 
-Route::get('sedes', [SedeController::class, 'index'])->name('sedes.index');
-Route::get('sedes/create', [SedeController::class, 'create'])->name('sedes.create');
-Route::post('sedes', [SedeController::class, 'store'])->name('sedes.store');
-Route::get('sedes/{id}', [SedeController::class, 'show'])->name('sedes.show');
-Route::get('sedes/{id}/edit', [SedeController::class, 'edit'])->name('sedes.edit');
-Route::put('sedes/{id}', [SedeController::class, 'update'])->name('sedes.update');
-Route::delete('sedes/{id}', [SedeController::class, 'destroy'])->name('sedes.destroy');
-Route::get('buscar-sedes', [SedeController::class, 'buscarSedes'])->name('sedes.buscar');
+// Route::get('sedes', [SedeController::class, 'index'])->name('sedes.index');
+// Route::get('sedes/create', [SedeController::class, 'create'])->name('sedes.create');
+// Route::post('sedes', [SedeController::class, 'store'])->name('sedes.store');
+// Route::get('sedes/{id}', [SedeController::class, 'show'])->name('sedes.show');
+// Route::get('sedes/{id}/edit', [SedeController::class, 'edit'])->name('sedes.edit');
+// Route::put('sedes/{id}', [SedeController::class, 'update'])->name('sedes.update');
+// Route::delete('sedes/{id}', [SedeController::class, 'destroy'])->name('sedes.destroy');
+// Route::get('buscar-sedes', [SedeController::class, 'buscarSedes'])->name('sedes.buscar');
 
 
 

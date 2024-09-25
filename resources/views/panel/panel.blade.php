@@ -1,6 +1,6 @@
 @extends('plantilla')
 @section('panelLateral')
-@endsection
+@endsection 
 
 <link href="{{ asset('css/panel/style.css') }}" rel="stylesheet">
 

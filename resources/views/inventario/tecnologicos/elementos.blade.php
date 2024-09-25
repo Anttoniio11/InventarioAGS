@@ -25,7 +25,7 @@
 
                 <div class="d-flex align-items-center mb-3">
                     <div class="input-group me-2" style="max-width: 300px;">
-                        <input type="text" class="form-control" id="searchTecnologicos" placeholder="Buscar..." aria-label="Buscar..." style="height: calc(2rem + 2px);">
+                        <input type="text" class="form-control" id="search" placeholder="Buscar..." aria-label="Buscar..." style="height: calc(2rem + 2px);">
                         <span class="input-group-text" style="background-color: #fff; border: 1px solid #ced4da; border-left: none; height: calc(2rem + 2px); display: flex; align-items: center; justify-content: center;">
                             <i class="fas fa-search" style="color: #01A497; font-size: 14px;"></i>
                         </span>
@@ -299,6 +299,7 @@
 </x-modal>
 
 
+{{-- Modal para editar Elemento Tecnologico --}}
 
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
@@ -457,35 +458,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="dynamicFormModalCategoria" tabindex="-1"
-    aria-labelledby="dynamicFormModalLabelCategoria" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="dynamicFormModalLabelCategoria">Crear Categoría Tecnológico</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="dynamicFormCategoria">
-                    <div class="mb-3">
-                        <label for="categoria" class="form-label">Categoría</label>
-                        <input type="text" class="form-control" name="categoria" id="categoria">
-                    </div>
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <input type="text" class="form-control" name="descripcion" id="descripcion">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="submitFormCategoria">Guardar</button>
-            </div>
-        </div>
-
-    </div>
-
-</div>
+{{-- Modal para crear Categoria Tecnologico --}}
 
 <x-modal modalId="modalCategoriaTecnologico" title="Crear Categoria Tecnologico"
     action="{{ route('guardar.categoria.tecnologico') }}" buttonText="Guardar">

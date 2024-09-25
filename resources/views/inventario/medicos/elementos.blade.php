@@ -26,7 +26,7 @@
 
                     <div class="d-flex align-items-center mb-3">
                         <div class="input-group me-2" style="max-width: 300px;">
-                            <input type="text" class="form-control" id="searchTecnologicos" placeholder="Buscar..." aria-label="Buscar..." style="height: calc(2rem + 2px);">
+                            <input type="text" class="form-control" id="search" placeholder="Buscar..." aria-label="Buscar..." style="height: calc(2rem + 2px);">
                             <span class="input-group-text" style="background-color: #fff; border: 1px solid #ced4da; border-left: none; height: calc(2rem + 2px); display: flex; align-items: center; justify-content: center;">
                                 <i class="fas fa-search" style="color: #01A497; font-size: 14px;"></i>
                             </span>

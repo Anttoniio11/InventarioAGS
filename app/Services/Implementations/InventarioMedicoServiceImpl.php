@@ -131,6 +131,45 @@ class InventarioMedicoServiceImpl implements InventarioMedicoService {
         ];
     }
 
+    public function obtenerElementoMedico($id)
+    {
+        return DB::table('elementos_medicos as em')
+        ->join('categorias_medicos as cm', 'em.id_categoria', '=', 'cm.id')
+        ->join('estado_elementos as ee', 'em.id_estado', '=', 'ee.id')
+        ->select(
+            'em.*',
+            'cm.categoria', 
+            'ee.estado' 
+        )
+        ->where('em.id', $id)
+        ->first();
+    }
+
+    public function actualizarElementoMedico($id, $data)
+    {
+      
+        $updateData = [
+            'codigo' => $data['codigo'],
+            'marca' => $data['marca'],
+            'modelo' => $data['modelo'],
+            'serie' => $data['serie'],
+            'registro_sanitario' => $data['registro_sanitario'],
+            'ubicacion_interna' => $data['ubicacion_interna'],
+            'disponibilidad' => $data['disponibilidad'],
+            'codigo_QR' => $data['codigo_QR'],
+            'id_estado' => $data['id_estado'],
+            'id_categoria' => $data['id_categoria'],
+            'id_factura' => $data['id_factura'],
+            // 'id_empleado' => $data['id_empleado'],
+            // 'id_area' => $data['id_area'],
+            // 'id_sede' => $data['id_sede'],
+        ];
+    
+        return DB::table('elementos_medicos')
+            ->where('id', $id)
+            ->update($updateData);
+    }
+
 
  
 }
